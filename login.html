@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bhookie Login</title>
+  <link rel="stylesheet" href="log.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+  <style>
+    .dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background-color: #000;
+  border: 2px solid #ff6600;
+  border-radius: 6px;
+  min-width: 140px; /* Reduced width */
+  z-index: 999;
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+  box-shadow: 0 4px 10px rgba(255, 102, 0, 0.25);
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 8px 12px; /* Smaller padding */
+  color: #fff;
+  font-size: 14px;   /* Smaller font */
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #ff6600;
+  color: #000;
+}
+
+
+  </style>
+</head>
+
+<body>
+  <div class="background-image">
+    <div class="overlay">
+
+      <!-- Background with Navbar on top -->
+    <div class="hero-section">
+      <nav class="navbar">
+          <div class="nav-logo">
+            <a href="index.html"><img id="navLogo" src="images/logo.png" alt="Bhookie Logo" /></a>
+          </div>
+          <ul class="nav-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="menu.html">Menu</a></li>
+              <li><a href="aboutus.html">About Us</a></li>
+              <li><a href="contact_us.html">Contact</a></li>
+          </ul>
+          <div class="profile-container">
+              <div class="nav-buttons">
+              <a class="profile-icon" ><img src="images/user.png" alt="User Icon" style="height: 20px; width: 20px;"></a>
+              <ul class="dropdown-menu" id="profileDropdown" style="display: none;">
+              
+              </ul>
+          </div>
+            </div>
+            
+      </nav>
+  </div>
+
+      <!-- Login box -->
+      <div class="login-container">
+        <h1 class="login-title">Login</h1>
+        <label for="input" id="input-label" class="phone-label">PHONE NUMBER</label>
+        <input type="tel" id="input-field" class="phone-input" placeholder="Phone number" required />
+        <input type="text" id="name-field" class="phone-input" placeholder="Enter your name"
+          style="display:none; margin-top: 10px;" />
+        <button type="button" class="continue-btn" id="action-btn" onclick="handleLogin()">Continue</button>
+        <p id="message" style="color: lightgreen; margin-top: 10px;"></p>
+      </div>
+
+    </div>
+  </div>
+  <script>
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 0) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  
+    let step = 1;
+    let savedPhone = ""; // ✅ Used in step 2 to remember phone
+  </script>
+  
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+  
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA5jVQcxmKKLQy31Ft8329EB_cWRyBu0uI",
+      authDomain: "bhookiecore.firebaseapp.com",
+      databaseURL: "https://bhookiecore-default-rtdb.firebaseio.com",
+      projectId: "bhookiecore",
+      storageBucket: "bhookiecore.firebasestorage.app",
+      messagingSenderId: "252666746613",
+      appId: "1:252666746613:web:460ba1d0124c6f9a2d17bc",
+      measurementId: "G-NHRT2XRJRB"
+    };
+  
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  
+    async function generateUniqueUserId() {
+      let unique = false;
+      let userId;
+      const loginRef = db.collection("login");
+  
+      while (!unique) {
+        userId = Math.floor(100 + Math.random() * 900).toString(); // 3-digit ID
+        const existing = await loginRef.where("userId", "==", userId).get();
+        if (existing.empty) unique = true;
+      }
+  
+      return userId;
+    }
+  
+    async function checkAndSavePhoneNumber(phone, name) {
+      const docRef = db.collection("login").doc(phone);
+      const doc = await docRef.get();
+      if (!doc.exists) {
+        const userId = await generateUniqueUserId();
+        await docRef.set({
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          name: name,
+          otp: "1234",
+          userId: userId
+        });
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userPhone", phone);
+        return true;
+      }
+      return false;
+    }
+  
+    async function handleLogin() {
+      const inputField = document.getElementById("input-field");
+      const label = document.getElementById("input-label");
+      const button = document.getElementById("action-btn");
+      const message = document.getElementById("message");
+      const nameField = document.getElementById("name-field");
+  
+      if (step === 1) {
+        let phone = inputField.value.trim();
+
+        // If phone starts with 0 and length is 11, remove leading zero
+        if (phone.length === 11 && phone.startsWith('0')) {
+          phone = phone.substring(1);
+        }
+
+        const phoneRegex = /^[0-9]{10}$/;
+
+        if (!phoneRegex.test(phone)) {
+          alert("Please enter a valid 10-digit phone number.");
+          return;
+        }
+
+        savedPhone = phone; // ✅ Save for step 2
+  
+        if (nameField.style.display === "block") {
+          const name = nameField.value.trim();
+          if (!name) {
+            alert("Name is required for new users.");
+            return;
+          }
+          try {
+            const isNew = await checkAndSavePhoneNumber(phone, name);
+            if (isNew) {
+              message.textContent = "New phone number saved.";
+            } else {
+              message.textContent = "Phone number exists.";
+            }
+          } catch (error) {
+            alert("Error accessing database: " + error.message);
+            return;
+          }
+          nameField.style.display = "none";
+          nameField.value = "";
+  
+          label.textContent = "ENTER OTP";
+          inputField.value = "";
+          inputField.placeholder = "Enter OTP";
+          inputField.type = "text";
+          button.textContent = "Login";
+          if (!message.textContent) {
+            message.textContent = "OTP sent to your phone number.";
+          }
+          step = 2;
+          return;
+        }
+  
+        try {
+          const docRef = db.collection("login").doc(phone);
+          const doc = await docRef.get();
+          if (!doc.exists) {
+            nameField.style.display = "block";
+            message.textContent = "Creating new account. Please enter your name.";
+            return;
+          }
+        } catch (error) {
+          alert("Error accessing database: " + error.message);
+          return;
+        }
+  
+        label.textContent = "ENTER OTP";
+        inputField.value = "";
+        inputField.placeholder = "Enter OTP";
+        inputField.type = "text";
+        button.textContent = "Login";
+        message.textContent = "OTP sent to your phone number.";
+        step = 2;
+      } else if (step === 2) {
+        const otp = inputField.value.trim();
+        if (otp === "1234") {
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("userPhone", savedPhone); // ✅ Now this works
+          window.location.href = "index.html";
+        } else {
+          alert("Incorrect OTP. Try again.");
+        }
+      }
+    }
+
+    // Profile icon dropdown logic
+    const icon = document.querySelector(".profile-icon");
+      const dropdown = document.getElementById("profileDropdown");
+  
+      icon.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  
+        if (!isLoggedIn) {
+          window.location.href = "login.html";
+          return;
+        }
+  
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      });
+  
+      window.addEventListener("click", function () {
+        dropdown.style.display = "none";
+      });
+  
+      // Populate dropdown if logged in
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (isLoggedIn) {
+        dropdown.innerHTML = `
+          <li><a href="myprofile.html">My Profile</a></li>
+          <li><a href="#">My Orders</a></li>
+          <li><a href="#" id="logoutLink">Logout</a></li>
+        `;
+        document.body.addEventListener("click", (e) => {
+          if (e.target.id === "logoutLink") {
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("userPhone");
+            window.location.reload();
+          }
+        });
+      }
+  </script>
+  
+
+</body>
+
+</html>
