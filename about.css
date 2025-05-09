@@ -22,7 +22,7 @@ body {
   position: relative;
   background-position: right top;
   background-repeat: no-repeat;
-  background-size: 80% auto;
+  background-size: 50% auto;
 }
 
 /* Navbar */
@@ -209,25 +209,25 @@ body {
   /* Reduced margin */
   }
 
-  @media (max-width: 768px) {
-    .burger-banner img {
-      max-width: 300px;
-      height: auto;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .hero-section {
-      height: 600px;
-      background-position: right top;
-      background-repeat: no-repeat;
-      background-size: 50% auto;
-      background-attachment: scroll;
-      padding-top: 0;
-      margin-top: 0;
-    }
+@media (max-width: 768px) {
+  .burger-banner img {
+    max-width: 300px;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
+
+  .hero-section {
+    height: 600px;
+    background-position: right top;
+    background-repeat: no-repeat;
+    background-size: 80% auto;
+    background-attachment: scroll;
+    padding-top: 0;
+    margin-top: 0;
+  }
+}
  
 
   .u-text-svg {
