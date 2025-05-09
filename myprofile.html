@@ -145,7 +145,15 @@
             <div class="nav-logo">
                 <a href="index.html"><img id="navLogo" src="images/logo.png" alt="Bhookie Logo" /></a>
             </div>
-            <ul class="nav-links">
+
+            <!-- Hamburger button for mobile view -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="menu.html">Menu</a></li>
                 <li><a href="aboutus.html">About Us</a></li>
@@ -329,22 +337,30 @@
         dropdown.style.display = "none";
       });
   
-      // Populate dropdown if logged in
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      if (isLoggedIn) {
-        dropdown.innerHTML = `
-          <li><a href="myprofile.html">My Profile</a></li>
-          <li><a href="#">My Orders</a></li>
-          <li><a href="#" id="logoutLink">Logout</a></li>
-        `;
-        document.body.addEventListener("click", (e) => {
-          if (e.target.id === "logoutLink") {
-            localStorage.removeItem("isLoggedIn");
-            localStorage.removeItem("userPhone");
-            window.location.reload();
-          }
+        // Populate dropdown if logged in
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        if (isLoggedIn) {
+          dropdown.innerHTML = `
+            <li><a href="myprofile.html">My Profile</a></li>
+            <li><a href="#">My Orders</a></li>
+            <li><a href="#" id="logoutLink">Logout</a></li>
+          `;
+          document.body.addEventListener("click", (e) => {
+            if (e.target.id === "logoutLink") {
+              localStorage.removeItem("isLoggedIn");
+              localStorage.removeItem("userPhone");
+              window.location.reload();
+            }
+          });
+        };
+
+        // Hamburger menu toggle
+        const hamburger = document.getElementById("hamburger");
+        const navLinks = document.getElementById("navLinks");
+
+        hamburger.addEventListener("click", () => {
+          navLinks.classList.toggle("nav-active");
         });
-      };
 
   
     </script>
