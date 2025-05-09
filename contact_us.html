@@ -6,43 +6,322 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="contact.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .form-row {
+        /* Basic styles for responsiveness and hover effects */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+.hero-section {
+            height: 5vh;
+            
+            /* background: url('images/bg1.png') no-repeat right center; */
+            /* background-size: 80% auto; */
+            /* Slightly reduce the size of the background image */
+            position: relative;
+            padding: 0;
+            margin: 0;
+            /* Space for fixed navbar */
+        }
+
+        .hero-content {
+            text-align: left;
+            color: white;
+            
+            padding: 20px;
+            margin-top: 60px;
+            /* Add margin to push content below navbar */
             display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: flex-start;
+            padding-left: 140px;
+            padding-top: 90px;
         }
-        .form-row .form-group {
-            flex: 1;
-            min-width: 150px;
+
+        .order-btn {
+
+            background-color: #ff6347;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
         }
+
+        .order-section {
+            text-align: left;
+        }
+
+        .order-btn:hover {
+            background-color: #e5533d;
+            /* Darker shade on hover */
+        }
+
+        .menu-card {
+            cursor: pointer;
+            /* Indicate clickable */
+            transition: transform 0.3s;
+        }
+
+        .menu-card:hover {
+            transform: scale(1.05);
+            /* Slight zoom effect */
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .about-section {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .about-detail {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+
+        .menu-section {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 60px;
+        }
+
+        .footer-container {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .footer-bottom {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        .dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background-color: #000;
+  border: 2px solid #ff6600;
+  border-radius: 6px;
+  min-width: 140px; /* Reduced width */
+  z-index: 999;
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+  box-shadow: 0 4px 10px rgba(255, 102, 0, 0.25);
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 8px 12px; /* Smaller padding */
+  color: #fff;
+  font-size: 14px;   /* Smaller font */
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+        .dropdown-menu li a:hover {
+          background-color: #ff6600;
+          color: #000;
+        }
+        
+/* Navbar */
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.navbar.transparent {
+  background-color: transparent;
+}
+
+.navbar.scrolled {
+  background-color: rgba(19, 19, 18, 0.7);
+}
+
+/* Logo */
+.nav-logo img {
+  height: 70px;
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background-color: #FF5E18;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-links a:hover {
+  color: #ffffff;
+}
+
+/* Right Side Button */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.profile-container{
+  background-color: white;
+  padding: 6px 12px;
+  border-radius: 999px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hamburger icon */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  z-index: 1100;
+}
+
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+/* Show hamburger and hide nav-links on mobile */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+    margin-right: 20px;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: rgba(19, 19, 18, 0.9);
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 20px ;
+    align-items: center;
+    text-align: center;
+ }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
     </style>
 </head>
 <body>
-
-<div class="hero-section">
-    <nav class="navbar">
-        <div class="nav-logo">
-            <a href="index.html"><img id="navLogo" src="images/logo.png" alt="Bhookie Logo"/></a>
-        </div>
-        <div class="hamburger">
-            <div class="line"></div>
-            <div class="line"></div>
-            <div class="line"></div>
-        </div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="menu.html">Menu</a></li>
-            <li><a href="aboutus.html">About Us</a></li>
-            <li><a href="contact_us.html" class="active">Contact</a></li>
-        </ul>
-        <div class="nav-buttons">
-            <a href="login.html" class="signup-btn"><img src="images/user.png" alt="User Icon"
-                                                        style="height: 20px; width: 20px;"></a>
-        </div>
-    </nav>
-</div>
+    <!-- Background with Navbar on top -->
+    <div class="hero-section">
+<nav class="navbar">
+            <div class="nav-logo">
+                <a href="index.html"><img id="navLogo" src="images/logo.png" alt="Bhookie Logo" /></a>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="contact_us.html" class="active">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="profile-container">
+                <div class="nav-buttons">
+                <a class="profile-icon" ><img src="images/user.png" alt="User Icon" style="height: 20px; width: 20px;"></a>
+                <ul class="dropdown-menu" id="profileDropdown" style="display: none;">
+                
+                </ul>
+            </div>
+              </div>
+              
+        </nav>
+    </div>
 
 <div class="contact-container">
     <div class="contact-info">
@@ -52,7 +331,7 @@
             <i class="fas fa-map-marker-alt"></i>
             <a href="https://maps.google.com/?q=Liverpool+City+Centre" class="location-link" target="_blank">Liverpool City Centre</a>
         </div>
-        <div class="info-item"><i class="fas fa-phone"></i>+1 234567890</div>
+        <div class="info-item"><i class="fas fa-phone"></i>+44 7867233721</div>
         <div class="info-item"><i class="far fa-clock"></i>11:00–18:00</div>
         <a href="#" class="careers-link">Careers</a>
 
@@ -133,30 +412,88 @@
 </footer>
 
 <script>
+    // Navbar scroll effect
     window.addEventListener('scroll', function () {
-        const navbar = document.querySelector('.navbar');
-        if (window.scrollY > 0) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
+      const navbar = document.querySelector('.navbar');
+      navbar.classList.toggle('scrolled', window.scrollY > 0);
     });
-
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
-
-    hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        hamburger.classList.toggle('active'); // Optional: Add active class to hamburger for animation
-    });
-
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            hamburger.classList.remove('active'); // If you added the active class
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      // Vadapav scroll animation
+      const vadapav = document.querySelector('.vadapav');
+      let lastScroll = window.scrollY;
+  
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+        const scrollDirection = currentScroll > lastScroll ? 'down' : 'up';
+        lastScroll = currentScroll;
+  
+        const containerTop = vadapav.getBoundingClientRect().top;
+        const triggerPoint = window.innerHeight * 0.8;
+  
+        vadapav.classList[
+          containerTop < triggerPoint && scrollDirection === 'down' ? 'add' : 'remove'
+        ]('expanded');
+      });
+  
+      // Smooth scroll for anchors
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
         });
+      });
+  
+      // Profile icon dropdown logic
+      const icon = document.querySelector(".profile-icon");
+      const dropdown = document.getElementById("profileDropdown");
+  
+      icon.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  
+        if (!isLoggedIn) {
+          window.location.href = "login.html";
+          return;
+        }
+  
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      });
+  
+      window.addEventListener("click", function () {
+        dropdown.style.display = "none";
+      });
+  
+      // Populate dropdown if logged in
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (isLoggedIn) {
+        dropdown.innerHTML = `
+          <li><a href="myprofile.html">My Profile</a></li>
+          <li><a href="#">My Orders</a></li>
+          <li><a href="#" id="logoutLink">Logout</a></li>
+        `;
+        document.body.addEventListener("click", (e) => {
+          if (e.target.id === "logoutLink") {
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("userPhone");
+            window.location.reload();
+          }
+        });
+      }
     });
-</script>
+    </script>
+    <script>
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+
+      hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
+    </script>
+</body>
+</html>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>

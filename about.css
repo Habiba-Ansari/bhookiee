@@ -243,4 +243,78 @@ body {
     font-size: 22px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
+
+  /* Hamburger icon */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    gap: 5px;
+    z-index: 1100;
+  }
+
+  .hamburger span {
+    height: 3px;
+    width: 25px;
+    background-color: white;
+    border-radius: 2px;
+  }
+
+  /* Show hamburger and hide nav-links on mobile */
+  @media (max-width: 768px) {
+    .hamburger {
+      display: flex;
+      margin-right: 20px;
+    }
+
+    .nav-links {
+      display: none;
+      flex-direction: column;
+      background-color: rgba(19, 19, 18, 0.9);
+      width: 100%;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      padding: 20px;
+      align-items: center;
+      text-align: center;
+    }
+
+    .nav-links.active {
+      display: flex;
+    }
+  }
+
+  /* Dropdown menu */
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 55px;
+    right: 10px;
+    background-color: #000;
+    border: 2px solid #ff6600;
+    border-radius: 6px;
+    min-width: 140px;
+    z-index: 999;
+    list-style: none;
+    padding: 4px 0;
+    margin: 0;
+    box-shadow: 0 4px 10px rgba(255, 102, 0, 0.25);
+  }
+
+  .dropdown-menu li a {
+    display: block;
+    padding: 8px 12px;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .dropdown-menu li a:hover {
+    background-color: #ff6600;
+    color: #000;
+  }
   
