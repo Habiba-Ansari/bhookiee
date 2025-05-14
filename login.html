@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bhookie Login</title>
+  <link rel="stylesheet" href="log.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="background-image">
+    <div class="overlay">
+      <div class="hero-section">
+        <nav class="navbar">
+          <div class="nav-logo">
+            <a href="index.html"><img id="navLogo" src="images/logo.png" alt="Bhookie Logo" /></a>
+          </div>
+          <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="contact_us.html">Contact</a></li>
+          </ul>
+          <div class="profile-container">
+            <div class="nav-buttons">
+              <a class="profile-icon"><img src="images/user.png" alt="User Icon" style="height: 20px; width: 20px;"></a>
+              <ul class="dropdown-menu" id="profileDropdown" style="display: none;"></ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Login box -->
+      <div class="login-container">
+        <h1 class="login-title">Login</h1>
+        <label for="input" id="input-label" class="phone-label">PHONE NUMBER</label>
+        <input type="tel" id="input-field" class="phone-input" placeholder="Phone number" required />
+        <input type="text" id="name-field" class="phone-input" placeholder="Enter your name"
+          style="display:none; margin-top: 10px;" />
+        <button type="button" class="continue-btn" id="action-btn" onclick="handleLogin()">Continue</button>
+        <p id="message" style="color: lightgreen; margin-top: 10px;"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.navbar');
+      navbar.classList.toggle('scrolled', window.scrollY > 0);
+    });
+  </script>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyA5jVQcxmKKLQy31Ft8329EB_cWRyBu0uI",
+      authDomain: "bhookiecore.firebaseapp.com",
+      databaseURL: "https://bhookiecore-default-rtdb.firebaseio.com",
+      projectId: "bhookiecore",
+      storageBucket: "bhookiecore.firebasestorage.app",
+      messagingSenderId: "252666746613",
+      appId: "1:252666746613:web:460ba1d0124c6f9a2d17bc",
+      measurementId: "G-NHRT2XRJRB"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    let step = 1;
+    let savedPhone = "";
+    let savedName = "";
+    let isNewUser = false; // ✅ track if user is new
+
+    async function generateUnique9DigitId(field) {
+      const loginRef = db.collection("login");
+      let id, exists;
+
+      do {
+        id = Math.floor(100000000 + Math.random() * 900000000).toString();
+        exists = !(await loginRef.where(field, "==", id).get()).empty;
+      } while (exists);
+
+      return id;
+    }
+
+    async function checkAndSavePhoneNumber(phone, name) {
+      const docRef = db.collection("login").doc(phone);
+      const doc = await docRef.get();
+
+      if (!doc.exists) {
+        const userId = await generateUnique9DigitId("userId");
+        const customerId = await generateUnique9DigitId("customerId");
+
+        await docRef.set({
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          name,
+          otp: "1234",
+          userId,
+          customerId
+        });
+
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("userPhone", phone);
+        return true;
+      }
+
+      return false;
+    }
+
+    async function handleLogin() {
+      const inputField = document.getElementById("input-field");
+      const nameField = document.getElementById("name-field");
+      const label = document.getElementById("input-label");
+      const button = document.getElementById("action-btn");
+      const message = document.getElementById("message");
+
+      if (step === 1) {
+        let phone = inputField.value.trim().replace(/^0/, '');
+
+        if (!/^[0-9]{10}$/.test(phone)) {
+          alert("Please enter a valid 10-digit phone number.");
+          return;
+        }
+
+        savedPhone = phone;
+
+        if (nameField.style.display === "block") {
+          const name = nameField.value.trim();
+          if (!name) {
+            alert("Name is required for new users.");
+            return;
+          }
+
+          savedName = name;
+          isNewUser = true;
+
+          try {
+            await checkAndSavePhoneNumber(phone, name);
+            proceedToOTPStep(phone);
+          } catch (error) {
+            alert("Error accessing database: " + error.message);
+          }
+          return;
+        }
+
+        try {
+          const doc = await db.collection("login").doc(phone).get();
+          if (!doc.exists) {
+            nameField.style.display = "block";
+            inputField.style.display = "none";
+            label.textContent = "NAME";
+            button.textContent = "Continue";
+
+            button.onclick = async () => {
+              const name = nameField.value.trim();
+              if (!name) {
+                alert("Name is required.");
+                return;
+              }
+
+              savedName = name;
+              isNewUser = true;
+
+              try {
+                await checkAndSavePhoneNumber(phone, name);
+                proceedToOTPStep(phone);
+              } catch (error) {
+                alert("Error: " + error.message);
+              }
+            };
+            return;
+          }
+
+          isNewUser = false; // ✅ it's an existing user
+          proceedToOTPStep(phone);
+        } catch (error) {
+          alert("Error accessing database: " + error.message);
+        }
+
+      } else if (step === 2) {
+        const otp = inputField.value.trim();
+
+        if (otp === "1234") {
+          try {
+            const docRef = db.collection("login").doc(savedPhone);
+            const doc = await docRef.get();
+
+            if (!doc.exists) {
+              const name = document.getElementById("name-field").value.trim();
+              const userId = await generateUnique9DigitId("userId");
+              const customerId = await generateUnique9DigitId("customerId");
+
+              await docRef.set({
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                name,
+                otp: "1234",
+                userId,
+                customerId
+              });
+            }
+
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("userPhone", savedPhone);
+            window.location.href = "index.html";
+          } catch (error) {
+            alert("Error saving user: " + error.message);
+          }
+        } else {
+          alert("Incorrect OTP. Try again.");
+        }
+      }
+    }
+
+    function proceedToOTPStep(phone) {
+      const inputField = document.getElementById("input-field");
+      const nameField = document.getElementById("name-field");
+      const label = document.getElementById("input-label");
+      const button = document.getElementById("action-btn");
+      const message = document.getElementById("message");
+
+      step = 2;
+      nameField.style.display = "none";
+      nameField.value = "";
+      inputField.style.display = "block";
+      inputField.type = "text";
+      inputField.placeholder = "Enter OTP";
+      inputField.value = "";
+
+      label.textContent = "ENTER OTP";
+      button.textContent = "Login";
+      button.onclick = handleLogin;
+      message.textContent = "OTP sent to your phone number.";
+
+      document.getElementById("backBtn")?.remove();
+      document.getElementById("resendBtn")?.remove();
+
+      const backBtn = document.createElement("button");
+      backBtn.id = "backBtn";
+      backBtn.textContent = "Back";
+      backBtn.className = "continue-btn";
+      backBtn.style.marginTop = "10px";
+
+      backBtn.onclick = () => {
+        step = 1;
+        inputField.type = "tel";
+        inputField.placeholder = "Phone number";
+        inputField.value = savedPhone;
+        nameField.value = savedName;
+        inputField.style.display = "block";
+        label.textContent = "PHONE NUMBER";
+        button.textContent = "Continue";
+        button.onclick = handleLogin;
+        document.getElementById("backBtn")?.remove();
+        document.getElementById("resendBtn")?.remove();
+        message.textContent = "";
+
+        // ✅ Only show name field if it's a new user
+        nameField.style.display = isNewUser ? "block" : "none";
+      };
+
+      const resendBtn = document.createElement("button");
+      resendBtn.id = "resendBtn";
+      resendBtn.textContent = "Resend OTP";
+      resendBtn.className = "continue-btn";
+      resendBtn.style.marginTop = "10px";
+      resendBtn.onclick = () => {
+        message.textContent = "OTP resent to your phone.";
+      };
+
+      button.insertAdjacentElement("afterend", backBtn);
+      backBtn.insertAdjacentElement("afterend", resendBtn);
+    }
+  </script>
+</body>
+
+</html>

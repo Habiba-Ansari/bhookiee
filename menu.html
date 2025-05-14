@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bhookie</title>
+  <link rel="stylesheet" href="menu.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    .dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background-color: #000;
+  border: 2px solid #ff6600;
+  border-radius: 6px;
+  min-width: 140px; /* Reduced width */
+  z-index: 999;
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+  box-shadow: 0 4px 10px rgba(255, 102, 0, 0.25);
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 8px 12px; /* Smaller padding */
+  color: #fff;
+  font-size: 14px;   /* Smaller font */
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #ff6600;
+  color: #000;
+}
+
+.profile-container {
+  position: relative;
+}
+
+  </style>
+</head>
+<body>
+  
+  <!-- Background with Navbar on top -->
+<div class="hero-section">
+  <nav class="navbar">
+    <div class="nav-logo">
+      <a href="index.html">
+        <img id="navLogo" src="images/logo.png" alt="Bhookie Logo" />
+      </a>
+    </div>
+
+    <!-- Hamburger button for mobile view -->
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Navigation Links -->
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html" class="active">Menu</a></li>
+      <li><a href="aboutus.html">About Us</a></li>
+      <li><a href="contact_us.html">Contact</a></li>
+    </ul>
+
+    <!-- Profile Icon & Dropdown -->
+    <div class="profile-container">
+      <div class="nav-buttons">
+        <a class="profile-icon">
+          <img src="images/user.png" alt="User Icon" style="height: 20px; width: 20px;">
+        </a>
+        <ul class="dropdown-menu" id="profileDropdown" style="display: none;"></ul>
+      </div>
+    </div>
+  </nav>
+</div>
+
+
+  <!-- Our Menu Section -->
+  <section class="menu-section">
+    <h1>OUR MENU</h1>
+    <div class="menu-categories">
+  <span id="street" onclick="scrollToCategory('STREET BITES')">STREET BITES</span>
+  <span id="fries" onclick="scrollToCategory('FRIES')">FRIES</span>
+  <span id="bites" class="active" onclick="scrollToCategory('BITES')">BITES</span>
+  <span id="wraps" onclick="scrollToCategory('WRAPS')">WRAPS</span>
+  <span id="burgers" onclick="scrollToCategory('BURGERS')">BURGERS</span>
+</div>
+
+    <p class="menu-description">Order now and enjoy the magic...</p>
+
+    <!-- New Bites Card Section -->
+    <div class="menu-cards-wrapper" style="overflow-x: auto; white-space: nowrap; padding-bottom: 20px;">
+      <div class="menu-cards" style="display: inline-flex; flex-wrap: nowrap; gap: 40px; padding: 80px; padding-bottom: 100px;">
+        <div class="menu-card" style="display: inline-block;">
+          <img src="images/1.png" alt="Plain Chicken Bites" />
+          <h3><span class="highlight">Plain</span><br>Chicken Bites</h3>
+          <div class="price-cart">
+            <span>$100</span>
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+        </div>
+        <div class="menu-card" style="display: inline-block;">
+          <img src="images/2.png" alt="Peri Peri Chicken Bites" />
+          <h3><span class="highlight">Peri Peri</span><br>Chicken Bites</h3>
+          <div class="price-cart">
+            <span>$100</span>
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+        </div>
+        <div class="menu-card" style="display: inline-block;">
+          <img src="images/3.png" alt="BBQ Chicken Bites" />
+          <h3><span class="highlight">BBQ</span><br>Chicken Bites</h3>
+          <div class="price-cart">
+            <span>$100</span>
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+        </div>
+        <div class="menu-card" style="display: inline-block;">
+          <img src="images/4.png" alt="BBQ Chicken Bites" />
+          <h3><span class="highlight">BBQ</span><br>Chicken Bites</h3>
+          <div class="price-cart">
+            <span>$100</span>
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+        </div>
+        <div class="menu-card" style="display: inline-block;">
+          <img src="images/5.png" alt="Signature Chicken Bites" />
+          <h3><span class="highlight">BBQ</span><br>Chicken Bites</h3>
+          <div class="price-cart">
+            <span>$100</span>
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+        </div>
+        <div class="menu-card" style="display: inline-block;">
+          <img src="images/5.png" alt="Signature Chicken Bites" />
+          <h3><span class="highlight">BBQ</span><br>Chicken Bites</h3>
+          <div class="price-cart">
+            <span>$100</span>
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+        </div>
+        <div class="menu-card" style="display: inline-block;">
+          <img src="images/5.png" alt="Signature Chicken Bites" />
+          <h3><span class="highlight">BBQ</span><br>Chicken Bites</h3>
+          <div class="price-cart">
+            <span>$100</span>
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+        </div>
+        <div class="menu-card" style="display: inline-block;">
+          <img src="images/5.png" alt="Signature Chicken Bites" />
+          <h3><span class="highlight">BBQ</span><br>Chicken Bites</h3>
+          <div class="price-cart">
+            <span>$100</span>
+            <i class="fa-solid fa-cart-shopping"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <!-- About -->
+      <div class="footer-column about">
+        <h3>About</h3>
+        <p>Bhookie is a bold and fresh quick-bite fusion food startup bringing the taste of India to the streets of Liverpool, UK. With a unique focus on iconic items like Vada Pav and Chicken Fries, we’re redefining street food culture abroad. Bhookie blends tradition and creativity — delivering memorable bites packed with flavor and personality.</p>
+      </div>
+  
+      <!-- Menu -->
+      <div class="footer-column menu">
+        <h3>Menu</h3>
+        <ul>
+          <li>STREET BITES</li>
+          <li>FRIES</li>
+          <li>BITES</li>
+          <li>WRAPS</li>
+          <li>BURGERS</li>
+          <li>FUSION SPECIAL</li>
+          <li>DRINKS</li>
+        </ul>
+      </div>
+  
+      <!-- Contact -->
+      <div class="footer-column contact">
+        <h3>Contact</h3>
+        <p>123 Street, City<br>info@example.com<br>+44 7867233721</p>
+      </div>
+    </div>
+  
+    <!-- Bottom Footer -->
+    <div class="footer-bottom">
+      <p>&copy; BHOOKIE. All Rights Reserved.</p>
+      <div class="social-icons">
+        <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-twitter"></i>
+        <i class="fab fa-instagram"></i>
+      </div>
+    </div>
+  </footer>
+  
+  <script>
+
+window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 0) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+    const menuData = {
+      "STREET BITES": [
+        "Plain Chicken Bites",
+        "Peri Peri Chicken Bites",
+        "BBQ Chicken Bites",
+        "BBQ Chicken Bites",
+        "Signature Chicken Bites",
+        "Signature Chicken Bites",
+        "Signature Chicken Bites",
+        "Signature Chicken Bites"
+      ],
+      "FRIES": [
+        "Classic Fries",
+        "Cheese Fries",
+        "Peri Peri Fries",
+        "Garlic Fries",
+        "Loaded Fries",
+        "Spicy Fries",
+        "Curly Fries",
+        "Sweet Potato Fries"
+      ],
+      "BITES": [
+        "Plain Chicken Bites",
+        "Peri Peri Chicken Bites",
+        "BBQ Chicken Bites",
+        "BBQ Chicken Bites",
+        "Signature Chicken Bites",
+        "Signature Chicken Bites",
+        "Signature Chicken Bites",
+        "Signature Chicken Bites"
+      ],
+      "WRAPS": [
+        "Chicken Wrap",
+        "Veggie Wrap",
+        "Paneer Wrap",
+        "Spicy Wrap",
+        "BBQ Wrap",
+        "Classic Wrap",
+        "Tandoori Wrap",
+        "Falafel Wrap"
+      ],
+      "BURGERS": [
+        "Classic Burger",
+        "Cheese Burger",
+        "Veggie Burger",
+        "BBQ Burger",
+        "Spicy Burger",
+        "Chicken Burger",
+        "Mushroom Burger",
+        "Signature Burger"
+      ]
+    };
+
+    function updateMenuCards(category) {
+      const cards = document.querySelectorAll('.menu-card h3');
+      const items = menuData[category];
+      cards.forEach((card, index) => {
+        if (items && items[index]) {
+          const parts = items[index].split(' ');
+          const highlight = parts[0];
+          const rest = parts.slice(1).join(' ');
+          card.innerHTML = `<span class="highlight">${highlight}</span><br>${rest}`;
+        }
+      });
+    }
+
+    document.querySelectorAll('.menu-categories span').forEach(span => {
+      span.addEventListener('click', () => {
+        document.querySelectorAll('.menu-categories span').forEach(s => s.classList.remove('active'));
+        span.classList.add('active');
+        updateMenuCards(span.textContent);
+      });
+    });
+
+    // Initialize with active category
+    updateMenuCards(document.querySelector('.menu-categories span.active').textContent);
+
+    // Profile icon dropdown logic
+    const icon = document.querySelector(".profile-icon");
+      const dropdown = document.getElementById("profileDropdown");
+  
+      icon.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  
+        if (!isLoggedIn) {
+          window.location.href = "login.html";
+          return;
+        }
+  
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      });
+  
+      window.addEventListener("click", function () {
+        dropdown.style.display = "none";
+      });
+  
+      // Populate dropdown if logged in
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (isLoggedIn) {
+        dropdown.innerHTML = `
+          <li><a href="myprofile.html">My Profile</a></li>
+          <li><a href="#">My Orders</a></li>
+          <li><a href="#" id="logoutLink">Logout</a></li>
+        `;
+        document.body.addEventListener("click", (e) => {
+          if (e.target.id === "logoutLink") {
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("userPhone");
+            window.location.reload();
+          }
+        });
+      }
+  </script>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+
+  // Scroll to section if URL contains a hash (e.g. #wraps)
+window.addEventListener('DOMContentLoaded', () => {
+  const hash = window.location.hash.replace('#', '').toUpperCase();
+  if (hash && menuData[hash]) {
+    updateMenuCards(hash);
+
+    document.querySelectorAll('.menu-categories span').forEach(span => {
+      span.classList.remove('active');
+      if (span.textContent.trim().toUpperCase() === hash) {
+        span.classList.add('active');
+        span.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+});
+</script>
+
+</body>
+</html>

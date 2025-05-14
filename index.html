@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bhookie</title>
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Basic styles for responsiveness and hover effects */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero-section {
+            height: 100vh;
+            
+            background: url('images/bg1.png') no-repeat right center;
+            background-size: 80% auto;
+            /* Slightly reduce the size of the background image */
+            position: relative;
+            padding-top: 100px;
+            /* Space for fixed navbar */
+        }
+
+        .hero-content {
+            text-align: left;
+            color: white;
+            
+            padding: 20px;
+            margin-top: 60px;
+            /* Add margin to push content below navbar */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding-left: 140px;
+            padding-top: 90px;
+        }
+
+        .order-btn {
+
+            background-color: #ff6347;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .order-section {
+            text-align: left;
+        }
+
+        .order-btn:hover {
+            background-color: #e5533d;
+            /* Darker shade on hover */
+        }
+
+        .menu-card {
+            cursor: pointer;
+            /* Indicate clickable */
+            transition: transform 0.3s;
+        }
+
+        .menu-card:hover {
+            transform: scale(1.05);
+            /* Slight zoom effect */
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .about-section {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .about-detail {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+
+        .menu-section {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .footer {
+            margin-top: 50px;
+            padding-top: 60px;
+        }
+
+        .footer-container {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .footer-bottom {
+            margin-top: 0;
+            padding-top: 0;
+        }
+        .dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background-color: #000;
+  border: 2px solid #ff6600;
+  border-radius: 6px;
+  min-width: 140px; /* Reduced width */
+  z-index: 999;
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+  box-shadow: 0 4px 10px rgba(255, 102, 0, 0.25);
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 8px 12px; /* Smaller padding */
+  color: #fff;
+  font-size: 14px;   /* Smaller font */
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+        .dropdown-menu li a:hover {
+          background-color: #ff6600;
+          color: #000;
+        }
+        
+/* Navbar */
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.navbar.transparent {
+  background-color: transparent;
+}
+
+.navbar.scrolled {
+  background-color: rgba(19, 19, 18, 0.7);
+}
+
+/* Logo */
+.nav-logo img {
+  height: 70px;
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background-color: #FF5E18;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-links a:hover {
+  color: #ffffff;
+}
+
+/* Right Side Button */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.profile-container{
+  background-color: white;
+  padding: 6px 12px;
+  border-radius: 999px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hamburger icon */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  z-index: 1100;
+}
+
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+/* Show hamburger and hide nav-links on mobile */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+    margin-right: 20px;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: rgba(19, 19, 18, 0.9);
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 20px ;
+    align-items: center;
+    text-align: center;
+ }
+
+  .nav-links.active {
+    display: flex;
+  }
+}
+
+/* Navbar */
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.navbar.transparent {
+  background-color: transparent;
+}
+
+.navbar.scrolled {
+  background-color: rgba(19, 19, 18, 0.7);
+}
+
+/* Logo */
+.nav-logo img {
+  height: 70px;
+}
+
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -5px;
+  background-color: #FF5E18;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-links a.active::after {
+  width: 100%;
+}
+
+.nav-links a:hover {
+  color: #ffffff;
+}
+
+/* Right Side Button */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+}
+
+.profile-container{
+  background-color: white;
+  padding: 6px 12px;
+  border-radius: 999px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hamburger icon */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  z-index: 1100;
+}
+
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+/* Show hamburger and hide nav-links on mobile */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+    margin-right: 20px;
+  }
+
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: rgba(19, 19, 18, 0.9);
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 20px ;
+    align-items: center;
+    text-align: center;
+ }
+
+  .nav-links.active {
+    display: flex;
+  }
+} </style>
+
+</head>
+
+<body>
+    <!-- Background with Navbar on top -->
+    <div class="hero-section">
+        <nav class="navbar">
+            <div class="nav-logo">
+                <a href="index.html"><img id="navLogo" src="images/logo.png" alt="Bhookie Logo" /></a>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="contact_us.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="profile-container">
+                <div class="nav-buttons">
+                <a class="profile-icon" ><img src="images/user.png" alt="User Icon" style="height: 20px; width: 20px;"></a>
+                <ul class="dropdown-menu" id="profileDropdown" style="display: none;">
+                
+                </ul>
+            </div>
+              </div>
+              
+        </nav>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="hero-content" id="home">
+        <h2 class="headline">FLAVOUR BLAST</h2>
+        <p class="subtext">Your favourite food delivered to you!<br>Fresh and yummy...</p>
+        <div class="order-section">
+            <img src="images/chalk.png" alt="doodle" class="doodle">
+            <a href="menu.html" class="order-btn">ORDER NOW</a>
+        </div>
+    </div>
+
+     <!-- Menu Section -->
+<div class="menu-section" id="menu">
+    <div style="text-align: center;">
+        <h2 class="menu-title">BEST SELLERS</h2>
+        <p class="menu-subtitle">Order now and enjoy the magic...</p>
+    </div>
+
+    <div class="menu-cards">
+        <div class="menu-card">
+          <a href="menu.html#burgers" style="text-decoration: none; color: inherit;">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="images/burger.png" alt="Burger">
+                    <div class="menu-text">
+                        <h3>BURGERS</h3><br>
+                        <p>Juicy. Loaded. Grilled.</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>Burgers Info</h3>
+                    <p>At Bhookie, we craft burgers with fresh, quality ingredients —
+                         from juicy patties and toasted buns to bold sauces and melty cheese.
+                        Whether beef, chicken, or plant-based, 
+                        each burger delivers hearty flavor in every satisfying bite.
+                    </p>
+                </div>
+            </div>
+            </a>
+        </div>
+    
+        <div class="menu-card">
+          <a href="menu.html#wraps" style="text-decoration: none; color: inherit;">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="images/wrap.png" alt="Wrap">
+                    <div class="menu-text">
+                        <h3>WRAPS</h3><br>
+                        <p>Crispy. Saucy. Satisfying.</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>Wraps Info</h3>
+                    <p>Bhookie’s wraps are packed with bold flavors—tender fillings,
+                         crisp veggies, and zesty sauces—all rolled in soft, warm tortillas.
+                        Perfectly balanced and easy to grab on the go, they’re light, satisfying, and made to match your taste.</p>
+                </div>
+            </div>
+            </a>
+        </div>
+    
+        <div class="menu-card">
+          <a href="menu.html#fries" style="text-decoration: none; color: inherit;">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="images/fries.png" alt="Fries">
+                    <div class="menu-text">
+                        <h3>FRIES</h3><br>
+                        <p>Crispy. Golden. Irresistible.</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>Fries Info</h3>
+                    <p>Golden, crispy, and perfectly seasoned—Bhookie’s fries are the ultimate comfort snack.
+                        From classic salt to bold flavors and dips,
+                         they’re the perfect crunchy companion to any meal.</p>
+                </div>
+            </div>
+            </a>
+        </div>
+    
+        <div class="menu-card">
+          <a href="menu.html#vada" style="text-decoration: none; color: inherit;">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="images/vada.png" alt="Vada">
+                    <div class="menu-text">
+                        <h3>VADA PAV</h3><br>
+                        <p>Bold. Flavorful. Spicy.</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>Street Bites Info</h3>
+                    <p>Bhookie’s Vada Pav brings Mumbai’s favorite street bite to life—crispy vada, soft pav,
+                         and bold chutneys in every bite.
+                         
+                          </p>
+                </div>
+            </div>
+            </a>
+        </div>
+    
+        <div class="menu-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="images/chai.png" alt="Chai">
+                    <div class="menu-text">
+                        <h3>CHAI</h3><br>
+                        <p>Aroma. Comfort. Spiced.</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>Drinks Info</h3>
+                    <p>Bhookie’s chai blends bold tea with warm spices like cardamom and ginger—comforting,
+                         aromatic, and brewed to perfection.</p>
+                </div>
+            </div>
+            </a>
+        </div>
+    
+        <div class="menu-card">
+          <a href="menu.html#bites" style="text-decoration: none; color: inherit;">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="images/bites.png" alt="Bites">
+                    <div class="menu-text">
+                        <h3>BITES</h3><br>
+                        <p>Crispy. Golden. Irresistible.</p>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <h3>Bites Info</h3>
+                    <p>Bhookie’s chicken bites are crispy, juicy, and spice-marinated for bold flavor in every crunch—perfect for dipping or snacking anytime.
+
+                    </p>
+                </div>
+            </div>
+            </a>
+        </div>
+    </div>
+    
+
+
+
+    <!-- View More Button -->
+    <div class="view-more-container">
+        <a href="menu.html" class="view-more-btn">VIEW MORE</a>
+    </div>
+
+    <!-- About Us Section -->
+    <div class="about-section" id="about">
+        <h2 class="about-title">ABOUT US</h2>
+        <p class="about-subtitle">Meet the Bhookies</p>
+    </div>
+
+    <!-- About Us Detail Section -->
+    <div class="about-detail">
+        <div class="about-img">
+            <div class="vadapav">
+                <div class="ingredient bun-bottom"></div>
+                <div class="ingredient potato_vada"></div>
+                <div class="ingredient mirchi"></div>
+                <div class="ingredient chutney"></div>
+                <div class="ingredient bun-top"></div>
+            </div>
+        </div>
+
+        <div class="about-text">
+            <p><br>
+                Welcome to Bhookie – Taste the Fusion!<br>
+<br>
+We’re not just a restaurant; we’re a celebration of bold flavors, street-style creativity, and global fusion on your plate.<br>
+<br>
+Born out of a love for food that brings people together, Bhookie brings the punch of Indian street food and the flair of international fast bites right to the heart of Liverpool. From spicy Peri Peri Chicken Bites and crispy Fries to our signature Mumbai Wraps and the ever-iconic Vada Pav, every dish is crafted to deliver comfort with a kick.<br>
+
+<br>
+
+            </p>
+        </div>
+    </div>
+
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <!-- About -->
+            <div class="footer-column about">
+                <h3>About</h3>
+                <p>Bhookie is a bold and fresh quick-bite fusion food startup bringing the taste of India to the streets
+                    of Liverpool, UK. With a unique focus on iconic items like Vada Pav and Chicken Fries, we’re
+                    redefining street food culture abroad. Bhookie blends tradition and creativity — delivering
+                    memorable bites packed with flavor and personality.</p>
+            </div>
+
+            <!-- Menu -->
+            <div class="footer-column menu">
+                <h3>Menu</h3>
+                <ul>
+                    <li>STREET BITES</li>
+                    <li>FRIES</li>
+                    <li>BITES</li>
+                    <li>WRAPS</li>
+                    <li>BURGERS</li>
+                    <li>FUSION SPECIAL</li>
+                    <li>DRINKS</li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="footer-column contact">
+                <h3>Contact</h3>
+                <p>123 Street, City<br>info@example.com<br>+44 7867233721</p>
+            </div>
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="footer-bottom">
+            <p>&copy; BHOOKIE. All Rights Reserved.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+  <script>
+    // Navbar scroll effect
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.navbar');
+      navbar.classList.toggle('scrolled', window.scrollY > 0);
+    });
+  
+    document.addEventListener('DOMContentLoaded', () => {
+      // Vadapav scroll animation
+      const vadapav = document.querySelector('.vadapav');
+      let lastScroll = window.scrollY;
+  
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+        const scrollDirection = currentScroll > lastScroll ? 'down' : 'up';
+        lastScroll = currentScroll;
+  
+        const containerTop = vadapav.getBoundingClientRect().top;
+        const triggerPoint = window.innerHeight * 0.8;
+  
+        vadapav.classList[
+          containerTop < triggerPoint && scrollDirection === 'down' ? 'add' : 'remove'
+        ]('expanded');
+      });
+  
+      // Smooth scroll for anchors
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+  
+      // Profile icon dropdown logic
+      const icon = document.querySelector(".profile-icon");
+      const dropdown = document.getElementById("profileDropdown");
+  
+      icon.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  
+        if (!isLoggedIn) {
+          window.location.href = "login.html";
+          return;
+        }
+  
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      });
+  
+      window.addEventListener("click", function () {
+        dropdown.style.display = "none";
+      });
+  
+      // Populate dropdown if logged in
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (isLoggedIn) {
+        dropdown.innerHTML = `
+          <li><a href="myprofile.html">My Profile</a></li>
+          <li><a href="#">My Orders</a></li>
+          <li><a href="#" id="logoutLink">Logout</a></li>
+        `;
+        document.body.addEventListener("click", (e) => {
+          if (e.target.id === "logoutLink") {
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("userPhone");
+            window.location.reload();
+          }
+        });
+      }
+    });
+    </script>
+    <script>
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+
+      hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
+    </script>
+</body>
+
+</html>

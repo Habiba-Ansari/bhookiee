@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <link rel="stylesheet" href="editprofile.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    .dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background-color: #000;
+  border: 2px solid #ff6600;
+  border-radius: 6px;
+  min-width: 140px; /* Reduced width */
+  z-index: 999;
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+  box-shadow: 0 4px 10px rgba(255, 102, 0, 0.25);
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 8px 12px; /* Smaller padding */
+  color: #fff;
+  font-size: 14px;   /* Smaller font */
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #ff6600;
+  color: #000;
+}
+
+
+  </style>
+</head>
+
+<body>
+  <!-- Background with Navbar on top -->
+  <div class="hero-section">
+    <nav class="navbar">
+        <div class="nav-logo">
+          <a href="index.html"><img id="navLogo" src="images/logo.png" alt="Bhookie Logo" /></a>
+        </div>
+        <!-- Hamburger Icon -->
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="aboutus.html">About Us</a></li>
+            <li><a href="contact_us.html">Contact</a></li>
+        </ul>
+        <div class="profile-container">
+            <div class="nav-buttons">
+            <a class="profile-icon" ><img src="images/user.png" alt="User Icon" style="height: 20px; width: 20px;"></a>
+            <ul class="dropdown-menu" id="profileDropdown" style="display: none;">
+            
+            </ul>
+        </div>
+          </div>
+          
+    </nav>
+</div>
+
+  <div class="edit-profile-container">
+    <h2>Edit Profile</h2>
+    <form id="editProfileForm">
+      <div class="form-group">
+        <label>Name:</label>
+        <input type="text" id="name" required />
+      </div>
+      <div class="form-group">
+        <label>Customer ID:</label>
+        <input type="number" id="customerId" />
+      </div>
+      <div class="form-group">
+        <label>User ID:</label>
+        <input type="number" id="userId" />
+      </div>
+      <div class="form-group">
+        <label>Email:</label>
+        <input type="email" id="email" required />
+      </div>
+      <div class="form-group">
+        <label>Phone:</label>
+        <input type="tel" id="phone" />
+      </div>
+      <div class="form-group">
+        <label>Date of Birth:</label>
+        <input type="date" id="dob" />
+      </div>
+      <button type="submit" class="save-button">Save</button>
+    </form>
+  </div>
+
+  <script>
+    ///
+  function toggleMenu() {
+    document.querySelector('.hamburger').classList.toggle('active');
+    document.querySelector('.nav-links').classList.toggle('active');
+  }
+
+
+  // ✅ Scroll Navbar
+  window.addEventListener('scroll', function () {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 0) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  // ✅ Firebase Init
+  const firebaseConfig = {
+    apiKey: "AIzaSyA5jVQcxmKKLQy31Ft8329EB_cWRyBu0uI",
+    authDomain: "bhookiecore.firebaseapp.com",
+    projectId: "bhookiecore"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // ✅ Get user phone from localStorage
+  const phone = localStorage.getItem("userPhone");
+  if (!phone) {
+    alert("Please log in.");
+    window.location.href = "login.html";
+  }
+
+  // ✅ Load existing profile data
+  window.onload = function () {
+    // Load login data
+    db.collection("login").doc(phone).get().then((doc) => {
+      if (doc.exists) {
+        const d = doc.data();
+        document.getElementById("name").value = d.name || "";
+        document.getElementById("userId").value = d.userId || "";
+        document.getElementById("phone").value = d.phone || phone;
+        document.getElementById("customerId").value = d.customerId || "";
+      }
+    });
+
+    // Load extra data
+    db.collection("customer").doc(phone).get().then((doc) => {
+      if (doc.exists) {
+        const d = doc.data();
+        document.getElementById("email").value = d.email || "";
+        document.getElementById("dob").value = d.dob || "";
+      }
+    });
+  };
+
+  // ✅ Save Profile
+  document.getElementById("editProfileForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const newName = document.getElementById("name").value;
+    const newUserId = document.getElementById("userId").value;
+    const newPhone = document.getElementById("phone").value;
+
+    const newEmail = document.getElementById("email").value;
+    const newDob = document.getElementById("dob").value;
+    const newCustomerId = document.getElementById("customerId").value;
+
+    // Save to login collection
+    db.collection("login").doc(newPhone).set({
+      name: newName,
+      userId: newUserId,
+      customerId: newCustomerId,
+      phone: newPhone
+    }).then(() => {
+      // Save to customer collection
+      return db.collection("customer").doc(newPhone).set({
+        email: newEmail,
+        dob: newDob,
+      });
+    }).then(() => {
+      localStorage.setItem("userPhone", newPhone); // Update stored phone
+      alert("Profile updated!");
+      window.location.href = "myprofile.html";
+    }).catch((error) => {
+      console.error("Error updating profile:", error);
+      alert("Update failed.");
+    });
+  });
+
+  // Profile icon dropdown logic
+  const icon = document.querySelector(".profile-icon");
+      const dropdown = document.getElementById("profileDropdown");
+  
+      icon.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  
+        if (!isLoggedIn) {
+          window.location.href = "login.html";
+          return;
+        }
+  
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      });
+  
+      window.addEventListener("click", function () {
+        dropdown.style.display = "none";
+      });
+  
+      // Populate dropdown if logged in
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (isLoggedIn) {
+        dropdown.innerHTML = `
+          <li><a href="myprofile.html">My Profile</a></li>
+          <li><a href="#">My Orders</a></li>
+          <li><a href="#" id="logoutLink">Logout</a></li>
+        `;
+        document.body.addEventListener("click", (e) => {
+          if (e.target.id === "logoutLink") {
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("userPhone");
+            window.location.reload();
+          }
+        });
+      }
+
+  </script>
+</body>
+</html>

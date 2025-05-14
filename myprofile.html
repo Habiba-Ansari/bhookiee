@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bhookie Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="profile.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .about-section {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .about-detail {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+
+        .menu-section {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .footer {
+            margin-top: 0;
+            padding-top: 200px;
+        }
+
+        .footer-container {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .footer-bottom {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .profile-container {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            font-family: 'Montserrat', sans-serif;
+            /* Bhookie font */
+            color: #000;
+            position: relative;
+        }
+
+        .dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background-color: #000;
+  border: 2px solid #ff6600;
+  border-radius: 6px;
+  min-width: 140px; /* Reduced width */
+  z-index: 999;
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+  box-shadow: 0 4px 10px rgba(255, 102, 0, 0.25);
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 8px 12px; /* Smaller padding */
+  color: #fff;
+  font-size: 14px;   /* Smaller font */
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+        .dropdown-menu li a:hover {
+          background-color: #ff6600;
+          color: #000;
+        }
+        
+
+
+    </style>
+</head>
+
+<body>
+
+    <div class="background-image">
+        <div class="overlay">
+            <!-- Background with Navbar on top -->
+    <div class="hero-section">
+        <nav class="navbar">
+            <div class="nav-logo">
+                <a href="index.html"><img id="navLogo" src="images/logo.png" alt="Bhookie Logo" /></a>
+            </div>
+
+            <!-- Hamburger button for mobile view -->
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="aboutus.html">About Us</a></li>
+                <li><a href="contact_us.html">Contact</a></li>
+            </ul>
+            <div class="lgprofile-container">
+                <div class="nav-buttons">
+                <a class="profile-icon" ><img src="images/user.png" alt="User Icon" style="height: 20px; width: 20px;"></a>
+                <ul class="dropdown-menu" id="profileDropdown" style="display: none;">
+                
+                </ul>
+            </div>
+              </div>
+              
+        </nav>
+    </div>
+
+            <!-- ✅ Profile Frame -->
+            <main class="flex justify-center mt-20 px-4">
+                <div class="profile-container">
+
+                    <!-- Profile Details -->
+                    <div class="profile-info">
+                        <div class="info-group">
+                            <p><span>Name:</span> <span id="displayName">Your Name</span></p>
+                            <p><span>Customer ID:</span> <span id="displayCustomerId">Your Customer ID</span></p>
+                            <p><span>User ID:</span> <span id="displayUserId">Your User ID</span></p>
+                            <p><span>Email:</span> <span id="displayEmail">Your Email</span></p>
+                            <p><span>Phone:</span> <span id="displayPhone">Your Phone</span></p>
+                            <p><span>DOB:</span> <span id="displayDOB">Your Birthday</span></p>
+                        </div>
+
+
+                        <!-- Edit Profile Button (Positioned more naturally) -->
+                        <div style="text-align: center; margin-top: 10px;">
+                            <br><br>
+                            <a href="edit_profile.html"
+                                class="text-sm bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition">
+                                Edit Profile
+                            </a>
+                        </div>
+
+                    </div>
+            </main>
+        </div>
+
+    </div>
+    </div>
+    <footer class="footer" id="contact">
+        <div class="footer-container">
+            <!-- About -->
+            <div class="footer-column about">
+                <h3>About</h3>
+                <p>Bhookie is a bold and fresh quick-bite fusion food startup bringing the taste of India to the streets
+                    of Liverpool, UK. With a unique focus on iconic items like Vada Pav and Chicken Fries, we’re
+                    redefining street food culture abroad. Bhookie blends tradition and creativity — delivering
+                    memorable bites packed with flavor and personality.</p>
+            </div>
+
+            <!-- Menu (Renamed as Account Links or Preferences) -->
+            <div class="footer-column menu">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li>My Orders</li>
+                    <li>Offers</li>
+                    <li>Settings</li>
+                    <li>Manage Payments</li>
+                    <li>Address Book</li>
+                    <li>Store Locator</li>
+                    <li>Download Nutrition Info</li>
+                </ul>
+            </div>
+
+
+
+            <!-- Contact -->
+            <div class="footer-column contact">
+                <h3>Contact</h3>
+                <p>123 Street, City<br>info@example.com<br>+44 7867233721</p>
+            </div>
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="footer-bottom">
+            <p>&copy; BHOOKIE. All Rights Reserved.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Structure -->
+    <div id="menuModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">TIOTOL</h2>
+            <p id="modalDescription">this is a vadabav</p>
+            <button class="order-btn">back</button>
+        </div>
+    </div>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // ✅ Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 0) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ✅ Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyA5jVQcxmKKLQy31Ft8329EB_cWRyBu0uI",
+            authDomain: "bhookiecore.firebaseapp.com",
+            databaseURL: "https://bhookiecore-default-rtdb.firebaseio.com",
+            projectId: "bhookiecore",
+            storageBucket: "bhookiecore.firebasestorage.app",
+            messagingSenderId: "252666746613",
+            appId: "1:252666746613:web:460ba1d0124c6f9a2d17bc",
+            measurementId: "G-NHRT2XRJRB"
+        };
+
+        // ✅ Init Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // ✅ Get phone number from localStorage
+        const phone = localStorage.getItem("userPhone");
+        if (!phone) {
+            alert("Please log in.");
+            window.location.href = "login.html";
+        }
+
+        // ✅ Fetch data from both collections
+        window.onload = function () {
+            // Get from login
+            db.collection("login").doc(phone).get().then((doc) => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    document.getElementById("displayName").innerText = data.name || '';
+                    document.getElementById("displayUserId").innerText = data.userId || '';
+                    document.getElementById("displayPhone").innerText = data.phone || phone;
+                    document.getElementById("displayCustomerId").innerText = data.customerId || '';
+                }
+            });
+
+            // Get from customer
+            db.collection("customer").doc(phone).get().then((doc) => {
+                if (doc.exists) {
+                    const data = doc.data();
+                    document.getElementById("displayEmail").innerText = data.email || '';
+                    document.getElementById("displayDOB").innerText = data.dob || '';
+                }
+            });
+        };
+
+        // Profile icon dropdown logic
+      const icon = document.querySelector(".profile-icon");
+      const dropdown = document.getElementById("profileDropdown");
+  
+      icon.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  
+        if (!isLoggedIn) {
+          window.location.href = "login.html";
+          return;
+        }
+  
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      });
+  
+      window.addEventListener("click", function () {
+        dropdown.style.display = "none";
+      });
+  
+        // Populate dropdown if logged in
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        if (isLoggedIn) {
+          dropdown.innerHTML = `
+            <li><a href="myprofile.html">My Profile</a></li>
+            <li><a href="#">My Orders</a></li>
+            <li><a href="#" id="logoutLink">Logout</a></li>
+          `;
+          document.body.addEventListener("click", (e) => {
+            if (e.target.id === "logoutLink") {
+              localStorage.removeItem("isLoggedIn");
+              localStorage.removeItem("userPhone");
+              window.location.reload();
+            }
+          });
+        };
+
+        // Hamburger menu toggle
+        const hamburger = document.getElementById("hamburger");
+        const navLinks = document.getElementById("navLinks");
+
+        hamburger.addEventListener("click", () => {
+          navLinks.classList.toggle("nav-active");
+        });
+
+  
+    </script>
+
+
+</body>
+
+</html>

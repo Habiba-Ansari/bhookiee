@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <title>Bhookie - About Us</title>
+  <link rel="stylesheet" href="about.css" />
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hero-section {
+      height: auto;
+
+      background: url('images/bgab.png') no-repeat right top;
+      background-size: 80% auto;
+      /* Slightly reduce the size of the background image */
+      position: relative;
+      /* Space for fixed navbar */
+    }
+
+    .footer {
+      background: linear-gradient(to top, #ff6b00, #ff6a0072, #191917);
+      color: white;
+      padding: 20px 5vw 5px;
+      margin-top: 100px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .footer-column {
+      flex: 1 1 300px;
+    }
+
+    .footer-column h3 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .footer-column p,
+    .footer-column li {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #f0f0f0;
+    }
+
+    .footer-column ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-column li {
+      margin-bottom: 10px;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(0, 0, 0, 0.2);
+      margin-top: 40px;
+      padding-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-bottom p {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .social-icons i {
+      font-size: 22px;
+      margin-left: 20px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .social-icons i:hover {
+      color: #ff6b00;
+    }
+
+    .dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  background-color: #000;
+  border: 2px solid #ff6600;
+  border-radius: 6px;
+  min-width: 140px; /* Reduced width */
+  z-index: 999;
+  list-style: none;
+  padding: 4px 0;
+  margin: 0;
+  box-shadow: 0 4px 10px rgba(255, 102, 0, 0.25);
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 8px 12px; /* Smaller padding */
+  color: #fff;
+  font-size: 14px;   /* Smaller font */
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.dropdown-menu li a:hover {
+  background-color: #ff6600;
+  color: #000;
+}
+
+
+  .inspiration img {
+    margin-left: -20px;
+  }
+  </style>
+</head>
+
+<body>
+    <div class="hero-section">
+      <nav class="navbar">
+        <div class="nav-logo">
+          <a href="index.html"><img id="navLogo" src="images/logo.png" alt="Bhookie Logo" /></a>
+        </div>
+
+        <!-- Hamburger button for mobile view -->
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="aboutus.html" class="active">About Us</a></li>
+          <li><a href="contact_us.html">Contact</a></li>
+        </ul>
+        <div class="profile-container">
+          <div class="nav-buttons">
+            <a class="profile-icon"><img src="images/user.png" alt="User Icon" style="height: 20px; width: 20px;"></a>
+            <ul class="dropdown-menu" id="profileDropdown" style="display: none;">
+
+            </ul>
+          </div>
+        </div>
+
+      </nav>
+    
+
+    <main class="about-section">
+      <section class="intro">
+        <h1>ABOUT US</h1>
+        <h3>Meet the Bhookies</h3>
+        <p>Welcome to Bhookie – Taste the Fusion!</p>
+        <p>We’re not just a restaurant; we’re a celebration of bold flavors, street-style creativity, and global fusion
+          on your plate.</p>
+        <p>Born out of a love for food that brings people together, Bhookie brings the punch of Indian street food and
+          the flair of international fast bites right to the heart of Liverpool. From spicy Peri Peri Chicken Bites and
+          crisps fries to our signature Mumbai Wraps and the ever-iconic Vada Pav, every dish is crafted to deliver
+          comfort with a kick.</p>
+      </section>
+  </div>
+</div>
+<section class="inspiration">
+  <img src="images/vpav.png" alt="Illustration of a fusion plate" />
+  <div class="inspiration-text">
+    <p>
+      Our inspiration comes from the vibrant lanes of Mumbai and the global streets of London, Bangkok, and New York—places where cultures collide and food tells stories. Fusion isn’t a trend for us; it’s a tradition.
+    </p>
+    <p>
+      Throughout history, food has evolved through travel, trade, and storytelling—and Bhookie continues that journey by bringing together bold Indian spices with global fast-food favorites in a way that’s new, exciting, and deliciously familiar.
+    </p>
+  </div>
+</section>
+
+    <section class="sauces">
+      <div class="sauce-frame">
+        <p>Flavor without compromise <br>
+          Only the freshest ingredients and authentic spices.</p>
+        <img src="images/ketchup.png" alt="Ketchup" /> <!-- Replace with your images -->
+        
+      </div>
+      <div class="sauce-frame">
+         <p>Fusion with purpose <br>
+          A blend of street classics and international twists.</p>
+        <img src="images/mayo.png" alt="Mayonnaise" />
+       
+      </div>
+      <div class="sauce-frame">
+        <p>Fast food that feels good <br>
+          Quick, affordable, and packed with soul.</p>
+        <img src="images/csause.png" alt="Schezwan" />
+        
+      </div>
+    </section>
+
+    <section class="burger-banner">
+      <img src="images/burg.png" alt="Loaded Burger" />
+      <svg viewBox="0 0 600 200" class="u-text-svg" xmlns="http://www.w3.org/2000/svg" aria-label="Burger Banner Tagline">
+        <defs>
+          <!-- Slightly more curve added -->
+          <path id="uPath1" d="M 50 90 Q 300 160 550 90" />
+          <path id="uPath2" d="M 50 130 Q 300 200 550 130" />
+        </defs>
+        <text font-size="22" fill="#ff5e00" font-weight="bold" text-anchor="middle">
+          <textPath href="#uPath1" startOffset="50%">
+            COME HUNGRY, LEAVE HAPPY AND REMEMBER:
+          </textPath>
+          <textPath href="#uPath2" startOffset="50%" dy="35">
+            AT BHOOKIE, IT’S NOT JUST FOOD. IT’S A VIBE.
+          </textPath>
+        </text>
+      </svg>
+    </section>
+    
+    
+    
+
+<footer class="footer" id="contact">
+    <div class="footer-container">
+        <!-- About -->
+        <div class="footer-column about">
+            <h3>About</h3>
+            <p>Bhookie is a bold and fresh quick-bite fusion food startup bringing the taste of India to the streets
+                of Liverpool, UK. With a unique focus on iconic items like Vada Pav and Chicken Fries, we’re
+                redefining street food culture abroad. Bhookie blends tradition and creativity — delivering
+                memorable bites packed with flavor and personality.</p>
+        </div>
+
+        <!-- Menu -->
+        <div class="footer-column menu">
+            <h3>Menu</h3>
+            <ul>
+                <li>STREET BITES</li>
+                <li>FRIES</li>
+                <li>BITES</li>
+                <li>WRAPS</li>
+                <li>BURGERS</li>
+                <li>FUSION SPECIAL</li>
+                <li>DRINKS</li>
+            </ul>
+        </div>
+
+        <!-- Contact -->
+        <div class="footer-column contact">
+            <h3>Contact</h3>
+            <p>123 Street, City<br>info@example.com<br>+44 7867233721</p>
+        </div>
+    </div>
+
+    <!-- Bottom Footer -->
+    <div class="footer-bottom">
+        <p>&copy; BHOOKIE. All Rights Reserved.</p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</footer>
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.navbar');
+      navbar.classList.toggle('scrolled', window.scrollY > 0);
+    });
+
+    // Profile icon dropdown logic
+    const icon = document.querySelector(".profile-icon");
+      const dropdown = document.getElementById("profileDropdown");
+  
+      icon.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  
+        if (!isLoggedIn) {
+          window.location.href = "login.html";
+          return;
+        }
+  
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      });
+  
+      window.addEventListener("click", function () {
+        dropdown.style.display = "none";
+      });
+  
+      // Populate dropdown if logged in
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (isLoggedIn) {
+        dropdown.innerHTML = `
+          <li><a href="myprofile.html">My Profile</a></li>
+          <li><a href="#">My Orders</a></li>
+          <li><a href="#" id="logoutLink">Logout</a></li>
+        `;
+        document.body.addEventListener("click", (e) => {
+          if (e.target.id === "logoutLink") {
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("userPhone");
+            window.location.reload();
+          }
+        });
+      }
+</script>
+<script>
+  // Hamburger menu toggle
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.querySelector('.nav-links');
+
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+</script>
+</body>
+</html>
