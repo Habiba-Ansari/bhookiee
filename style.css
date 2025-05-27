@@ -188,7 +188,7 @@ padding-left: 50px;
 
 .headline {
   font-family: 'Fredoka', sans-serif;
-  font-size: 36px;
+  font-size: 40px;
   font-weight: 700;
   color: white;
   margin-bottom: 12px;
@@ -217,6 +217,7 @@ padding-left: 50px;
 .doodle {
   width: 100px;
   height: auto;
+   margin-top: 20px;
 }
 
 .order-btn {
@@ -227,6 +228,7 @@ padding-left: 50px;
   padding: 12px 28px;
   border-radius: 30px;
   text-decoration: none;
+  margin-top: 30px;
   font-size: 16px;
   transition: background 0.3s ease;
 }
