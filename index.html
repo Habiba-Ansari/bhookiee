@@ -475,7 +475,225 @@
   .nav-links.active {
     display: flex;
   }
-} </style>
+} 
+.popular-dishes {
+            max-width: 1200px;
+            margin: 70px auto 0;
+            padding: 0 20px;
+            position: relative;
+        }
+        .popular-title{
+          font-size: 30px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 2px;
+  font-family: "Fredoka", sans-serif;
+;
+  }
+        .popular-dishes h2 {
+            text-align: center;
+            margin-bottom: 2px;
+            font-size: 32px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .dishes-wrapper {
+            position: relative;
+        }
+
+        .dishes-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            padding: 40px 0;
+            gap: 20px;
+            scroll-padding: 0 50%;
+        }
+
+        .dishes-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .dish-card {
+            scroll-snap-align: center;
+            flex: 0 0 auto;
+            width: 220px;
+            height: 280px;
+            background: #2a2a28;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 20px;
+            border: 1px solid #3a3a38;
+        }
+
+        .dish-card.center {
+            width: 260px;
+            height: 300px;
+            background: linear-gradient(135deg, #ff6b00 0%, #1a1a1a 100%);
+            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.4);
+            border: 1px solid #ff6b00;
+        }
+
+        .dish-card h3 {
+            margin-top: 20px;
+            font-size: 20px;
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            font-family: 'Fredoka', sans-serif;
+        }
+
+        .dish-card.center h3 {
+            font-size: 24px;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .dish-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center;
+            border: 4px solid #3a3a38;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .dish-card.center .dish-image {
+            width: 140px;
+            height: 140px;
+            border: 4px solid rgba(255, 107, 0, 0.5);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Navigation buttons */
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 107, 0, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            border: none;
+            color: white;
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background-color: #ff6b00;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .nav-btn.left {
+            left: -20px;
+        }
+
+        .nav-btn.right {
+            right: -20px;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .popular-dishes {
+                padding: 0 15px;
+            }
+
+            .popular-dishes h2 {
+                font-size: 26px;
+                margin-bottom: 20px;
+            }
+
+            .dishes-container {
+                gap: 15px;
+                padding: 30px 0;
+            }
+
+            .dish-card {
+                width: 180px;
+                height: 240px;
+                padding: 15px;
+            }
+
+            .dish-card.center {
+                width: 200px;
+                height: 280px;
+            }
+
+            .dish-image {
+                width: 100px;
+                height: 100px;
+            }
+
+            .dish-card.center .dish-image {
+                width: 120px;
+                height: 120px;
+            }
+
+            .dish-card h3 {
+                font-size: 18px;
+                margin-top: 15px;
+            }
+
+            .dish-card.center h3 {
+                font-size: 20px;
+            }
+
+            .nav-btn {
+                width: 30px;
+                height: 30px;
+                font-size: 16px;
+            }
+
+            .nav-btn.left {
+                left: -15px;
+            }
+
+            .nav-btn.right {
+                right: -15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dish-card {
+                width: 160px;
+                height: 220px;
+            }
+
+            .dish-card.center {
+                width: 180px;
+                height: 260px;
+            }
+
+            .dish-image {
+                width: 90px;
+                height: 90px;
+            }
+
+            .dish-card.center .dish-image {
+                width: 100px;
+                height: 100px;
+            }
+        }
+</style>
 
 </head>
 
@@ -577,7 +795,104 @@
     </div>
 
   </div>    
-     <!-- Menu Section -->
+
+  <section class="popular-dishes">
+    
+    
+    <h2 class="popular-title">Our Popular Dishes</h2>
+    <div class="dishes-wrapper">
+        <button class="nav-btn left">&lt;</button>
+        <div class="dishes-container">
+            <div class="dish-card">
+                <img src="images/burger.png" alt="Burger" class="dish-image">
+                <h3>Burger</h3>
+            </div>
+            
+            <div class="dish-card">
+                <img src="images/wrap.png" alt="Wraps" class="dish-image">
+                <h3>Wraps</h3>
+            </div>
+            
+            <div class="dish-card center">
+                <img src="images/fries.png" alt="Fries" class="dish-image">
+                <h3>Fries</h3>
+            </div>
+            
+            <div class="dish-card">
+                <img src="images/vada.png" alt="Vadapav" class="dish-image">
+                <h3>Vadapav</h3>
+            </div>
+            
+            <div class="dish-card">
+                <img src="images/bites.png" alt="Bites" class="dish-image">
+                <h3>Bites</h3>
+            </div>
+            
+            <div class="dish-card">
+                <img src="images/chai.png" alt="Chai" class="dish-image">
+                <h3>Chai</h3>
+            </div>
+        </div>
+        <button class="nav-btn right">&gt;</button>
+    </div>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const container = document.querySelector('.dishes-container');
+        const cards = document.querySelectorAll('.dish-card');
+        const leftBtn = document.querySelector('.nav-btn.left');
+        const rightBtn = document.querySelector('.nav-btn.right');
+        const cardWidth = 220; // Default card width
+        const scrollAmount = cardWidth + 20; // Card width + gap
+        let currentIndex = 2; // Start with the center card (Fries)
+        
+        // Initialize - center the third card (index 2)
+        centerCard(currentIndex);
+        
+        // Function to center a specific card
+        function centerCard(index) {
+            // Remove center class from all cards
+            cards.forEach(card => card.classList.remove('center'));
+            
+            // Add center class to the specified card
+            cards[index].classList.add('center');
+            
+            // Calculate scroll position
+            const scrollPos = index * scrollAmount - (container.clientWidth / 2 - cardWidth / 2);
+            
+            // Smooth scroll to position
+            container.scrollTo({
+                left: scrollPos,
+                behavior: 'smooth'
+            });
+        }
+        
+        // Navigation buttons
+        leftBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+            centerCard(currentIndex);
+        });
+        
+        rightBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % cards.length;
+            centerCard(currentIndex);
+        });
+        
+        // Disable scroll snapping to prevent automatic centering
+        container.addEventListener('scroll', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            centerCard(currentIndex);
+        });
+    });
+
+</script>
+     <!-- Menu Section 
+
 <div class="menu-section" id="menu">
     <div style="text-align: center;">
         <h2 class="menu-title">BEST SELLERS</h2>
@@ -707,7 +1022,7 @@
         </div>
     </div>
     
-
+-->
 
 
     <!-- View More Button -->
