@@ -29,79 +29,20 @@
           
         }
 
-        @media (max-width: 768px) {
-          .hero-section {
-            background: url('images/phonebg1.jpg') no-repeat center center / cover;
-            width: 100%;          /* Full width */
-            min-height: 100vh;    /* Full viewport height */
-            margin: 0;            /* Remove default margins */
-            padding-top: 80px;    /* Space for navbar */
-          }
-        }
         
-.hero-content {
- text-align: left;
+        .hero-content {
+    text-align: left;
     color: white;
-    padding: 10px;
+    padding: 20px;
     margin-top: 90px; /* push below navbar */
     display: flex;
     flex-direction: row; /* change to row */
     align-items: flex-start;
-    padding-left: 90px;
+    padding-left: 100px;
     padding-top: 90px;
-    gap: 5px; /* space between text and image */
+    gap: 70px; /* space between text and image */
 }
 
-@media (max-width: 768px) {
-  .text-section {
-    position: absolute;
-    top: 80px; /* Adjust based on image position */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    text-align: center;
-    z-index: 2;
-    color: white;
-  }
-
-  .text-section h2 {
-    font-size: 1.5rem;
-    line-height: 1.2;
-  }
-
-  .text-section p {
-    font-size: 1rem;
-  }
-
-  .order-section {
-    margin-top: 1rem;
-  }
-
-  .order-btn {
-    padding: 10px 20px;
-    font-size: 1rem;
-  }
-
-  .circles {
-    margin-top: 1rem;
-  }
-}
-
-
-.text-section {
-  flex: 1.2;
-}
-
-.text-section h2 {
-  font-size: 40px;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.text-section p {
-  font-size: 24px;
-  margin-bottom: 50px;
-}
         .order-btn {
 
             background-color: #ff6347;
@@ -440,13 +381,13 @@
 .order-section {
   display: flex;
   align-items: center;
-  gap: 4px;
-  margin: 2px 0;
+  gap: 8px;
+  margin: 10px 0;
 }
 
 .circles {
   position: absolute;
-  bottom: 30px; /* adjust distance from bottom as you like */
+  bottom: 0px; /* adjust distance from bottom as you like */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -481,9 +422,8 @@
 .image-section {
   flex-shrink: 0;
   /* fix image size */
-  width: 600px;
-  height: 300px;
-  padding-right: 150px;
+  width: 400px;
+  height: 280px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
@@ -493,7 +433,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 0px;
+  border-radius: 12px;
 }
 /* Hamburger icon */
 .hamburger {
@@ -537,270 +477,214 @@
   }
 } 
 .popular-dishes {
-            max-width: 1200px;
-            margin: 70px auto 0;
-            padding: 0 20px;
-            position: relative;
-        }
-        .popular-title{
-          font-size: 30px;
-  font-weight: 700;
-  color: white;
-  letter-spacing: 2px;
-  font-family: "Fredoka", sans-serif;
-;
-  }
-        .popular-dishes h2 {
-            text-align: center;
-            margin-bottom: 2px;
-            font-size: 32px;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-family: 'Fredoka', sans-serif;
-        }
+    max-width: 1200px;
+    margin: 70px auto 0;
+    padding: 0 20px;
+    position: relative;
+    overflow: hidden;
+}
+.popular-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 2px;
+    font-family: "Fredoka", sans-serif;
+    text-align: center;
+    margin-bottom: 30px;
+}
+.dishes-wrapper {
+    position: relative;
+    padding: 0 40px;
+}
+.dishes-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 40px 0;
+    gap: 20px;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    cursor: grab;
+    touch-action: pan-x;
+}
+.dishes-container:active {
+    cursor: grabbing;
+}
+.dishes-container::-webkit-scrollbar {
+    display: none;
+}
+.dish-card {
+    flex: 0 0 auto;
+    width: 220px;
+    height: 280px;
+    background: #2a2a28;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    transition: all 0.3s ease;
+    padding: 20px;
+    border: 1px solid #3a3a38;
+    scroll-snap-align: center;
+}
+.dish-card.center {
+    width: 260px;
+    height: 300px;
+    background: linear-gradient(135deg, #ff6b00 0%, #1a1a1a 100%);
+    box-shadow: 0 10px 20px rgba(255, 107, 0, 0.4);
+    border: 1px solid #ff6b00;
+    transform: scale(1.05);
+    z-index: 1;
+}
+.dish-card h3 {
+    margin-top: 20px;
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    font-family: 'Fredoka', sans-serif;
+}
+.dish-card.center h3 {
+    font-size: 24px;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+.dish-image {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 4px solid #3a3a38;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+.dish-card.center .dish-image {
+    width: 140px;
+    height: 140px;
+    border: 4px solid rgba(255, 107, 0, 0.5);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 107, 0, 0.8);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    border: none;
+    color: white;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+}
+.nav-btn:hover {
+    background-color: #ff6b00;
+    transform: translateY(-50%) scale(1.1);
+    opacity: 1;
+}
+.nav-btn.left {
+    left: 10px;
+}
+.nav-btn.right {
+    right: 10px;
+}
 
-        .dishes-wrapper {
-            position: relative;
-        }
-
-        .dishes-container {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-            -webkit-overflow-scrolling: touch;
-            padding: 40px 0;
-            gap: 20px;
-            scroll-padding: 0 50%;
-        }
-
-        .dishes-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        .dish-card {
-            scroll-snap-align: center;
-            flex: 0 0 auto;
-            width: 220px;
-            height: 280px;
-            background: #2a2a28;
-            border-radius: 15px;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 20px;
-            border: 1px solid #3a3a38;
-        }
-
-        .dish-card.center {
-            width: 260px;
-            height: 300px;
-            background: linear-gradient(135deg, #ff6b00 0%, #1a1a1a 100%);
-            box-shadow: 0 10px 20px rgba(255, 107, 0, 0.4);
-            border: 1px solid #ff6b00;
-        }
-
-        .dish-card h3 {
-            margin-top: 20px;
-            font-size: 20px;
-            color: white;
-            font-weight: 600;
-            text-align: center;
-            font-family: 'Fredoka', sans-serif;
-        }
-
-        .dish-card.center h3 {
-            font-size: 24px;
-            color: white;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .dish-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            object-position: center;
-            border: 4px solid #3a3a38;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .dish-card.center .dish-image {
-            width: 140px;
-            height: 140px;
-            border: 4px solid rgba(255, 107, 0, 0.5);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Navigation buttons */
-        .nav-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 107, 0, 0.8);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            border: none;
-            color: white;
-            font-size: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .nav-btn:hover {
-            background-color: #ff6b00;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .nav-btn.left {
-            left: -20px;
-        }
-
-        .nav-btn.right {
-            right: -20px;
-        }
-/* Popup overlay */
-    .popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .popular-dishes {
+        padding: 0 15px;
+        margin: 40px auto 0;
     }
-
-    /* Popup box */
-    .popup-box {
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 350px;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    .popular-title {
+        font-size: 26px;
+        margin-bottom: 20px;
     }
-
-    /* Close button */
-    .close-btn {
-      position: absolute;
-      top: 12px;
-      right: 16px;
-      font-size: 30px;
-      color: #080808;
-      cursor: pointer;
+    .dishes-wrapper {
+        padding: 0 30px;
     }
-
-    /* Image */
-    .popup-box img {
-      width: 100%;
-      height: 100%;
-      height: auto;
-      border-radius: 8px;
+    .dishes-container {
+        gap: 15px;
+        padding: 30px 0;
     }
-
-    /* Text */
-    .popup-box h3 {
-      margin-top: 15px;
-      font-size: 16px;
-      color: #080808;
+    .dish-card {
+        width: 160px;
+        height: 240px;
+        padding: 15px;
     }
-        /* Mobile Styles */
-        @media (max-width: 768px) {
-            .popular-dishes {
-                padding: 0 15px;
-            }
+    .dish-card.center {
+        width: 180px;
+        height: 280px;
+    }
+    .dish-image {
+        width: 90px;
+        height: 90px;
+    }
+    .dish-card.center .dish-image {
+        width: 100px;
+        height: 100px;
+    }
+    .dish-card h3 {
+        font-size: 18px;
+        margin-top: 15px;
+    }
+    .dish-card.center h3 {
+        font-size: 20px;
+    }
+    .nav-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
+    .nav-btn.left {
+        left: 5px;
+    }
+    .nav-btn.right {
+        right: 5px;
+    }
+}
 
-            .popular-dishes h2 {
-                font-size: 26px;
-                margin-bottom: 20px;
-            }
+@media (max-width: 480px) {
+    .popular-title {
+        font-size: 22px;
+    }
+    .dishes-wrapper {
+        padding: 0 20px;
+    }
+    .dish-card {
+        width: 140px;
+        height: 220px;
+    }
+    .dish-card.center {
+        width: 160px;
+        height: 260px;
+    }
+    .dish-image {
+        width: 80px;
+        height: 80px;
+    }
+    .dish-card.center .dish-image {
+        width: 90px;
+        height: 90px;
+    }
+    .nav-btn {
+        width: 25px;
+        height: 25px;
+        font-size: 14px;
+    }
+}
 
-            .dishes-container {
-                gap: 15px;
-                padding: 30px 0;
-            }
 
-            .dish-card {
-                width: 180px;
-                height: 240px;
-                padding: 15px;
-            }
 
-            .dish-card.center {
-                width: 200px;
-                height: 280px;
-            }
-
-            .dish-image {
-                width: 100px;
-                height: 100px;
-            }
-
-            .dish-card.center .dish-image {
-                width: 120px;
-                height: 120px;
-            }
-
-            .dish-card h3 {
-                font-size: 18px;
-                margin-top: 15px;
-            }
-
-            .dish-card.center h3 {
-                font-size: 20px;
-            }
-
-            .nav-btn {
-                width: 30px;
-                height: 30px;
-                font-size: 16px;
-            }
-
-            .nav-btn.left {
-                left: -15px;
-            }
-
-            .nav-btn.right {
-                right: -15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .dish-card {
-                width: 160px;
-                height: 220px;
-            }
-
-            .dish-card.center {
-                width: 180px;
-                height: 260px;
-            }
-
-            .dish-image {
-                width: 90px;
-                height: 90px;
-            }
-
-            .dish-card.center .dish-image {
-                width: 100px;
-                height: 100px;
-            }
-        }
 </style>
 
 </head>
@@ -834,14 +718,6 @@
               
         </nav>
     </div>
-<!-- Popup structure -->
-<div id="popup" class="popup-overlay">
-  <div class="popup-box">
-    <span class="close-btn" onclick="closePopup()">&times;</span>
-    <img src="popupimage.jpg" >
-    <h3>Welcome to Bhookie!🎊 Grand Opening this weekend! Visit our store for exclusive deals.</3>
-  </div>
-</div>
 
    <!-- Hero Content as Slider -->
 <div class="hero-content" id="home">
@@ -878,287 +754,209 @@
     
     <div class="categorybox-item-section">
       <img src="images/burger-icon.png" alt="Burger">
-      <a href="menu.html#burgers">Burgers</a>
-      <a href="menu.html#burgers" class="arrow">➤</a>
+      <a href="burger.html">Burgers</a>
+      <div class="arrow">➤</div>
     </div>
     
     <div class="categorybox-item-section">
       <img src="images/fries-icon.png" alt="Fries">
-      <a href="menu.html#fries">Fries</a>
-      <a href="menu.html#fries" class="arrow">➤</a>
+      <a href="fries.html">Fries</a>
+      <div class="arrow">➤</div>
     </div>
     
     <div class="categorybox-item-section">
       <img src="images/street-bites-icon.png" alt="Street Bites">
-      <a href="menu.html#street">Street Bites</a>
-      <a href="menu.html#street" class="arrow">➤</a>
+      <a href="streetbites.html">Street Bites</a>
+      <div class="arrow">➤</div>
     </div>
     
     <div class="categorybox-item-section">
       <img src="images/chai-icon.png" alt="Drinks" class="Chai-icon">
-      <a href="menu.html">Drinks</a>
-      <a href="menu.html" class="arrow">➤</a>
+      <a href="drinks.html">Drinks</a>
+      <div class="arrow">➤</div>
     </div>
     <div class="categorybox-item-section">
       <img src="images/wraps-icon.png" alt="Wraps">
-      <a href="menu.html#wraps">Wraps</a>
-      <a href="menu.html#wraps" class="arrow">➤</a>
+      <a href="wraps.html">Wraps</a>
+      <div class="arrow">➤</div>
     </div>
     <div class="categorybox-item-section">
       <img src="images/vadapav-icon.png" alt="Vadapav">
-      <a href="menu.html#bites">Vadapav</a>
-      <a href="menu.html#bites" class="arrow">➤</a>
+      <a href="vadapav.html">Vadapav</a>
+      <div class="arrow">➤</div>
     </div>
 
   </div>    
 
+
+
   <section class="popular-dishes">
-    
-    
     <h2 class="popular-title">Our Popular Dishes</h2>
     <div class="dishes-wrapper">
         <button class="nav-btn left">&lt;</button>
         <div class="dishes-container">
-            <div class="dish-card">
-                <img src="images/burger.png" alt="Burger" class="dish-image">
-                <h3>Burger</h3>
-            </div>
-            
-            <div class="dish-card">
-                <img src="images/wrap.png" alt="Wraps" class="dish-image">
-                <h3>Wraps</h3>
-            </div>
-            
-            <div class="dish-card center">
-                <img src="images/fries.png" alt="Fries" class="dish-image">
-                <h3>Fries</h3>
-            </div>
-            
-            <div class="dish-card">
-                <img src="images/vada.png" alt="Vadapav" class="dish-image">
-                <h3>Vadapav</h3>
-            </div>
-            
-            <div class="dish-card">
-                <img src="images/bites.png" alt="Bites" class="dish-image">
-                <h3>Bites</h3>
-            </div>
-            
-            <div class="dish-card">
-                <img src="images/chai.png" alt="Chai" class="dish-image">
-                <h3>Chai</h3>
-            </div>
+            <!-- Cards will be inserted by JavaScript -->
         </div>
         <button class="nav-btn right">&gt;</button>
     </div>
 </section>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const container = document.querySelector('.dishes-container');
-        const cards = document.querySelectorAll('.dish-card');
-        const leftBtn = document.querySelector('.nav-btn.left');
-        const rightBtn = document.querySelector('.nav-btn.right');
-        const cardWidth = 220; // Default card width
-        const scrollAmount = cardWidth + 20; // Card width + gap
-        let currentIndex = 2; // Start with the center card (Fries)
-        
-        // Initialize - center the third card (index 2)
-        centerCard(currentIndex);
-        
-        // Function to center a specific card
-        function centerCard(index) {
-            // Remove center class from all cards
-            cards.forEach(card => card.classList.remove('center'));
-            
-            // Add center class to the specified card
-            cards[index].classList.add('center');
-            
-            // Calculate scroll position
-            const scrollPos = index * scrollAmount - (container.clientWidth / 2 - cardWidth / 2);
-            
-            // Smooth scroll to position
-            container.scrollTo({
-                left: scrollPos,
-                behavior: 'smooth'
-            });
-        }
-        
-        // Navigation buttons
-        leftBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-            centerCard(currentIndex);
-        });
-        
-        rightBtn.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % cards.length;
-            centerCard(currentIndex);
-        });
-        
-        // Disable scroll snapping to prevent automatic centering
-        container.addEventListener('scroll', function(e) {
-            e.preventDefault();
-        }, { passive: false });
-        
-        // Handle window resize
-        window.addEventListener('resize', function() {
-            centerCard(currentIndex);
-        });
-    });
-function closePopup() {
-    document.getElementById("popup").style.display = "none";
-  }
-
-  // Show popup when page loads
-  window.onload = function() {
-    document.getElementById("popup").style.display = "flex";
-  };
-</script>
-     <!-- Menu Section 
-
-<div class="menu-section" id="menu">
-    <div style="text-align: center;">
-        <h2 class="menu-title">BEST SELLERS</h2>
-        <p class="menu-subtitle">Order now and enjoy the magic...</p>
-    </div>
-
-    <div class="menu-cards">
-        <div class="menu-card">
-          <a href="menu.html#burgers" style="text-decoration: none; color: inherit;">
-            <div class="card-inner">
-                <div class="card-front">
-                    <img src="images/burger.png" alt="Burger">
-                    <div class="menu-text">
-                        <h3>BURGERS</h3><br>
-                        <p>Juicy. Loaded. Grilled.</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <h3>Burgers Info</h3>
-                    <p>At Bhookie, we craft burgers with fresh, quality ingredients —
-                         from juicy patties and toasted buns to bold sauces and melty cheese.
-                        Whether beef, chicken, or plant-based, 
-                        each burger delivers hearty flavor in every satisfying bite.
-                    </p>
-                </div>
-            </div>
-            </a>
-        </div>
-    
-        <div class="menu-card">
-          <a href="menu.html#wraps" style="text-decoration: none; color: inherit;">
-            <div class="card-inner">
-                <div class="card-front">
-                    <img src="images/wrap.png" alt="Wrap">
-                    <div class="menu-text">
-                        <h3>WRAPS</h3><br>
-                        <p>Crispy. Saucy. Satisfying.</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <h3>Wraps Info</h3>
-                    <p>Bhookie’s wraps are packed with bold flavors—tender fillings,
-                         crisp veggies, and zesty sauces—all rolled in soft, warm tortillas.
-                        Perfectly balanced and easy to grab on the go, they’re light, satisfying, and made to match your taste.</p>
-                </div>
-            </div>
-            </a>
-        </div>
-    
-        <div class="menu-card">
-          <a href="menu.html#fries" style="text-decoration: none; color: inherit;">
-            <div class="card-inner">
-                <div class="card-front">
-                    <img src="images/fries.png" alt="Fries">
-                    <div class="menu-text">
-                        <h3>FRIES</h3><br>
-                        <p>Crispy. Golden. Irresistible.</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <h3>Fries Info</h3>
-                    <p>Golden, crispy, and perfectly seasoned—Bhookie’s fries are the ultimate comfort snack.
-                        From classic salt to bold flavors and dips,
-                         they’re the perfect crunchy companion to any meal.</p>
-                </div>
-            </div>
-            </a>
-        </div>
-    
-        <div class="menu-card">
-          <a href="menu.html#vada" style="text-decoration: none; color: inherit;">
-            <div class="card-inner">
-                <div class="card-front">
-                    <img src="images/vada.png" alt="Vada">
-                    <div class="menu-text">
-                        <h3>VADA PAV</h3><br>
-                        <p>Bold. Flavorful. Spicy.</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <h3>Street Bites Info</h3>
-                    <p>Bhookie’s Vada Pav brings Mumbai’s favorite street bite to life—crispy vada, soft pav,
-                         and bold chutneys in every bite.
-                         
-                          </p>
-                </div>
-            </div>
-            </a>
-        </div>
-    
-        <div class="menu-card">
-            <div class="card-inner">
-                <div class="card-front">
-                    <img src="images/chai.png" alt="Chai">
-                    <div class="menu-text">
-                        <h3>CHAI</h3><br>
-                        <p>Aroma. Comfort. Spiced.</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <h3>Drinks Info</h3>
-                    <p>Bhookie’s chai blends bold tea with warm spices like cardamom and ginger—comforting,
-                         aromatic, and brewed to perfection.</p>
-                </div>
-            </div>
-            </a>
-        </div>
-    
-        <div class="menu-card">
-          <a href="menu.html#bites" style="text-decoration: none; color: inherit;">
-            <div class="card-inner">
-                <div class="card-front">
-                    <img src="images/bites.png" alt="Bites">
-                    <div class="menu-text">
-                        <h3>BITES</h3><br>
-                        <p>Crispy. Golden. Irresistible.</p>
-                    </div>
-                </div>
-                <div class="card-back">
-                    <h3>Bites Info</h3>
-                    <p>Bhookie’s chicken bites are crispy, juicy, and spice-marinated for bold flavor in every crunch—perfect for dipping or snacking anytime.
-
-                    </p>
-                </div>
-            </div>
-            </a>
-        </div>
-    </div>
-    
--->
-
-
+  document.addEventListener('DOMContentLoaded', function() {
+      // DOM Elements
+      const container = document.querySelector('.dishes-container');
+      const leftBtn = document.querySelector('.nav-btn.left');
+      const rightBtn = document.querySelector('.nav-btn.right');
+      let currentIndex = 2; // Start with center card (index 2)
+      let isDesktop = window.innerWidth > 768;
+      let touchStartX = 0;
+      const swipeThreshold = 50; // Minimum swipe distance in pixels
+  
+      // Dish data
+      const dishes = [
+          { name: "Burger", image: "images/burger.png" },
+          { name: "Wraps", image: "images/wrap.png" },
+          { name: "Fries", image: "images/fries.png" },
+          { name: "Vadapav", image: "images/vada.png" },
+          { name: "Bites", image: "images/bites.png" },
+          { name: "Chai", image: "images/chai.png" }
+      ];
+  
+      // Render cards
+      dishes.forEach((dish) => {
+          const card = document.createElement('div');
+          card.className = 'dish-card';
+          card.innerHTML = `
+              <img src="${dish.image}" alt="${dish.name}" class="dish-image">
+              <h3>${dish.name}</h3>
+          `;
+          container.appendChild(card);
+      });
+  
+      const cards = document.querySelectorAll('.dish-card');
+  
+      // Initialize - center the third card (index 2)
+      centerCard(currentIndex);
+  
+      // Core Functions
+      function getCardWidth() {
+          return cards[0]?.offsetWidth || 220;
+      }
+  
+      function getCardGap() {
+          const containerStyles = window.getComputedStyle(container);
+          return parseInt(containerStyles.gap) || 20;
+      }
+  
+      function centerCard(index) {
+          // Update classes
+          cards.forEach(card => card.classList.remove('center'));
+          cards[index].classList.add('center');
+  
+          // Calculate scroll position
+          const cardWidth = getCardWidth();
+          const gap = getCardGap();
+          const scrollPos = index * (cardWidth + gap) - (container.clientWidth / 2 - cardWidth / 2);
+  
+          // Smooth scroll to position
+          container.scrollTo({
+              left: scrollPos,
+              behavior: 'smooth'
+          });
+      }
+  
+      // Desktop Navigation
+      leftBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+          centerCard(currentIndex);
+      });
+  
+      rightBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex + 1) % cards.length;
+          centerCard(currentIndex);
+      });
+  
+      // Mobile Touch Handling
+      if (!isDesktop) {
+          container.style.scrollSnapType = 'x mandatory';
+          
+          container.addEventListener('touchstart', (e) => {
+              touchStartX = e.touches[0].clientX;
+          }, { passive: true });
+  
+          container.addEventListener('touchend', (e) => {
+              const touchEndX = e.changedTouches[0].clientX;
+              const swipeDistance = touchEndX - touchStartX;
+              
+              if (Math.abs(swipeDistance) >= swipeThreshold) {
+                  if (swipeDistance > 0) {
+                      // Swiped right
+                      currentIndex = Math.max(0, currentIndex - 1);
+                  } else {
+                      // Swiped left
+                      currentIndex = Math.min(cards.length - 1, currentIndex + 1);
+                  }
+                  centerCard(currentIndex);
+              }
+          }, { passive: true });
+  
+          // Auto-center during scroll
+          container.addEventListener('scroll', () => {
+              const containerCenter = container.scrollLeft + (container.clientWidth / 2);
+              cards.forEach((card, index) => {
+                  const cardRect = card.getBoundingClientRect();
+                  const cardCenter = cardRect.left + (cardRect.width / 2) - container.getBoundingClientRect().left;
+                  if (Math.abs(containerCenter - cardCenter) < 30) {
+                      if (currentIndex !== index) {
+                          currentIndex = index;
+                          cards.forEach(c => c.classList.remove('center'));
+                          card.classList.add('center');
+                      }
+                  }
+              });
+          }, { passive: true });
+      } else {
+          // Desktop scroll prevention
+          container.addEventListener('scroll', (e) => {
+              e.preventDefault();
+          }, { passive: false });
+      }
+  
+      // Window resize handler
+      window.addEventListener('resize', () => {
+          isDesktop = window.innerWidth > 768;
+          if (!isDesktop) {
+              container.style.scrollSnapType = 'x mandatory';
+          } else {
+              container.style.scrollSnapType = 'none';
+              centerCard(currentIndex);
+          }
+      });
+  
+      // Popup handling (if exists)
+      function closePopup() {
+          const popup = document.getElementById("popup");
+          if (popup) popup.style.display = "none";
+      }
+  
+      window.onload = function() {
+          const popup = document.getElementById("popup");
+          if (popup) popup.style.display = "flex";
+      };
+  });
+  </script>
     <!-- View More Button -->
     <div class="view-more-container">
         <a href="menu.html" class="view-more-btn">VIEW MORE</a>
     </div>
 
-    <!-- About Us Detail Section
+    <!-- About Us Section -->
     <div class="about-section" id="about">
         <h2 class="about-title">ABOUT US</h2>
         <p class="about-subtitle">Meet the Bhookies</p>
     </div>
 
+    <!-- About Us Detail Section -->
     <div class="about-detail">
         <div class="about-img">
             <div class="vadapav">
@@ -1183,7 +981,7 @@ Born out of a love for food that brings people together, Bhookie brings the punc
             </p>
         </div>
     </div>
- -->
+
     <footer class="footer" id="contact">
         <div class="footer-container">
             <!-- About -->
@@ -1228,57 +1026,40 @@ Born out of a love for food that brings people together, Bhookie brings the punc
     </footer>
 
   <script>
-  let currentSlide = 0;
+    const slides = [
+  {
+    image: "images/VadapavAndTea.png",
+    title: "TASTE THE FUSION",
+    text: "Craving street food magic? Vada Pav & Tea —<br> together, better, cheaper!",
+  },
+  {
+    image: "images/secondslide.png",
+    title: "TASTE THE FUSION",
+    text: "Juicy, crispy, and loaded with flavor —<br> our Chicken Combo hits different!",
+  },
+  {
+    image: "images/noodleBhelAndManchurian.png",
+    title: "TASTE THE FUSION",
+    text: "Combos you won’t forget — classic Indian flavors.",
+  },
+  {
+    image: "images/bitesAndWrap.png",
+    title: "BHOOKIE COMBOS",
+    text: "Grab your combo deals, hot and fresh every day!",
+  },
+];
 
-  const slides = [
-    {
-      image: "images/VadapavAndTea.png",
-      title: "TASTE THE FUSION",
-      text: "Craving street food magic? Vada Pav & Tea —<br> together, better, cheaper!",
-    },
-    {
-      image: "images/secondslide.png",
-      title: "TASTE THE FUSION",
-      text: "Juicy, crispy, and loaded with flavor —<br> our Chicken Combo hits different!",
-    },
-    {
-      image: "images/noodleBhelAndManchurian.png",
-      title: "TASTE THE FUSION",
-      text: "Combos you won’t forget — classic Indian flavors.",
-    },
-    {
-      image: "images/bitesAndwrap.png",
-      title: "BHOOKIE COMBOS",
-      text: "Grab your combo deals, hot and fresh every day!",
-    },
-  ];
+function changeSlide(index) {
+  document.getElementById("slide-image").src = slides[index].image;
+  document.getElementById("slide-title").textContent = slides[index].title;
+  document.getElementById("slide-text").innerHTML = slides[index].text;
 
-  function showSlide(index) {
-    document.getElementById("slide-image").src = slides[index].image;
-    document.getElementById("slide-title").textContent = slides[index].title;
-    document.getElementById("slide-text").innerHTML = slides[index].text;
+  const circles = document.querySelectorAll(".circle");
+  circles.forEach((circle, idx) => {
+    circle.classList.toggle("active", idx === index);
+  });
+}
 
-    const circles = document.querySelectorAll(".circle");
-    circles.forEach((circle, idx) => {
-      circle.classList.toggle("active", idx === index);
-    });
-
-    currentSlide = index;
-  }
-
-  function changeSlide(index) {
-    showSlide(index);
-  }
-
-  function nextSlide() {
-    const nextIndex = (currentSlide + 1) % slides.length;
-    showSlide(nextIndex);
-  }
-
-  window.onload = () => {
-    showSlide(currentSlide); // show first slide
-    setInterval(nextSlide, 4000); // change slide every 6 seconds
-  };
     // Navbar scroll effect
     window.addEventListener('scroll', function () {
       const navbar = document.querySelector('.navbar');
@@ -1350,8 +1131,8 @@ Born out of a love for food that brings people together, Bhookie brings the punc
         });
       }
     });
-   
-  
+    </script>
+    <script>
       const hamburger = document.getElementById('hamburger');
       const navLinks = document.getElementById('navLinks');
 
