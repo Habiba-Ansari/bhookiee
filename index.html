@@ -30,19 +30,32 @@
         }
 
         
-        .hero-content {
-    text-align: left;
+.hero-content {
+ text-align: left;
     color: white;
-    padding: 20px;
+    padding: 10px;
     margin-top: 90px; /* push below navbar */
     display: flex;
     flex-direction: row; /* change to row */
     align-items: flex-start;
-    padding-left: 100px;
+    padding-left: 90px;
     padding-top: 90px;
-    gap: 70px; /* space between text and image */
+    gap: 5px; /* space between text and image */
 }
 
+.text-section {
+  flex: 1.2;
+}
+
+.text-section h2 {
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+
+.text-section p {
+  font-size: 24px;
+  margin-bottom: 50px;
+}
         .order-btn {
 
             background-color: #ff6347;
@@ -381,13 +394,13 @@
 .order-section {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin: 10px 0;
+  gap: 4px;
+  margin: 2px 0;
 }
 
 .circles {
   position: absolute;
-  bottom: 0px; /* adjust distance from bottom as you like */
+  bottom: 30px; /* adjust distance from bottom as you like */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -422,8 +435,9 @@
 .image-section {
   flex-shrink: 0;
   /* fix image size */
-  width: 400px;
-  height: 280px;
+  width: 600px;
+  height: 300px;
+  padding-right: 150px;
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
@@ -433,7 +447,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 0px;
 }
 /* Hamburger icon */
 .hamburger {
@@ -610,7 +624,55 @@
         .nav-btn.right {
             right: -20px;
         }
+/* Popup overlay */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
 
+    /* Popup box */
+    .popup-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 350px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Close button */
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 22px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    /* Image */
+    .popup-box img {
+      width: 100%;
+      height: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    /* Text */
+    .popup-box p {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #333;
+    }
         /* Mobile Styles */
         @media (max-width: 768px) {
             .popular-dishes {
@@ -726,6 +788,14 @@
               
         </nav>
     </div>
+<!-- Popup structure -->
+<div id="popup" class="popup-overlay">
+  <div class="popup-box">
+    <span class="close-btn" onclick="closePopup()">&times;</span>
+    <img src="popUp.png" >
+    <p>Welcome to Bhookie!🎊 Grand Opening this weekend! Visit our store for exclusive deals.</p>
+  </div>
+</div>
 
    <!-- Hero Content as Slider -->
 <div class="hero-content" id="home">
@@ -889,7 +959,14 @@
             centerCard(currentIndex);
         });
     });
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+  }
 
+  // Show popup when page loads
+  window.onload = function() {
+    document.getElementById("popup").style.display = "flex";
+  };
 </script>
      <!-- Menu Section 
 
@@ -1030,13 +1107,12 @@
         <a href="menu.html" class="view-more-btn">VIEW MORE</a>
     </div>
 
-    <!-- About Us Section -->
+    <!-- About Us Detail Section
     <div class="about-section" id="about">
         <h2 class="about-title">ABOUT US</h2>
         <p class="about-subtitle">Meet the Bhookies</p>
     </div>
 
-    <!-- About Us Detail Section -->
     <div class="about-detail">
         <div class="about-img">
             <div class="vadapav">
@@ -1061,7 +1137,7 @@ Born out of a love for food that brings people together, Bhookie brings the punc
             </p>
         </div>
     </div>
-
+ -->
     <footer class="footer" id="contact">
         <div class="footer-container">
             <!-- About -->
@@ -1123,7 +1199,7 @@ Born out of a love for food that brings people together, Bhookie brings the punc
     text: "Combos you won’t forget — classic Indian flavors.",
   },
   {
-    image: "images/bitesAndWrap.png",
+    image: "images/bitesAndwrap.png",
     title: "BHOOKIE COMBOS",
     text: "Grab your combo deals, hot and fresh every day!",
   },
