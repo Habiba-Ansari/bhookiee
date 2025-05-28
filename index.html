@@ -20,7 +20,7 @@
         .hero-section {
             height: 100vh;
             
-            background: url('images/backg1.png') no-repeat right center;
+            background: url('images/backg2.png') no-repeat right center;
             background-size: 100% auto;
             /* Slightly reduce the size of the background image */
             position: relative;
@@ -31,18 +31,17 @@
 
         
         .hero-content {
-            text-align: left;
-            color: white;
-            
-            padding: 20px;
-            margin-top: 90px;
-            /* Add margin to push content below navbar */
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            padding-left: 140px;
-            padding-top: 90px;
-        }
+    text-align: left;
+    color: white;
+    padding: 20px;
+    margin-top: 90px; /* push below navbar */
+    display: flex;
+    flex-direction: row; /* change to row */
+    align-items: flex-start;
+    padding-left: 100px;
+    padding-top: 90px;
+    gap: 70px; /* space between text and image */
+}
 
         .order-btn {
 
@@ -367,6 +366,50 @@
   align-items: center;
 }
 
+#image-container img {
+  width: 800px;
+  height:800px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  position: relative;
+  left: 300px;
+}
+
+
+
+.order-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0;
+}
+
+.circles {
+  position: absolute;
+  bottom: 0px; /* adjust distance from bottom as you like */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  z-index: 10;
+}
+
+.circle {
+  width: 14px;
+  height: 14px;
+  background: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+
+.circle.active {
+  background: #e63946;
+  transform: scale(1.3);
+}
+
 .profile-container{
   background-color: white;
   padding: 6px 12px;
@@ -375,7 +418,23 @@
   justify-content: center;
   align-items: center;
 }
+/* New styles for image section */
+.image-section {
+  flex-shrink: 0;
+  /* fix image size */
+  width: 400px;
+  height: 280px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
 
+.image-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+}
 /* Hamburger icon */
 .hamburger {
   display: none;
@@ -668,15 +727,32 @@
         </nav>
     </div>
 
-    <!-- Hero Content -->
-    <div class="hero-content" id="home">
-        <h2 class="headline">TASTE THE FUSION</h2>
-        <p class="subtext">"Craving street food magic? Vada Pav & Tea —<br> together, better, cheaper!"</p>
-        <div class="order-section">
-            <img src="images/chalk.png" alt="doodle" class="doodle">
-            <a href="menu.html" class="order-btn">ORDER NOW</a>
-        </div>
+   <!-- Hero Content as Slider -->
+<div class="hero-content" id="home">
+  <div class="text-section">
+    <h2 id="slide-title">TASTE THE FUSION</h2>
+    <p id="slide-text">
+      "Craving street food magic? Vada Pav & Tea —<br />
+      together, better, cheaper!"
+    </p>
+    <div class="order-section">
+      <img src="images/chalk.png" alt="doodle" class="doodle" />
+      <a href="menu.html" class="order-btn">ORDER NOW</a>
     </div>
+    <div class="circles">
+      <span class="circle active" onclick="changeSlide(0)"></span>
+      <span class="circle" onclick="changeSlide(1)"></span>
+      <span class="circle" onclick="changeSlide(2)"></span>
+      <span class="circle" onclick="changeSlide(3)"></span>
+    </div>
+  </div>
+
+  <div class="image-section">
+    <img id="slide-image" src="images/VadapavAndTea.png" alt="Slide" />
+  </div>
+</div>
+
+
 
 
 <!-- CATEGORIES-->
@@ -1030,6 +1106,40 @@ Born out of a love for food that brings people together, Bhookie brings the punc
     </footer>
 
   <script>
+    const slides = [
+  {
+    image: "images/VadapavAndTea.png",
+    title: "TASTE THE FUSION",
+    text: "Craving street food magic? Vada Pav & Tea —<br> together, better, cheaper!",
+  },
+  {
+    image: "images/secondslide.png",
+    title: "TASTE THE FUSION",
+    text: "Juicy, crispy, and loaded with flavor —<br> our Chicken Combo hits different!",
+  },
+  {
+    image: "images/noodleBhelAndManchurian.png",
+    title: "TASTE THE FUSION",
+    text: "Combos you won’t forget — classic Indian flavors.",
+  },
+  {
+    image: "images/bitesAndWrap.png",
+    title: "BHOOKIE COMBOS",
+    text: "Grab your combo deals, hot and fresh every day!",
+  },
+];
+
+function changeSlide(index) {
+  document.getElementById("slide-image").src = slides[index].image;
+  document.getElementById("slide-title").textContent = slides[index].title;
+  document.getElementById("slide-text").innerHTML = slides[index].text;
+
+  const circles = document.querySelectorAll(".circle");
+  circles.forEach((circle, idx) => {
+    circle.classList.toggle("active", idx === index);
+  });
+}
+
     // Navbar scroll effect
     window.addEventListener('scroll', function () {
       const navbar = document.querySelector('.navbar');
