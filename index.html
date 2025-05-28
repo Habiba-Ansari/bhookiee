@@ -29,6 +29,15 @@
           
         }
 
+        @media (max-width: 768px) {
+          .hero-section {
+            background: url('images/phonebg1.jpg') no-repeat center center / cover;
+            width: 100%;          /* Full width */
+            min-height: 100vh;    /* Full viewport height */
+            margin: 0;            /* Remove default margins */
+            padding-top: 80px;    /* Space for navbar */
+          }
+        }
         
 .hero-content {
  text-align: left;
@@ -42,6 +51,42 @@
     padding-top: 90px;
     gap: 5px; /* space between text and image */
 }
+
+@media (max-width: 768px) {
+  .text-section {
+    position: absolute;
+    top: 80px; /* Adjust based on image position */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    text-align: center;
+    z-index: 2;
+    color: white;
+  }
+
+  .text-section h2 {
+    font-size: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .text-section p {
+    font-size: 1rem;
+  }
+
+  .order-section {
+    margin-top: 1rem;
+  }
+
+  .order-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+
+  .circles {
+    margin-top: 1rem;
+  }
+}
+
 
 .text-section {
   flex: 1.2;
