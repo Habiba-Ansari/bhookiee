@@ -67,7 +67,7 @@
     z-index: 2;
     color: white;
   }
-}
+
 
  .text-section h2 {
     font-size: 0.5rem;  /* Smaller heading */
@@ -89,43 +89,63 @@
 }
 
 #slide-text {
-  font-size: 16px;
+  font-size: 13px;
   line-height: 1.4;
   text-align: left;
   max-width: 50%;
 }
 
-  .order-section {
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    margin-top: 5px;
-    text-align: left;
-  }
-
-  .order-btn {
-    font-size: 14px;
-    padding: 8px 16px;
+ .order-section {
+    position: absolute !important;
+    top: 120px !important;    /* Increased from 10px to 20px */
+    right: 130px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: calc(100% - 20px) !important;
+    z-index: 100 !important;
   }
 
   .doodle {
-    width: 50px;
-    height: auto;
-    margin: 8px 0;
+    width: 50px !important;
+    margin: 0 0 5px -3px !important;
   }
 
-  .circles {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    gap: 8px;
+  .order-btn {
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    margin-top: 5px !important;  /* Added space above button */
+  }
+
+ .circles {
+    margin-top: 150px !important;  /* Increased space above dots */
+    top: 20px !important;   
+    left: 20px;
   }
 
   .circle {
-    width: 8px;
-    height: 8px;
+    width: 6px !important; /* Smaller dots */
+    height: 6px !important;
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+ .image-section {
+    display: flex !important;
+    justify-content: flex-end !important;
+    padding-right: 70px !important;
+    overflow: visible !important;
+    align-items: flex-start !important; /* Add this to help with upward alignment */
   }
 
+  #slide-image {
+    width: 80% !important;
+    max-width: 200px !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin-top: -80px !important; /* Negative margin pulls image up */
+  }
+}
 
 
 .text-section {
