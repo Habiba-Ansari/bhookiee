@@ -48,8 +48,9 @@
 }
 
 .text-section h2 {
-  font-size: 40px;
+  font-size: 60px;
   margin-bottom: 20px;
+  font-weight: bold;
 }
 
 .text-section p {
@@ -1182,39 +1183,58 @@ Born out of a love for food that brings people together, Bhookie brings the punc
     </footer>
 
   <script>
-    const slides = [
-  {
-    image: "images/VadapavAndTea.png",
-    title: "TASTE THE FUSION",
-    text: "Craving street food magic? Vada Pav & Tea —<br> together, better, cheaper!",
-  },
-  {
-    image: "images/secondslide.png",
-    title: "TASTE THE FUSION",
-    text: "Juicy, crispy, and loaded with flavor —<br> our Chicken Combo hits different!",
-  },
-  {
-    image: "images/noodleBhelAndManchurian.png",
-    title: "TASTE THE FUSION",
-    text: "Combos you won’t forget — classic Indian flavors.",
-  },
-  {
-    image: "images/bitesAndwrap.png",
-    title: "BHOOKIE COMBOS",
-    text: "Grab your combo deals, hot and fresh every day!",
-  },
-];
+  let currentSlide = 0;
 
-function changeSlide(index) {
-  document.getElementById("slide-image").src = slides[index].image;
-  document.getElementById("slide-title").textContent = slides[index].title;
-  document.getElementById("slide-text").innerHTML = slides[index].text;
+  const slides = [
+    {
+      image: "images/VadapavAndTea.png",
+      title: "TASTE THE FUSION",
+      text: "Craving street food magic? Vada Pav & Tea —<br> together, better, cheaper!",
+    },
+    {
+      image: "images/secondslide.png",
+      title: "TASTE THE FUSION",
+      text: "Juicy, crispy, and loaded with flavor —<br> our Chicken Combo hits different!",
+    },
+    {
+      image: "images/noodleBhelAndManchurian.png",
+      title: "TASTE THE FUSION",
+      text: "Combos you won’t forget — classic Indian flavors.",
+    },
+    {
+      image: "images/bitesAndwrap.png",
+      title: "BHOOKIE COMBOS",
+      text: "Grab your combo deals, hot and fresh every day!",
+    },
+  ];
 
-  const circles = document.querySelectorAll(".circle");
-  circles.forEach((circle, idx) => {
-    circle.classList.toggle("active", idx === index);
-  });
-}
+  function showSlide(index) {
+    document.getElementById("slide-image").src = slides[index].image;
+    document.getElementById("slide-title").textContent = slides[index].title;
+    document.getElementById("slide-text").innerHTML = slides[index].text;
+
+    const circles = document.querySelectorAll(".circle");
+    circles.forEach((circle, idx) => {
+      circle.classList.toggle("active", idx === index);
+    });
+
+    currentSlide = index;
+  }
+
+  function changeSlide(index) {
+    showSlide(index);
+  }
+
+  function nextSlide() {
+    const nextIndex = (currentSlide + 1) % slides.length;
+    showSlide(nextIndex);
+  }
+
+  window.onload = () => {
+    showSlide(currentSlide); // show first slide
+    setInterval(nextSlide, 4000); // change slide every 6 seconds
+  };
+</script>
 
     // Navbar scroll effect
     window.addEventListener('scroll', function () {
