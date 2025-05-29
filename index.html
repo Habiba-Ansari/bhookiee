@@ -89,7 +89,7 @@
 }
 
 #slide-text {
-  font-size: 13px;
+  font-size: 12px;
   line-height: 1.4;
   text-align: left;
   max-width: 50%;
@@ -117,9 +117,11 @@
   }
 
  .circles {
-    margin-top: 150px !important;  /* Increased space above dots */
-    top: 20px !important;   
-    left: 20px;
+    margin-top: 150px !important;
+  top: 20px !important;
+  left: 20px;
+  position: absolute !important;
+  z-index: 999 !important; 
   }
 
   .circle {
@@ -133,17 +135,19 @@
  .image-section {
     display: flex !important;
     justify-content: flex-end !important;
-    padding-right: 70px !important;
+    padding-right: 50px !important;
     overflow: visible !important;
     align-items: flex-start !important; /* Add this to help with upward alignment */
   }
 
-  #slide-image {
+ .image-section img {
     width: 80% !important;
     max-width: 200px !important;
     height: auto !important;
     object-fit: contain !important;
-    margin-top: -80px !important; /* Negative margin pulls image up */
+    position: relative;
+    top: -70px; 
+    left: 50px;
   }
 }
 
@@ -540,21 +544,28 @@
 }
 /* New styles for image section */
 .image-section {
-  flex-shrink: 0;
-  /* fix image size */
-  width: 400px;
-  height: 280px;
+    width: 100%;
+  max-width: 600px;
+  height: auto;
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;     /* Align to the left */
   align-items: flex-start;
-}
+  padding-left: 0;                 /* Default: no left padding */
+  padding-right: 20px;             /* Keep some right padding */
+  box-sizing: border-box;
+  margin-left: -20px; 
+  }
 
-.image-section img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-}
+  #slide-image {
+    width: 100% !important;       
+    max-width: 600px !important; 
+    height: auto !important;       
+    object-fit: contain !important;
+    border-radius: 12px;
+    margin-top: 0 !important;
+  }
+
+
 /* Hamburger icon */
 .hamburger {
   display: none;
