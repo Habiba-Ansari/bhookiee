@@ -656,6 +656,7 @@
     display: flex;
   }
 } 
+/* popular dishes*/
 .popular-dishes {
     max-width: 1200px;
     margin: 70px auto 0;
@@ -1067,21 +1068,24 @@ column-gap: 0px; /* tighter columns */
     </div>
 
   </div>    
-
+ <!-- Popular Dishes -->
   <section class="popular-dishes">
     <h2 class="popular-title">Our Popular Dishes</h2>
     <div class="dishes-wrapper">
         <button class="nav-btn left">&lt;</button>
         <div class="dishes-container">
-            <!-- Cards will be inserted by JavaScript -->
+           
         </div>
         <button class="nav-btn right">&gt;</button>
     </div>
 </section>
- <!-- View More Button -->
+ 
     <div class="view-more-container">
         <a href="menu.html" class="view-more-btn">VIEW MORE</a>
     </div>
+
+
+
 <!-- Google Reviews Section -->
 <section class="reviews-section">
     <h2 class="reviews-title">Customer Reviews</h2>
@@ -1283,114 +1287,212 @@ column-gap: 0px; /* tighter columns */
         </div>
     </footer>
 
+
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  // DOM Elements
-  const container = document.querySelector('.dishes-container');
-  const leftBtn = document.querySelector('.nav-btn.left');
-  const rightBtn = document.querySelector('.nav-btn.right');
-  let currentIndex = 2; // Start with center card (index 2)
-  let isDesktop = window.innerWidth > 768;
-  let touchStartX = 0;
-  const swipeThreshold = 50;
-
-  // Dish data
-  const dishes = [
-    { name: "Burger", image: "images/burger.png" },
-    { name: "Wraps", image: "images/wrap.png" },
-    { name: "Fries", image: "images/fries.png" },
-    { name: "Vadapav", image: "images/vada.png" },
-    { name: "Bites", image: "images/bites.png" },
-    { name: "Chai", image: "images/chai.png" }
-  ];
-
-  // Render cards
-  dishes.forEach((dish) => {
-    const card = document.createElement('div');
-    card.className = 'dish-card';
-    card.innerHTML = `
-      <img src="${dish.image}" alt="${dish.name}" class="dish-image">
-      <h3>${dish.name}</h3>
-    `;
-    container.appendChild(card);
-  });
-
-  const cards = document.querySelectorAll('.dish-card');
-
-  function getCardWidth() {
-    return cards[0]?.offsetWidth || 220;
-  }
-
-  function getCardGap() {
-    const containerStyles = window.getComputedStyle(container);
-    return parseInt(containerStyles.gap) || 20;
-  }
-
-  function centerCard(index) {
-    cards.forEach(card => card.classList.remove('center'));
-    cards[index].classList.add('center');
-    const cardWidth = getCardWidth();
-    const gap = getCardGap();
-    const scrollPos = index * (cardWidth + gap) - (container.clientWidth / 2 - cardWidth / 2);
-    container.scrollTo({ left: scrollPos, behavior: 'smooth' });
-  }
-
-  centerCard(currentIndex);
-
-  // Desktop Navigation
-  leftBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-    centerCard(currentIndex);
-  });
-
-  rightBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % cards.length;
-    centerCard(currentIndex);
-  });
-
-  // Mobile Touch Handling
-  if (!isDesktop) {
-    container.style.scrollSnapType = 'x mandatory';
-
-    container.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-    }, { passive: true });
-
-    container.addEventListener('touchend', (e) => {
-      const touchEndX = e.changedTouches[0].clientX;
-      const swipeDistance = touchEndX - touchStartX;
-      if (Math.abs(swipeDistance) >= swipeThreshold) {
-        currentIndex = swipeDistance > 0
-          ? Math.max(0, currentIndex - 1)
-          : Math.min(cards.length - 1, currentIndex + 1);
-        centerCard(currentIndex);
-      }
-    }, { passive: true });
-
-    container.addEventListener('scroll', () => {
-      const containerCenter = container.scrollLeft + (container.clientWidth / 2);
-      cards.forEach((card, index) => {
-        const cardRect = card.getBoundingClientRect();
-        const cardCenter = cardRect.left + (cardRect.width / 2) - container.getBoundingClientRect().left;
-        if (Math.abs(containerCenter - cardCenter) < 30) {
-          if (currentIndex !== index) {
-            currentIndex = index;
-            cards.forEach(c => c.classList.remove('center'));
-            card.classList.add('center');
-          }
-        }
+  document.addEventListener('DOMContentLoaded', function() {
+      const container = document.querySelector('.dishes-container');
+      const leftBtn = document.querySelector('.nav-btn.left');
+      const rightBtn = document.querySelector('.nav-btn.right');
+      let currentIndex = 0;
+      let isDragging = false;
+      let startX, scrollLeft;
+      let touchStartX;
+      let isTouchDevice = 'ontouchstart' in window;
+      
+      // Dish data
+      const dishes = [
+          
+          { name: "Onion Bhaji", image: "images/onion bhaji.png" },
+          { name: "Potato Bhaji", image: "images/potato bhaji.png" },
+          { name: "Vadapav", image: "images/vada.png" },
+          { name: "Manchurian", image: "images/manchurian.png" },
+          { name: "Noodle Bhel", image: "images/chinese bhel.png" },
+         
+          { name: "Chai", image: "images/chai.png" },
+          { name: "Burger", image: "images/burger.png" },
+          { name: "Wraps", image: "images/wrap.png" },
+          { name: "Fries", image: "images/fries.png" },
+          { name: "Bites", image: "images/bites.png" }
+       
+      ];
+      
+      // Create initial cards (duplicate the array to make infinite scroll possible)
+      const duplicatedDishes = [...dishes, ...dishes, ...dishes];
+      
+      // Render all cards
+      duplicatedDishes.forEach((dish, index) => {
+          const card = document.createElement('div');
+          card.className = 'dish-card';
+          card.innerHTML = `
+              <img src="${dish.image}" alt="${dish.name}" class="dish-image">
+              <h3>${dish.name}</h3>
+          `;
+          container.appendChild(card);
       });
-    }, { passive: true });
-  } else {
-    container.addEventListener('scroll', (e) => e.preventDefault(), { passive: false });
-  }
+      
+      const cards = document.querySelectorAll('.dish-card');
+      const totalCards = cards.length;
+      
+      // Set initial position to the middle of the duplicated cards
+      currentIndex = Math.floor(totalCards / 3); // Start in the middle of the first set
+      updateCards();
+      
+      // Function to get current card width based on screen size
+      function getCardWidth() {
+          const card = cards[0];
+          if (!card) return 220; // Default fallback
+          return card.offsetWidth;
+      }
+      
+      // Function to get current gap between cards
+      function getCardGap() {
+          const containerStyles = window.getComputedStyle(container);
+          return parseInt(containerStyles.gap) || 20;
+      }
+      
+      // Function to update card classes and center the current card
+      function updateCards() {
+          // Remove center class from all cards
+          cards.forEach(card => card.classList.remove('center'));
+          
+          // Add center class to current card
+          cards[currentIndex].classList.add('center');
+          
+          // Get current dimensions
+          const cardWidth = getCardWidth();
+          const gap = getCardGap();
+          const centerCard = cards[currentIndex];
+          const centerCardWidth = centerCard.offsetWidth;
+          
+          // Calculate scroll position
+          const scrollPos = (currentIndex * (cardWidth + gap)) - 
+                           (container.clientWidth / 2 - centerCardWidth / 2);
+          
+          // Scroll to position
+          container.scrollTo({
+              left: scrollPos,
+              behavior: 'smooth'
+          });
+      }
+      
+      // Navigation buttons
+      leftBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+          updateCards();
+      });
+      
+      rightBtn.addEventListener('click', () => {
+          currentIndex = (currentIndex + 1) % totalCards;
+          updateCards();
+      });
+      
+      // Touch and mouse drag handling
+      container.addEventListener('mousedown', handleDragStart);
+      container.addEventListener('touchstart', handleDragStart, { passive: true });
+      container.addEventListener('mousemove', handleDragMove);
+      container.addEventListener('touchmove', handleDragMove, { passive: false });
+      container.addEventListener('mouseup', handleDragEnd);
+      container.addEventListener('mouseleave', handleDragEnd);
+      container.addEventListener('touchend', handleDragEnd);
+      
+      function handleDragStart(e) {
+          if (isTouchDevice && e.type === 'mousedown') return;
+          
+          isDragging = true;
+          startX = (e.pageX || e.touches[0].pageX) - container.offsetLeft;
+          scrollLeft = container.scrollLeft;
+          container.style.cursor = 'grabbing';
+          container.style.scrollBehavior = 'auto';
+          
+          if (e.type === 'touchstart') {
+              touchStartX = e.touches[0].pageX;
+          }
+      }
+      
+      function handleDragMove(e) {
+          if (!isDragging) return;
+          
+          if (e.type === 'touchmove') {
+              e.preventDefault();
+          }
+          
+          const x = (e.pageX || e.touches[0].pageX) - container.offsetLeft;
+          const walk = (x - startX) * 2;
+          container.scrollLeft = scrollLeft - walk;
+      }
+      
+      function handleDragEnd(e) {
+          if (!isDragging) return;
+          isDragging = false;
+          container.style.cursor = 'grab';
+          container.style.scrollBehavior = 'smooth';
+          
+          // For touch devices, check swipe direction
+          if (e.type === 'touchend') {
+              const touchEndX = e.changedTouches[0].pageX;
+              const deltaX = touchEndX - touchStartX;
+              
+              if (Math.abs(deltaX) > 30) { // Minimum swipe distance
+                  if (deltaX > 0) {
+                      // Swipe right - move left
+                      currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+                  } else {
+                      // Swipe left - move right
+                      currentIndex = (currentIndex + 1) % totalCards;
+                  }
+                  updateCards();
+                  return;
+              }
+          }
+          
+          // Snap to nearest card
+          const containerCenter = container.scrollLeft + (container.clientWidth / 2);
+          let closestCard = null;
+          let minDistance = Infinity;
+          
+          cards.forEach((card, index) => {
+              const cardRect = card.getBoundingClientRect();
+              const cardCenter = cardRect.left + (cardRect.width / 2) - container.getBoundingClientRect().left;
+              const distance = Math.abs(containerCenter - cardCenter);
+              
+              if (distance < minDistance) {
+                  minDistance = distance;
+                  closestCard = index;
+              }
+          });
+          
+          if (closestCard !== null && closestCard !== currentIndex) {
+              currentIndex = closestCard;
+              updateCards();
+          }
+      }
+      
+      // Handle scroll events for snapping
+      container.addEventListener('scroll', function() {
+          if (isDragging) return;
+          
+          // Detect when we're near the edges and reset position
+          const scrollLeft = container.scrollLeft;
+          const maxScroll = container.scrollWidth - container.clientWidth;
+          
+          if (scrollLeft < 100) {
+              // Near the left edge - jump to middle section
+              currentIndex = Math.floor(totalCards / 3 * 2) - 1;
+              updateCards();
+          } else if (scrollLeft > maxScroll - 100) {
+              // Near the right edge - jump to middle section
+              currentIndex = Math.floor(totalCards / 3) + 1;
+              updateCards();
+          }
+      }, { passive: true });
+      
+      // Handle window resize
+      window.addEventListener('resize', function() {
+          updateCards();
+      });
+  
 
-  // Window resize handler
-  window.addEventListener('resize', () => {
-    isDesktop = window.innerWidth > 768;
-    container.style.scrollSnapType = isDesktop ? 'none' : 'x mandatory';
-    if (isDesktop) centerCard(currentIndex);
-  });
+
 
   // Slideshow
   let currentSlide = 0;
