@@ -669,7 +669,7 @@
     font-weight: 700;
     color: white;
     letter-spacing: 2px;
-    font-family: "Fredoka", sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     margin-bottom: 30px;
 }
@@ -1032,42 +1032,106 @@ column-gap: 0px; /* tighter columns */
 <div class="category-section">
   <h2 class="category-title">CATEGORIES</h2>
   <div class="category-box">
-    
-    <div class="categorybox-item-section">
-      <img src="images/burger-icon.png" alt="Burger" class="small-icon">
-      <a href="menu.html#burgers" class="burger-a">Burgers</a>
-      <a href="menu.html#burgers" class="arrow">➤</a>
-    </div>
-    
-    <div class="categorybox-item-section">
-      <img src="images/fries-icon.png" alt="Fries">
-      <a href="menu.html#fries">Fries</a>
-      <a href="menu.html#fries" class="arrow">➤</a>
-    </div>
-    
-    <div class="categorybox-item-section">
-      <img src="images/street-bites-icon.png" alt="Street Bites">
-      <a href="menu.html#street">Street Bites</a>
-      <a href="menu.html#street" class="arrow">➤</a>
-    </div>
-    
-    <div class="categorybox-item-section">
-      <img src="images/chai-icon.png" alt="Drinks" class="large-icon">
-      <a href="menu.html#drinks" >Drinks</a>
-      <a href="menu.html#drinks" class="arrow" >➤</a>
-    </div>
-    <div class="categorybox-item-section">
-      <img src="images/wraps-icon.png" alt="Wraps">
-      <a href="menu.html#wraps">Wraps</a>
-      <a href="menu.html#wraps" class="arrow">➤</a>
-    </div>
-    <div class="categorybox-item-section">
-      <img src="images/vadapav-icon.png" alt="Vadapav">
-      <a href="menu.html#bites">Bites</a>
-      <a href="menu.html#bites" class="arrow">➤</a>
+
+    <!-- Burgers -->
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-card-front">
+          <div class="categorybox-item-section">
+            <img src="images/burger-icon.png" alt="Burger" class="small-icon">
+            <a href="menu.html#burgers" class="burger-a">Burgers</a>
+            <a href="menu.html#burgers" class="arrow">➤</a>
+          </div>
+        </div>
+        <div class="flip-card-back categorybox-item-section">
+          <p>Juicy burgers loaded with cheese and flavor!</p>
+        </div>
+      </div>
     </div>
 
-  </div>    
+    <!-- Fries -->
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-card-front">
+          <div class="categorybox-item-section">
+            <img src="images/fries-icon.png" alt="Fries">
+            <a href="menu.html#fries">Fries</a>
+            <a href="menu.html#fries" class="arrow">➤</a>
+          </div>
+        </div>
+        <div class="flip-card-back categorybox-item-section">
+          <p>Golden, crispy fries with mouthwatering seasoning!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Street Bites -->
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-card-front">
+          <div class="categorybox-item-section">
+            <img src="images/street-bites-icon.png" alt="Street Bites">
+            <a href="menu.html#street">Street Bites</a>
+            <a href="menu.html#street" class="arrow">➤</a>
+          </div>
+        </div>
+        <div class="flip-card-back categorybox-item-section">
+          <p>Tangy and spicy snacks straight from the streets!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drinks -->
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-card-front">
+          <div class="categorybox-item-section">
+            <img src="images/chai-icon.png" alt="Drinks" class="large-icon">
+            <a href="menu.html#drinks">Drinks</a>
+            <a href="menu.html#drinks" class="arrow">➤</a>
+          </div>
+        </div>
+        <div class="flip-card-back categorybox-item-section">
+          <p>Refreshing beverages to cool you down!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wraps -->
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-card-front">
+          <div class="categorybox-item-section">
+            <img src="images/wraps-icon.png" alt="Wraps">
+            <a href="menu.html#wraps">Wraps</a>
+            <a href="menu.html#wraps" class="arrow">➤</a>
+          </div>
+        </div>
+        <div class="flip-card-back categorybox-item-section">
+          <p>Soft, flavorful wraps with tasty fillings!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bites -->
+    <div class="flip-card">
+      <div class="flip-inner">
+        <div class="flip-card-front">
+          <div class="categorybox-item-section">
+            <img src="images/vadapav-icon.png" alt="Vadapav">
+            <a href="menu.html#bites">Bites</a>
+            <a href="menu.html#bites" class="arrow">➤</a>
+          </div>
+        </div>
+        <div class="flip-card-back categorybox-item-section">
+          <p>Quick bites that satisfy your hunger instantly!</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+ 
  <!-- Popular Dishes -->
   <section class="popular-dishes">
     <h2 class="popular-title">Our Popular Dishes</h2>
