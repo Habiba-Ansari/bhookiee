@@ -74,7 +74,7 @@
       background: #fff;
       padding: 20px;
       border-radius: 12px;
-      max-width: 350px;
+      max-width: 380px;
       text-align: center;
   
       position: relative;
@@ -84,9 +84,9 @@
     /* Close button */
     .close-btn {
       position: absolute;
-      top: 12px;
-      right: 16px;
-      font-size: 22px;
+      top: 0px;
+      right: 6px;
+      font-size: 29px;
       color: #333;
       cursor: pointer;
     }
@@ -102,6 +102,7 @@
     .popup-box h3{
       margin-top: 15px;
       font-size: 16px;
+      font-weight: 900;
       color: #080808;
     }
 @media (max-width: 768px) {
@@ -189,7 +190,7 @@
   }
 
  .image-section img {
-    width: 80% !important;
+    width: 60% !important;
     max-width: 200px !important;
     height: auto !important;
     object-fit: contain !important;
@@ -995,7 +996,7 @@ column-gap: 0px; /* tighter columns */
 <div id="popup" class="popup-overlay">
   <div class="popup-box">
     <span class="close-btn" id="closeBtn">&times;</span>
-    <img src="popUp.png" alt="Popup Image">
+    <img src="images/PopUp2.jpg" alt="Popup Image">
     <h3>Welcome to Bhookie! “🎊 Grand Opening this weekend! Visit our store for exclusive deals.”</h3>
 
 </p>
@@ -1032,37 +1033,37 @@ column-gap: 0px; /* tighter columns */
   <div class="category-box">
     
     <div class="categorybox-item-section">
-      <img src="images/burger-icon.png" alt="Burger">
-      <a href="menu.html#burgers">Burgers</a>
-      <div class="arrow">➤</div>
+      <img src="images/burger-icon.png" alt="Burger" class="small-icon">
+      <a href="menu.html#burgers" class="burger-a">Burgers</a>
+      <a href="menu.html#burgers" class="arrow">➤</a>
     </div>
     
     <div class="categorybox-item-section">
       <img src="images/fries-icon.png" alt="Fries">
       <a href="menu.html#fries">Fries</a>
-      <div class="arrow">➤</div>
+      <a href="menu.html#fries" class="arrow">➤</a>
     </div>
     
     <div class="categorybox-item-section">
       <img src="images/street-bites-icon.png" alt="Street Bites">
       <a href="menu.html#street">Street Bites</a>
-      <div class="arrow">➤</div>
+      <a href="menu.html#street" class="arrow">➤</a>
     </div>
     
     <div class="categorybox-item-section">
-      <img src="images/chai-icon.png" alt="Drinks" class="Chai-icon">
-      <a href="menu.html#drinks">Drinks</a>
-      <div class="arrow">➤</div>
+      <img src="images/chai-icon.png" alt="Drinks" class="large-icon">
+      <a href="menu.html#drinks" >Drinks</a>
+      <a href="menu.html#drinks" class="arrow" >➤</a>
     </div>
     <div class="categorybox-item-section">
       <img src="images/wraps-icon.png" alt="Wraps">
       <a href="menu.html#wraps">Wraps</a>
-      <div class="arrow">➤</div>
+      <a href="menu.html#wraps" class="arrow">➤</a>
     </div>
     <div class="categorybox-item-section">
       <img src="images/vadapav-icon.png" alt="Vadapav">
       <a href="menu.html#bites">Bites</a>
-      <div class="arrow">➤</div>
+      <a href="menu.html#bites" class="arrow">➤</a>
     </div>
 
   </div>    
@@ -1497,6 +1498,8 @@ document.addEventListener('DOMContentLoaded', function () {
   window.onload = function() {
     document.getElementById("popup").style.display = "flex";
   };
+  
+
 
   // Close button click handler
   document.getElementById("closeBtn").addEventListener("click", function() {

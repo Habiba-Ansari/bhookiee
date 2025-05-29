@@ -15,7 +15,7 @@ body {
   /* background-image: url('images/bg1.png'); */
   /* background-size: cover; */
   /* background-position: center; */
-  background: url("images/bg1.png") no-repeat right top;
+  /* background: url("images/bg1.png") no-repeat right top; */
   background-size: 80% auto;
   height: auto;
   min-height: 100vh;
@@ -76,7 +76,7 @@ body {
 .nav-links a {
   text-decoration: none;
   color: white;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 18px;
   position: relative;
   transition: color 0.3s ease;
@@ -192,7 +192,7 @@ body {
 
 .subtext {
   font-family: "Fredoka", sans-serif;
-  font-size: 18px;
+  font-size: 1 8px;
   font-weight: 400;
   color: #dcdcdc;
   line-height: 1.6;
@@ -259,10 +259,20 @@ body {
   border: 2px solid #ff5b0f;
   border-radius: 12px;
   padding: 20px;
-  width: 150px;
+  width: 240px;
   text-align: center;
   transition: transform 0.3s ease;
   position: relative;
+}
+.small-icon {
+  height: 60px !important;
+  margin-top: 20px;
+}
+.burger-a {
+  margin-top: 17px;
+}
+.large-icon {
+  height: 100px !important;
 }
 
 .categorybox-item-section:hover {
@@ -287,14 +297,39 @@ body {
 .arrow {
   background-color: orange;
   color: black;
-  width: 30px;
+  width: 40px;
   height: 30px;
-  border-radius: 50%;
+  border-radius: 30%;
   line-height: 30px;
   margin: 0 auto;
   font-weight: bold;
 }
 
+@media (max-width: 768px) {
+  .category-box {
+    animation: none;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    flex-wrap: nowrap;
+    animation: scroll-horizontal 20s linear infinite;
+  }
+  .category-section {
+    padding-top: 20px;
+  }
+
+  .categorybox-item-section {
+    width: 150px;
+    scroll-snap-align: center;
+    flex: 0 0 auto;
+  }
+
+  .category-scroll-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+}
 /* === MENU SECTION === */
 .menu-section {
   margin-top: 0;
