@@ -864,9 +864,6 @@
   </div>
 </div>
 
-
-
-
 <!-- CATEGORIES-->
 <div class="category-section">
   <h2 class="category-title">CATEGORIES</h2>
@@ -908,8 +905,6 @@
 
   </div>    
 
-
-
   <section class="popular-dishes">
     <h2 class="popular-title">Our Popular Dishes</h2>
     <div class="dishes-wrapper">
@@ -920,8 +915,55 @@
         <button class="nav-btn right">&gt;</button>
     </div>
 </section>
+ <!-- View More Button -->
+    <div class="view-more-container">
+        <a href="menu.html" class="view-more-btn">VIEW MORE</a>
+    </div>
+        <footer class="footer" id="contact">
+        <div class="footer-container">
+            <!-- About -->
+            <div class="footer-column about">
+                <h3>About</h3>
+                <p>Bhookie is a bold and fresh quick-bite fusion food startup bringing the taste of India to the streets
+                    of Liverpool, UK. With a unique focus on iconic items like Vada Pav and Chicken Fries, we’re
+                    redefining street food culture abroad. Bhookie blends tradition and creativity — delivering
+                    memorable bites packed with flavor and personality.</p>
+            </div>
+
+            <!-- Menu -->
+            <div class="footer-column menu">
+                <h3>Menu</h3>
+                <ul>
+                    <li>STREET BITES</li>
+                    <li>FRIES</li>
+                    <li>BITES</li>
+                    <li>WRAPS</li>
+                    <li>BURGERS</li>
+                    <li>FUSION SPECIAL</li>
+                    <li>DRINKS</li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="footer-column contact">
+                <h3>Contact</h3>
+                <p>123 Street, City<br>info@example.com<br>+44 7867233721</p>
+            </div>
+        </div>
+
+        <!-- Bottom Footer -->
+        <div class="footer-bottom">
+            <p>&copy; BHOOKIE. All Rights Reserved.</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </footer>
 
 <script>
+
   document.addEventListener('DOMContentLoaded', function() {
       // DOM Elements
       const container = document.querySelector('.dishes-container');
@@ -984,7 +1026,138 @@
               behavior: 'smooth'
           });
       }
+      
+      let currentSlide = 0;
+
+  const slides = [
+    {
+      image: "images/VadapavAndTea.png",
+      title: "TASTE THE FUSION",
+      text: "Craving street food magic? Vada Pav & Tea —<br> together, better, cheaper!",
+    },
+    {
+      image: "images/secondslide.png",
+      title: "TASTE THE FUSION",
+      text: "Juicy, crispy, and loaded with flavor —<br> our Chicken Combo hits different!",
+    },
+    {
+      image: "images/noodleBhelAndManchurian.png",
+      title: "TASTE THE FUSION",
+      text: "Combos you won’t forget — classic Indian flavors.",
+    },
+    {
+      image: "images/bitesAndwrap.png",
+      title: "BHOOKIE COMBOS",
+      text: "Grab your combo deals, hot and fresh every day!",
+    },
+  ];
+
+  function showSlide(index) {
+    document.getElementById("slide-image").src = slides[index].image;
+    document.getElementById("slide-title").textContent = slides[index].title;
+    document.getElementById("slide-text").innerHTML = slides[index].text;
+
+    const circles = document.querySelectorAll(".circle");
+    circles.forEach((circle, idx) => {
+      circle.classList.toggle("active", idx === index);
+    });
+
+    currentSlide = index;
+  }
+
+  function changeSlide(index) {
+    showSlide(index);
+  }
+
+  function nextSlide() {
+    const nextIndex = (currentSlide + 1) % slides.length;
+    showSlide(nextIndex);
+  }
+
+  window.onload = () => {
+    showSlide(currentSlide); // show first slide
+    setInterval(nextSlide, 4000); // change slide every 4 seconds
+  };
+
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', function () {
+      const navbar = document.querySelector('.navbar');
+      navbar.classList.toggle('scrolled', window.scrollY > 0);
+    });
   
+    document.addEventListener('DOMContentLoaded', () => {
+      // Vadapav scroll animation
+      const vadapav = document.querySelector('.vadapav');
+      let lastScroll = window.scrollY;
+  
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+        const scrollDirection = currentScroll > lastScroll ? 'down' : 'up';
+        lastScroll = currentScroll;
+  
+        const containerTop = vadapav.getBoundingClientRect().top;
+        const triggerPoint = window.innerHeight * 0.8;
+  
+        vadapav.classList[
+          containerTop < triggerPoint && scrollDirection === 'down' ? 'add' : 'remove'
+        ]('expanded');
+      });
+  
+      // Smooth scroll for anchors
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+  
+      // Profile icon dropdown logic
+      const icon = document.querySelector(".profile-icon");
+      const dropdown = document.getElementById("profileDropdown");
+  
+      icon.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  
+        if (!isLoggedIn) {
+          window.location.href = "login.html";
+          return;
+        }
+  
+        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+      });
+  
+      window.addEventListener("click", function () {
+        dropdown.style.display = "none";
+      });
+  
+      // Populate dropdown if logged in
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (isLoggedIn) {
+        dropdown.innerHTML = `
+          <li><a href="myprofile.html">My Profile</a></li>
+          <li><a href="#">My Orders</a></li>
+          <li><a href="#" id="logoutLink">Logout</a></li>
+        `;
+        document.body.addEventListener("click", (e) => {
+          if (e.target.id === "logoutLink") {
+            localStorage.removeItem("isLoggedIn");
+            localStorage.removeItem("userPhone");
+            window.location.reload();
+          }
+        });
+      }
+    });
+   
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+
+      hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+      });
       // Desktop Navigation
       leftBtn.addEventListener('click', () => {
           currentIndex = (currentIndex - 1 + cards.length) % cards.length;
@@ -1065,18 +1238,15 @@
       };
   });
   </script>
-    <!-- View More Button -->
-    <div class="view-more-container">
-        <a href="menu.html" class="view-more-btn">VIEW MORE</a>
-    </div>
+   
 
-    <!-- About Us Section -->
+    <!-- About Us Section 
     <div class="about-section" id="about">
         <h2 class="about-title">ABOUT US</h2>
         <p class="about-subtitle">Meet the Bhookies</p>
     </div>
 
-    <!-- About Us Detail Section -->
+   
     <div class="about-detail">
         <div class="about-img">
             <div class="vadapav">
@@ -1101,165 +1271,10 @@ Born out of a love for food that brings people together, Bhookie brings the punc
             </p>
         </div>
     </div>
+ -->
 
-    <footer class="footer" id="contact">
-        <div class="footer-container">
-            <!-- About -->
-            <div class="footer-column about">
-                <h3>About</h3>
-                <p>Bhookie is a bold and fresh quick-bite fusion food startup bringing the taste of India to the streets
-                    of Liverpool, UK. With a unique focus on iconic items like Vada Pav and Chicken Fries, we’re
-                    redefining street food culture abroad. Bhookie blends tradition and creativity — delivering
-                    memorable bites packed with flavor and personality.</p>
-            </div>
 
-            <!-- Menu -->
-            <div class="footer-column menu">
-                <h3>Menu</h3>
-                <ul>
-                    <li>STREET BITES</li>
-                    <li>FRIES</li>
-                    <li>BITES</li>
-                    <li>WRAPS</li>
-                    <li>BURGERS</li>
-                    <li>FUSION SPECIAL</li>
-                    <li>DRINKS</li>
-                </ul>
-            </div>
 
-            <!-- Contact -->
-            <div class="footer-column contact">
-                <h3>Contact</h3>
-                <p>123 Street, City<br>info@example.com<br>+44 7867233721</p>
-            </div>
-        </div>
-
-        <!-- Bottom Footer -->
-        <div class="footer-bottom">
-            <p>&copy; BHOOKIE. All Rights Reserved.</p>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
-    </footer>
-
-  <script>
-    const slides = [
-  {
-    image: "images/VadapavAndTea.png",
-    title: "TASTE THE FUSION",
-    text: "Craving street food magic? Vada Pav & Tea —<br> together, better, cheaper!",
-  },
-  {
-    image: "images/secondslide.png",
-    title: "TASTE THE FUSION",
-    text: "Juicy, crispy, and loaded with flavor —<br> our Chicken Combo hits different!",
-  },
-  {
-    image: "images/noodleBhelAndManchurian.png",
-    title: "TASTE THE FUSION",
-    text: "Combos you won’t forget — classic Indian flavors.",
-  },
-  {
-    image: "images/bitesAndWrap.png",
-    title: "BHOOKIE COMBOS",
-    text: "Grab your combo deals, hot and fresh every day!",
-  },
-];
-
-function changeSlide(index) {
-  document.getElementById("slide-image").src = slides[index].image;
-  document.getElementById("slide-title").textContent = slides[index].title;
-  document.getElementById("slide-text").innerHTML = slides[index].text;
-
-  const circles = document.querySelectorAll(".circle");
-  circles.forEach((circle, idx) => {
-    circle.classList.toggle("active", idx === index);
-  });
-}
-
-    // Navbar scroll effect
-    window.addEventListener('scroll', function () {
-      const navbar = document.querySelector('.navbar');
-      navbar.classList.toggle('scrolled', window.scrollY > 0);
-    });
-  
-    document.addEventListener('DOMContentLoaded', () => {
-      // Vadapav scroll animation
-      const vadapav = document.querySelector('.vadapav');
-      let lastScroll = window.scrollY;
-  
-      window.addEventListener('scroll', () => {
-        const currentScroll = window.scrollY;
-        const scrollDirection = currentScroll > lastScroll ? 'down' : 'up';
-        lastScroll = currentScroll;
-  
-        const containerTop = vadapav.getBoundingClientRect().top;
-        const triggerPoint = window.innerHeight * 0.8;
-  
-        vadapav.classList[
-          containerTop < triggerPoint && scrollDirection === 'down' ? 'add' : 'remove'
-        ]('expanded');
-      });
-  
-      // Smooth scroll for anchors
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-          });
-        });
-      });
-  
-      // Profile icon dropdown logic
-      const icon = document.querySelector(".profile-icon");
-      const dropdown = document.getElementById("profileDropdown");
-  
-      icon.addEventListener("click", function (e) {
-        e.stopPropagation();
-        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  
-        if (!isLoggedIn) {
-          window.location.href = "login.html";
-          return;
-        }
-  
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-      });
-  
-      window.addEventListener("click", function () {
-        dropdown.style.display = "none";
-      });
-  
-      // Populate dropdown if logged in
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      if (isLoggedIn) {
-        dropdown.innerHTML = `
-          <li><a href="myprofile.html">My Profile</a></li>
-          <li><a href="#">My Orders</a></li>
-          <li><a href="#" id="logoutLink">Logout</a></li>
-        `;
-        document.body.addEventListener("click", (e) => {
-          if (e.target.id === "logoutLink") {
-            localStorage.removeItem("isLoggedIn");
-            localStorage.removeItem("userPhone");
-            window.location.reload();
-          }
-        });
-      }
-    });
-    </script>
-    <script>
-      const hamburger = document.getElementById('hamburger');
-      const navLinks = document.getElementById('navLinks');
-
-      hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-      });
-    </script>
 </body>
 
 </html>
