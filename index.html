@@ -55,7 +55,55 @@
     gap: 70px; /* space between text and image */
 }
 
+/* Popup overlay */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
 
+    /* Popup box */
+    .popup-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 350px;
+      text-align: center;
+  
+      position: relative;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Close button */
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      font-size: 22px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    /* Image */
+    .popup-box img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    /* Text */
+    .popup-box h3{
+      margin-top: 15px;
+      font-size: 16px;
+      color: #080808;
+    }
 @media (max-width: 768px) {
   .text-section {
     position: absolute;
@@ -849,7 +897,16 @@
               
         </nav>
     </div>
+<!-- Popup structure -->
+<div id="popup" class="popup-overlay">
+  <div class="popup-box">
+    <span class="close-btn" id="closeBtn">&times;</span>
+    <img src="popUp.png" alt="Popup Image">
+    <h3>Welcome to Bhookie! “🎊 Grand Opening this weekend! Visit our store for exclusive deals.”</h3>
 
+</p>
+  </div>
+</div>
    <!-- Hero Content as Slider -->
 <div class="hero-content" id="home">
   <div class="text-section">
@@ -882,35 +939,35 @@
     
     <div class="categorybox-item-section">
       <img src="images/burger-icon.png" alt="Burger">
-      <a href="burger.html">Burgers</a>
+      <a href="menu.html#burgers">Burgers</a>
       <div class="arrow">➤</div>
     </div>
     
     <div class="categorybox-item-section">
       <img src="images/fries-icon.png" alt="Fries">
-      <a href="fries.html">Fries</a>
+      <a href="menu.html#fries">Fries</a>
       <div class="arrow">➤</div>
     </div>
     
     <div class="categorybox-item-section">
       <img src="images/street-bites-icon.png" alt="Street Bites">
-      <a href="streetbites.html">Street Bites</a>
+      <a href="menu.html#street">Street Bites</a>
       <div class="arrow">➤</div>
     </div>
     
     <div class="categorybox-item-section">
       <img src="images/chai-icon.png" alt="Drinks" class="Chai-icon">
-      <a href="drinks.html">Drinks</a>
+      <a href="menu.html#drinks">Drinks</a>
       <div class="arrow">➤</div>
     </div>
     <div class="categorybox-item-section">
       <img src="images/wraps-icon.png" alt="Wraps">
-      <a href="wraps.html">Wraps</a>
+      <a href="menu.html#wraps">Wraps</a>
       <div class="arrow">➤</div>
     </div>
     <div class="categorybox-item-section">
       <img src="images/vadapav-icon.png" alt="Vadapav">
-      <a href="vadapav.html">Vadapav</a>
+      <a href="menu.html#bites">Bites</a>
       <div class="arrow">➤</div>
     </div>
 
@@ -930,28 +987,31 @@
     <div class="view-more-container">
         <a href="menu.html" class="view-more-btn">VIEW MORE</a>
     </div>
+
         <footer class="footer" id="contact">
         <div class="footer-container">
-            <!-- About -->
-            <div class="footer-column about">
-                <h3>About</h3>
-                <p>Bhookie is a bold and fresh quick-bite fusion food startup bringing the taste of India to the streets
-                    of Liverpool, UK. With a unique focus on iconic items like Vada Pav and Chicken Fries, we’re
-                    redefining street food culture abroad. Bhookie blends tradition and creativity — delivering
-                    memorable bites packed with flavor and personality.</p>
+            <!-- Links -->
+            <div class="footer-column quick_links">
+                <h3>Quick Links</h3>
+               <ul>
+                    <a href="index.html"><li>Home</li></a>
+                    <a href="menu.html"><li>Menu</li></a>
+                    <a href="aboutus.html"><li>About us</li></a>
+                    <a href="login.html"><li>Login</li></a>
+                    <a href="contact_us.html"><li>Contact</li></a>
+                </ul>
             </div>
-
+            
             <!-- Menu -->
             <div class="footer-column menu">
                 <h3>Menu</h3>
                 <ul>
-                    <li>STREET BITES</li>
-                    <li>FRIES</li>
-                    <li>BITES</li>
-                    <li>WRAPS</li>
-                    <li>BURGERS</li>
-                    <li>FUSION SPECIAL</li>
-                    <li>DRINKS</li>
+                   <a href="menu.html#street"><li>STREET BITES</li></a> 
+                    <a href="menu.html#fries"><li>FRIES</li></a>
+                    <a href="menu.html#bites"><li>BITES</li></a>
+                   <a href="menu.html#wraps"><li>WRAPS</li></a>
+                    <a href="menu.html#burgers"><li>BURGERS</li></a>
+                    <a href="menu.html#drinks"><li>DRINKS</li></a>
                 </ul>
             </div>
 
@@ -959,17 +1019,20 @@
             <div class="footer-column contact">
                 <h3>Contact</h3>
                 <p>123 Street, City<br>info@example.com<br>+44 7867233721</p>
-            </div>
-        </div>
-
-        <!-- Bottom Footer -->
-        <div class="footer-bottom">
-            <p>&copy; BHOOKIE. All Rights Reserved.</p>
-            <div class="social-icons">
+                <div class="social-icons">
+                  <br> <br>
+            <h3>Follow Us</h3><br>
                 <a href="#"><i class="fab fa-facebook-f"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
+            </div>
+        </div>
+<br>
+        <!-- Bottom Footer -->
+        <div class="footer-bottom">
+            <p>&copy; BHOOKIE. All Rights Reserved.</p>
+           
         </div>
     </footer>
 
@@ -1184,14 +1247,15 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  // Popup display
-  const popup = document.getElementById("popup");
-  if (popup) {
-    window.onload = () => {
-      popup.style.display = "flex";
-    };
-  }
+ // Show popup on page load
+  window.onload = function() {
+    document.getElementById("popup").style.display = "flex";
+  };
 
+  // Close button click handler
+  document.getElementById("closeBtn").addEventListener("click", function() {
+    document.getElementById("popup").style.display = "none";
+  });
 });
 
   </script>
