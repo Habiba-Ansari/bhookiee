@@ -974,280 +974,226 @@
     </footer>
 
 <script>
+document.addEventListener('DOMContentLoaded', function () {
+  // DOM Elements
+  const container = document.querySelector('.dishes-container');
+  const leftBtn = document.querySelector('.nav-btn.left');
+  const rightBtn = document.querySelector('.nav-btn.right');
+  let currentIndex = 2; // Start with center card (index 2)
+  let isDesktop = window.innerWidth > 768;
+  let touchStartX = 0;
+  const swipeThreshold = 50;
 
-  document.addEventListener('DOMContentLoaded', function() {
-      // DOM Elements
-      const container = document.querySelector('.dishes-container');
-      const leftBtn = document.querySelector('.nav-btn.left');
-      const rightBtn = document.querySelector('.nav-btn.right');
-      let currentIndex = 2; // Start with center card (index 2)
-      let isDesktop = window.innerWidth > 768;
-      let touchStartX = 0;
-      const swipeThreshold = 50; // Minimum swipe distance in pixels
-  
-      // Dish data
-      const dishes = [
-          { name: "Burger", image: "images/burger.png" },
-          { name: "Wraps", image: "images/wrap.png" },
-          { name: "Fries", image: "images/fries.png" },
-          { name: "Vadapav", image: "images/vada.png" },
-          { name: "Bites", image: "images/bites.png" },
-          { name: "Chai", image: "images/chai.png" }
-      ];
-  
-      // Render cards
-      dishes.forEach((dish) => {
-          const card = document.createElement('div');
-          card.className = 'dish-card';
-          card.innerHTML = `
-              <img src="${dish.image}" alt="${dish.name}" class="dish-image">
-              <h3>${dish.name}</h3>
-          `;
-          container.appendChild(card);
+  // Dish data
+  const dishes = [
+    { name: "Burger", image: "images/burger.png" },
+    { name: "Wraps", image: "images/wrap.png" },
+    { name: "Fries", image: "images/fries.png" },
+    { name: "Vadapav", image: "images/vada.png" },
+    { name: "Bites", image: "images/bites.png" },
+    { name: "Chai", image: "images/chai.png" }
+  ];
+
+  // Render cards
+  dishes.forEach((dish) => {
+    const card = document.createElement('div');
+    card.className = 'dish-card';
+    card.innerHTML = `
+      <img src="${dish.image}" alt="${dish.name}" class="dish-image">
+      <h3>${dish.name}</h3>
+    `;
+    container.appendChild(card);
+  });
+
+  const cards = document.querySelectorAll('.dish-card');
+
+  function getCardWidth() {
+    return cards[0]?.offsetWidth || 220;
+  }
+
+  function getCardGap() {
+    const containerStyles = window.getComputedStyle(container);
+    return parseInt(containerStyles.gap) || 20;
+  }
+
+  function centerCard(index) {
+    cards.forEach(card => card.classList.remove('center'));
+    cards[index].classList.add('center');
+    const cardWidth = getCardWidth();
+    const gap = getCardGap();
+    const scrollPos = index * (cardWidth + gap) - (container.clientWidth / 2 - cardWidth / 2);
+    container.scrollTo({ left: scrollPos, behavior: 'smooth' });
+  }
+
+  centerCard(currentIndex);
+
+  // Desktop Navigation
+  leftBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+    centerCard(currentIndex);
+  });
+
+  rightBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % cards.length;
+    centerCard(currentIndex);
+  });
+
+  // Mobile Touch Handling
+  if (!isDesktop) {
+    container.style.scrollSnapType = 'x mandatory';
+
+    container.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    container.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const swipeDistance = touchEndX - touchStartX;
+      if (Math.abs(swipeDistance) >= swipeThreshold) {
+        currentIndex = swipeDistance > 0
+          ? Math.max(0, currentIndex - 1)
+          : Math.min(cards.length - 1, currentIndex + 1);
+        centerCard(currentIndex);
+      }
+    }, { passive: true });
+
+    container.addEventListener('scroll', () => {
+      const containerCenter = container.scrollLeft + (container.clientWidth / 2);
+      cards.forEach((card, index) => {
+        const cardRect = card.getBoundingClientRect();
+        const cardCenter = cardRect.left + (cardRect.width / 2) - container.getBoundingClientRect().left;
+        if (Math.abs(containerCenter - cardCenter) < 30) {
+          if (currentIndex !== index) {
+            currentIndex = index;
+            cards.forEach(c => c.classList.remove('center'));
+            card.classList.add('center');
+          }
+        }
       });
-  
-      const cards = document.querySelectorAll('.dish-card');
-  
-      // Initialize - center the third card (index 2)
-      centerCard(currentIndex);
-  
-      // Core Functions
-      function getCardWidth() {
-          return cards[0]?.offsetWidth || 220;
-      }
-  
-      function getCardGap() {
-          const containerStyles = window.getComputedStyle(container);
-          return parseInt(containerStyles.gap) || 20;
-      }
-  
-      function centerCard(index) {
-          // Update classes
-          cards.forEach(card => card.classList.remove('center'));
-          cards[index].classList.add('center');
-  
-          // Calculate scroll position
-          const cardWidth = getCardWidth();
-          const gap = getCardGap();
-          const scrollPos = index * (cardWidth + gap) - (container.clientWidth / 2 - cardWidth / 2);
-  
-          // Smooth scroll to position
-          container.scrollTo({
-              left: scrollPos,
-              behavior: 'smooth'
-          });
-      }
-      
-      let currentSlide = 0;
+    }, { passive: true });
+  } else {
+    container.addEventListener('scroll', (e) => e.preventDefault(), { passive: false });
+  }
 
+  // Window resize handler
+  window.addEventListener('resize', () => {
+    isDesktop = window.innerWidth > 768;
+    container.style.scrollSnapType = isDesktop ? 'none' : 'x mandatory';
+    if (isDesktop) centerCard(currentIndex);
+  });
+
+  // Slideshow
+  let currentSlide = 0;
   const slides = [
-    {
-      image: "images/VadapavAndTea.png",
-      title: "TASTE THE FUSION",
-      text: "Craving street food magic? Vada Pav & Tea —<br> together, better, cheaper!",
-    },
-    {
-      image: "images/secondslide.png",
-      title: "TASTE THE FUSION",
-      text: "Juicy, crispy, and loaded with flavor —<br> our Chicken Combo hits different!",
-    },
-    {
-      image: "images/noodleBhelAndManchurian.png",
-      title: "TASTE THE FUSION",
-      text: "Combos you won’t forget — classic Indian flavors.",
-    },
-    {
-      image: "images/bitesAndwrap.png",
-      title: "BHOOKIE COMBOS",
-      text: "Grab your combo deals, hot and fresh every day!",
-    },
+    { image: "images/VadapavAndTea.png", title: "TASTE THE FUSION", text: "Craving street food magic? Vada Pav & Tea —<br> together, better, cheaper!" },
+    { image: "images/secondslide.png", title: "TASTE THE FUSION", text: "Juicy, crispy, and loaded with flavor —<br> our Chicken Combo hits different!" },
+    { image: "images/noodleBhelAndManchurian.png", title: "TASTE THE FUSION", text: "Combos you won’t forget — classic Indian flavors." },
+    { image: "images/bitesAndwrap.png", title: "BHOOKIE COMBOS", text: "Grab your combo deals, hot and fresh every day!" }
   ];
 
   function showSlide(index) {
     document.getElementById("slide-image").src = slides[index].image;
     document.getElementById("slide-title").textContent = slides[index].title;
     document.getElementById("slide-text").innerHTML = slides[index].text;
-
     const circles = document.querySelectorAll(".circle");
     circles.forEach((circle, idx) => {
       circle.classList.toggle("active", idx === index);
     });
-
     currentSlide = index;
   }
 
-  function changeSlide(index) {
-    showSlide(index);
-  }
-
   function nextSlide() {
-    const nextIndex = (currentSlide + 1) % slides.length;
-    showSlide(nextIndex);
+    showSlide((currentSlide + 1) % slides.length);
   }
 
-  window.onload = () => {
-    showSlide(currentSlide); // show first slide
-    setInterval(nextSlide, 4000); // change slide every 4 seconds
-  };
+  showSlide(currentSlide);
+  setInterval(nextSlide, 4000);
 
-
-    // Navbar scroll effect
-    window.addEventListener('scroll', function () {
-      const navbar = document.querySelector('.navbar');
-      navbar.classList.toggle('scrolled', window.scrollY > 0);
-    });
-  
-    document.addEventListener('DOMContentLoaded', () => {
-      // Vadapav scroll animation
-      const vadapav = document.querySelector('.vadapav');
-      let lastScroll = window.scrollY;
-  
-      window.addEventListener('scroll', () => {
-        const currentScroll = window.scrollY;
-        const scrollDirection = currentScroll > lastScroll ? 'down' : 'up';
-        lastScroll = currentScroll;
-  
-        const containerTop = vadapav.getBoundingClientRect().top;
-        const triggerPoint = window.innerHeight * 0.8;
-  
-        vadapav.classList[
-          containerTop < triggerPoint && scrollDirection === 'down' ? 'add' : 'remove'
-        ]('expanded');
-      });
-  
-      // Smooth scroll for anchors
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-          });
-        });
-      });
-  
-      // Profile icon dropdown logic
-      const icon = document.querySelector(".profile-icon");
-      const dropdown = document.getElementById("profileDropdown");
-  
-      icon.addEventListener("click", function (e) {
-        e.stopPropagation();
-        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  
-        if (!isLoggedIn) {
-          window.location.href = "login.html";
-          return;
-        }
-  
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-      });
-  
-      window.addEventListener("click", function () {
-        dropdown.style.display = "none";
-      });
-  
-      // Populate dropdown if logged in
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      if (isLoggedIn) {
-        dropdown.innerHTML = `
-          <li><a href="myprofile.html">My Profile</a></li>
-          <li><a href="#">My Orders</a></li>
-          <li><a href="#" id="logoutLink">Logout</a></li>
-        `;
-        document.body.addEventListener("click", (e) => {
-          if (e.target.id === "logoutLink") {
-            localStorage.removeItem("isLoggedIn");
-            localStorage.removeItem("userPhone");
-            window.location.reload();
-          }
-        });
-      }
-    });
-   
-      const hamburger = document.getElementById('hamburger');
-      const navLinks = document.getElementById('navLinks');
-
-      hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-      });
-      // Desktop Navigation
-      leftBtn.addEventListener('click', () => {
-          currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-          centerCard(currentIndex);
-      });
-  
-      rightBtn.addEventListener('click', () => {
-          currentIndex = (currentIndex + 1) % cards.length;
-          centerCard(currentIndex);
-      });
-  
-      // Mobile Touch Handling
-      if (!isDesktop) {
-          container.style.scrollSnapType = 'x mandatory';
-          
-          container.addEventListener('touchstart', (e) => {
-              touchStartX = e.touches[0].clientX;
-          }, { passive: true });
-  
-          container.addEventListener('touchend', (e) => {
-              const touchEndX = e.changedTouches[0].clientX;
-              const swipeDistance = touchEndX - touchStartX;
-              
-              if (Math.abs(swipeDistance) >= swipeThreshold) {
-                  if (swipeDistance > 0) {
-                      // Swiped right
-                      currentIndex = Math.max(0, currentIndex - 1);
-                  } else {
-                      // Swiped left
-                      currentIndex = Math.min(cards.length - 1, currentIndex + 1);
-                  }
-                  centerCard(currentIndex);
-              }
-          }, { passive: true });
-  
-          // Auto-center during scroll
-          container.addEventListener('scroll', () => {
-              const containerCenter = container.scrollLeft + (container.clientWidth / 2);
-              cards.forEach((card, index) => {
-                  const cardRect = card.getBoundingClientRect();
-                  const cardCenter = cardRect.left + (cardRect.width / 2) - container.getBoundingClientRect().left;
-                  if (Math.abs(containerCenter - cardCenter) < 30) {
-                      if (currentIndex !== index) {
-                          currentIndex = index;
-                          cards.forEach(c => c.classList.remove('center'));
-                          card.classList.add('center');
-                      }
-                  }
-              });
-          }, { passive: true });
-      } else {
-          // Desktop scroll prevention
-          container.addEventListener('scroll', (e) => {
-              e.preventDefault();
-          }, { passive: false });
-      }
-  
-      // Window resize handler
-      window.addEventListener('resize', () => {
-          isDesktop = window.innerWidth > 768;
-          if (!isDesktop) {
-              container.style.scrollSnapType = 'x mandatory';
-          } else {
-              container.style.scrollSnapType = 'none';
-              centerCard(currentIndex);
-          }
-      });
-  
-      // Popup handling (if exists)
-      function closePopup() {
-          const popup = document.getElementById("popup");
-          if (popup) popup.style.display = "none";
-      }
-  
-      window.onload = function() {
-          const popup = document.getElementById("popup");
-          if (popup) popup.style.display = "flex";
-      };
+  document.querySelectorAll(".circle").forEach((circle, idx) => {
+    circle.addEventListener("click", () => showSlide(idx));
   });
+
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 0);
+  });
+
+  // Vadapav scroll animation
+  const vadapav = document.querySelector('.vadapav');
+  if (vadapav) {
+    let lastScroll = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.scrollY;
+      const scrollDirection = currentScroll > lastScroll ? 'down' : 'up';
+      lastScroll = currentScroll;
+      const containerTop = vadapav.getBoundingClientRect().top;
+      const triggerPoint = window.innerHeight * 0.8;
+      vadapav.classList[
+        containerTop < triggerPoint && scrollDirection === 'down' ? 'add' : 'remove'
+      ]('expanded');
+    });
+  }
+
+  // Smooth scroll for anchors
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  // Profile icon dropdown logic
+  const icon = document.querySelector(".profile-icon");
+  const dropdown = document.getElementById("profileDropdown");
+  if (icon && dropdown) {
+    icon.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      if (!isLoggedIn) {
+        window.location.href = "login.html";
+        return;
+      }
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    });
+
+    window.addEventListener("click", () => dropdown.style.display = "none");
+
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    if (isLoggedIn) {
+      dropdown.innerHTML = `
+        <li><a href="myprofile.html">My Profile</a></li>
+        <li><a href="#">My Orders</a></li>
+        <li><a href="#" id="logoutLink">Logout</a></li>
+      `;
+      document.body.addEventListener("click", (e) => {
+        if (e.target.id === "logoutLink") {
+          localStorage.removeItem("isLoggedIn");
+          localStorage.removeItem("userPhone");
+          window.location.reload();
+        }
+      });
+    }
+  }
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  }
+
+  // Popup display
+  const popup = document.getElementById("popup");
+  if (popup) {
+    window.onload = () => {
+      popup.style.display = "flex";
+    };
+  }
+
+});
+
   </script>
    
 
