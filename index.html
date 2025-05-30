@@ -783,7 +783,7 @@
 
        /* Reviews Section Styles */
 .reviews-section {
-    padding: 60px 121px;
+    padding: 60px 80px;
     background-color: #191917;
     text-align: center;
 }
@@ -799,10 +799,8 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     gap: 20px;
-      justify-content: center; /* 👈 this centers the flex items inside */
-
     padding: 10px;
-    max-width: 80%;
+    max-width: 100%;
     margin: 0 auto;
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.5);
@@ -822,7 +820,7 @@
 }
 
 .review-card {
-     background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     padding: 20px;
     width: 300px;
@@ -831,6 +829,7 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    scroll-snap-align: start;
 }
 
 .review-header {
@@ -859,14 +858,7 @@
     color: #FFD700;
     margin: 5px 0;
 }
-.review-slide {
-     display: grid;
-  grid-template-columns: repeat(2, 1fr);
-column-gap: 0px; /* tighter columns */
-  row-gap: 20px;    /* keep nice space between rows */  
-  min-width: calc(100%); /* adjust based on your section padding */
-  scroll-snap-align: start;
-}
+
 .review-text {
     margin: 0;
     font-size: 14px;
