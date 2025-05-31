@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
     <style>
         /* Basic styles for responsiveness and hover effects */
         body {
@@ -28,9 +30,6 @@
             /* Space for fixed navbar */
           
         }
-
-
-
         @media (max-width: 768px) {
           .hero-section {
             background: url('images/phonenew.png') no-repeat center center / cover;
@@ -42,8 +41,7 @@
           }
         }
 
-        
-        .hero-content {
+    .hero-content {
     text-align: left;
     color: white;
     padding: 20px;
@@ -68,6 +66,7 @@
       justify-content: center;
       align-items: center;
       z-index: 9999;
+      
     }
 
     /* Popup box */
@@ -80,8 +79,23 @@
   
       position: relative;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      /* Animation */
+      animation: slideDown 0.4s ease forwards;
+      transform: translateY(-50px);
+      opacity: 0;
     }
 
+    /* Keyframes for slide down */
+    @keyframes slideDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
     /* Close button */
     .close-btn {
       position: absolute;
@@ -106,6 +120,26 @@
       font-weight: 900;
       color: #080808;
     }
+
+  /* Responsive adjustments */
+@media (max-width: 480px) {
+  .popup-box {
+    padding: 14px;
+    border-radius: 10px;
+    max-width: 300px;
+    width: 85%;
+  }
+
+  .close-btn {
+    font-size: 24px;
+    top: 4px;
+    right: 8px;
+  }
+
+  .popup-box h3 {
+    font-size: 14px;
+  }
+}
 @media (max-width: 768px) {
   .text-section {
     position: absolute;
@@ -444,14 +478,39 @@
 }
 
 /* Show hamburger and hide nav-links on mobile */
+/* Mobile layout arrangement */
 @media (max-width: 768px) {
-  .hamburger {
+  .navbar {
     display: flex;
-    margin-right: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .nav-logo {
+    order: 2;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .profile-container {
+    order: 1;
+  }
+
+  .hamburger {
+    order: 3;
+    display: flex;
+    margin-left: 15px;
   }
 
   .nav-links {
-    display: none;
+   display: none;
     flex-direction: column;
     background-color: rgba(19, 19, 18, 0.9);
     width: 100%;
@@ -459,87 +518,21 @@
     top: 100%;
     left: 0;
     right: 0;
-    padding: 20px ;
+    padding: 20px;
     align-items: center;
     text-align: center;
- }
-
+    gap: 20px;
+    z-index: 999;
+  }
+ .nav-links a {
+    color: white;
+    font-size: 18px;
+  }
   .nav-links.active {
     display: flex;
   }
 }
 
-/* Navbar */
-.navbar {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 20px 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
-  transition: background-color 0.3s ease;
-}
-
-.navbar.transparent {
-  background-color: transparent;
-}
-
-.navbar.scrolled {
-  background-color: rgba(19, 19, 18, 0.7);
-}
-
-/* Logo */
-.nav-logo img {
-  height: 70px;
-}
-
-/* Navigation Links */
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 40px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: white;
-  font-weight: 500;
-  font-size: 18px;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  left: 0;
-  bottom: -5px;
-  background-color: #FF5E18;
-  transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-.nav-links a.active::after {
-  width: 100%;
-}
-
-.nav-links a:hover {
-  color: #ffffff;
-}
-
-/* Right Side Button */
-.nav-buttons {
-  display: flex;
-  align-items: center;
-}
 
 #image-container img {
   width: 800px;
@@ -550,8 +543,6 @@
   position: relative;
   left: 300px;
 }
-
-
 
 .order-section {
   display: flex;
@@ -617,47 +608,6 @@
   }
 
 
-/* Hamburger icon */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
-  z-index: 1100;
-}
-
-.hamburger span {
-  height: 3px;
-  width: 25px;
-  background-color: white;
-  border-radius: 2px;
-}
-
-/* Show hamburger and hide nav-links on mobile */
-@media (max-width: 768px) {
-  .hamburger {
-    display: flex;
-    margin-right: 20px;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    background-color: rgba(19, 19, 18, 0.9);
-    width: 100%;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    padding: 20px ;
-    align-items: center;
-    text-align: center;
- }
-
-  .nav-links.active {
-    display: flex;
-  }
-} 
 /* popular dishes*/
 .popular-dishes {
     max-width: 1200px;
@@ -1018,7 +968,7 @@
             </div>
             <div class="profile-container">
                 <div class="nav-buttons">
-                <a class="profile-icon" ><img src="images/user.png" alt="User Icon" style="height: 20px; width: 20px;"></a>
+                <a class="profile-icon" ><img src="images/user.png" alt="User Icon" style="height: 25px; width: 25px;"></a>
                 <ul class="dropdown-menu" id="profileDropdown" style="display: none;">
                 
                 </ul>
@@ -1334,55 +1284,31 @@
     </div>
 </section>
 
+  <footer class="footer" id="contact">
+  <div class="footer-container">
+    <!-- Menu Items -->
+    <div class="footer-menu">
+      <a href="menu.html#street">STREET BITES</a>
+      <a href="menu.html#fries">FRIES</a>
+      <a href="menu.html#bites">BITES</a>
+      <a href="menu.html#wraps">WRAPS</a>
+      <a href="menu.html#burgers">BURGERS</a>
+      <a href="menu.html#drinks">DRINKS</a>
+    </div>
 
+    <!-- Social Icons -->
+    <div class="footer-socials">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
 
-        <footer class="footer" id="contact">
-        <div class="footer-container">
-            <!-- Links -->
-            <div class="footer-column quick_links">
-                <h3>Quick Links</h3>
-               <ul>
-                    <a href="index.html"><li>Home</li></a>
-                    <a href="menu.html"><li>Menu</li></a>
-                    <a href="aboutus.html"><li>About us</li></a>
-                    <a href="login.html"><li>Login</li></a>
-                    <a href="contact_us.html"><li>Contact</li></a>
-                </ul>
-            </div>
-            
-            <!-- Menu -->
-            <div class="footer-column menu">
-                <h3>Menu</h3>
-                <ul>
-                   <a href="menu.html#street"><li>STREET BITES</li></a> 
-                    <a href="menu.html#fries"><li>FRIES</li></a>
-                    <a href="menu.html#bites"><li>BITES</li></a>
-                   <a href="menu.html#wraps"><li>WRAPS</li></a>
-                    <a href="menu.html#burgers"><li>BURGERS</li></a>
-                    <a href="menu.html#drinks"><li>DRINKS</li></a>
-                </ul>
-            </div>
-
-            <!-- Contact -->
-            <div class="footer-column contact">
-                <h3>Contact</h3>
-                <p>123 Street, City<br>info@example.com<br>+44 7867233721</p>
-                <div class="social-icons">
-                  <br> <br>
-            <h3>Follow Us</h3><br>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-            </div>
-        </div>
-<br>
-        <!-- Bottom Footer -->
-        <div class="footer-bottom">
-            <p>&copy; BHOOKIE. All Rights Reserved.</p>
-           
-        </div>
-    </footer>
+  <!-- Bottom Footer -->
+  <div class="footer-bottom">
+    <h3>&copy; BHOOKIE<sup>®</sup>. All Rights Reserved.</h3>
+  </div>
+</footer>
 
 
 <script>
@@ -1685,13 +1611,13 @@
   }
 
   // Hamburger menu
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-  if (hamburger && navLinks) {
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-    });
-  }
+ const hamburger = document.getElementById('hamburger');
+ const navLinks = document.getElementById('navLinks');
+ if (hamburger && navLinks) {
+  hamburger.addEventListener('click', () => {
+     navLinks.classList.toggle('active');
+   });
+ }
 
  // Show popup on page load
   window.onload = function() {
