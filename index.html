@@ -816,6 +816,7 @@
 
     .review-text {
         font-size: 14px;
+        word-wrap: break-word;
     }
 }
 
@@ -876,9 +877,14 @@
 }
 
 .review-avatar {
-    border-radius: 50%;
-    margin-right: 10px;
+    width: 50px; /* Set the width to match the desired size of the circle */
+    height: 55px; /* Set the height to match the desired size of the circle */
+    border-radius: 50%; /* Ensure the image is circular */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+    object-position: center; /* Center the image within the circle */
+    margin: 10px;
 }
+
 
 .review-info {
     display: flex;
@@ -1185,7 +1191,7 @@
         <!-- Review Card 1 -->
         <div class="review-card">
             <div class="review-header">
-                <img src="https://via.placeholder.com/50" alt="User" class="review-avatar">
+                <img src="images/johndow.png" alt="User" class="review-avatar">
                 <div class="review-info">
                     <h4>John Doe</h4>
                     <div class="review-stars">
