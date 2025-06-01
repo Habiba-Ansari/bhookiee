@@ -237,6 +237,136 @@
 }
 
 
+@media (min-width: 600px) and (max-width: 1024px) {
+  /* 1. Background Image Fix */
+  .hero-section {
+    height: 100vh;
+    background: url('images/tabletimage.jpg') no-repeat right top;
+    background-size: auto 80%;
+    background-position: right -50px top 0;
+    padding-top: 50px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  /* 2. Hero Content Container */
+  .hero-content {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 60px;
+    margin-top: 0;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    z-index: 2;
+    transform: translateY(-600px);
+  }
+
+  /* 3. Text Section */
+  .text-section {
+    flex: 1;
+    padding: 20px 0;
+    position: relative;
+    z-index: 3;
+    margin-top: -500px;
+  }
+
+  .text-section h2 {
+    font-size: 32px;
+    margin-bottom: 16px;
+    line-height: 1.2;
+    color: #fff;
+  }
+
+  .text-section p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    line-height: 1.4;
+    color: #eee;
+  }
+
+  /* 4. Order Section */
+  .order-section {
+    text-align: left;
+    margin-top: 0px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+  }
+
+  .order-btn {
+   /* padding: 12px 24px; */
+    font-size: 16px;
+    border-radius: 8px;
+    white-space: nowrap;
+    background-color: #080808!important;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+
+  /* 5. Image Section */
+  .image-section {
+    flex: 1;
+    max-width: 350px;
+    position: relative;
+    z-index: 1;
+    transform: translateY(-250px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #slide-image {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  }
+
+  /* 6. Navigation Circles */
+  .circles {
+   position: absolute;
+  bottom: 20px;
+  left: 90% !important; /* Start from center */
+  transform: translateX(-100%); /* Center precisely */
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  z-index: 2;
+  width: auto; /* Let it take natural width */
+  }
+
+  .circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .circle.active {
+    background-color: #e10808 !important;
+  }
+
+  /* 7. Doodle Image */
+  .doodle {
+    max-width: 70px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+
 .text-section {
   flex: 1.2;
 }
@@ -1541,7 +1671,7 @@
   let currentSlide = 0;
   const slides = [
     { image: "images/VadapavAndTea.png", title: "TASTE THE FUSION", text: "Craving street food magic? Vada Pav & Tea —<br> together, better, cheaper!" },
-    { image: "images/secondslide.png", title: "TASTE THE FUSION", text: "Juicy, crispy, and loaded with flavor —<br> our Chicken Combo hits different!" },
+    { image: "images/secondslide.png", title: "TASTE THE FUSION", text: "Juicy and loaded with flavor — our Chicken Combo hits different!" },
     { image: "images/noodleBhelAndManchurian.png", title: "TASTE THE FUSION", text: "Combos you won’t forget — classic Indian flavors." },
     { image: "images/bitesAndwrap.png", title: "BHOOKIE COMBOS", text: "Grab your combo deals, hot and fresh every day!" }
   ];

@@ -389,15 +389,41 @@ body {
   border-radius: 2px;
 }
 
+
 /* Show hamburger and hide nav-links on mobile */
+/* Mobile layout arrangement */
 @media (max-width: 768px) {
-  .hamburger {
+  .navbar {
     display: flex;
-    margin-right: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .nav-logo {
+    order: 2;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .profile-container {
+    order: 1;
+  }
+
+  .hamburger {
+    order: 3;
+    display: flex;
+    margin-left: 15px;
   }
 
   .nav-links {
-    display: none;
+   display: none;
     flex-direction: column;
     background-color: rgba(19, 19, 18, 0.9);
     width: 100%;
@@ -405,11 +431,16 @@ body {
     top: 100%;
     left: 0;
     right: 0;
-    padding: 20px ;
+    padding: 20px;
     align-items: center;
     text-align: center;
- }
-
+    gap: 20px;
+    z-index: 999;
+  }
+ .nav-links a {
+    color: white;
+    font-size: 18px;
+  }
   .nav-links.active {
     display: flex;
   }
