@@ -1,1762 +1,1891 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bhookie</title>
     <link rel="stylesheet" href="style.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap"
+      rel="stylesheet"
+    />
 
     <style>
-        /* Basic styles for responsiveness and hover effects */
-        body {
-            font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
-        }
+      /* Basic styles for responsiveness and hover effects */
+      body {
+        font-family: "Montserrat", sans-serif;
+        margin: 0;
+        padding: 0;
+      }
 
+      .hero-section {
+        height: 100vh;
+
+        background: url("images/backg2.png") no-repeat right center;
+        background-size: 100% auto;
+        /* Slightly reduce the size of the background image */
+        position: relative;
+        padding-top: 100px;
+        /* Space for fixed navbar */
+      }
+      @media (max-width: 768px) {
         .hero-section {
-            height: 100vh;
-            
-            background: url('images/backg2.png') no-repeat right center;
-            background-size: 100% auto;
-            /* Slightly reduce the size of the background image */
-            position: relative;
-            padding-top: 100px;
-            /* Space for fixed navbar */
-          
+          background: url("images/phonenew.png") no-repeat center center / cover;
+          width: 100%; /* Full width */
+          min-height: 100vh; /* Full viewport height */
+          margin: 0; /* Remove default margins */
+          padding-top: 80px; /* Space for navbar */
+          right: -20px;
         }
-        @media (max-width: 768px) {
-          .hero-section {
-            background: url('images/phonenew.png') no-repeat center center / cover;
-            width:100%;          /* Full width */
-            min-height: 100vh;    /* Full viewport height */
-            margin: 0;            /* Remove default margins */
-            padding-top: 80px;    /* Space for navbar */
-            right: -20px;
-          }
-        }
+      }
 
-    .hero-content {
-    text-align: left;
-    color: white;
-    padding: 20px;
-    margin-top: 90px; /* push below navbar */
-    display: flex;
-    flex-direction: row; /* change to row */
-    align-items: flex-start;
-    padding-left: 100px;
-    padding-top: 90px;
-    gap: 70px; /* space between text and image */
-}
+      .hero-content {
+        text-align: left;
+        color: white;
+        padding: 20px;
+        margin-top: 90px; /* push below navbar */
+        display: flex;
+        flex-direction: row; /* change to row */
+        align-items: flex-start;
+        padding-left: 100px;
+        padding-top: 90px;
+        gap: 70px; /* space between text and image */
+      }
 
-/* Popup overlay */
-    .popup-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      
-    }
+      /* Popup overlay */
+      .popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
 
-    /* Popup box */
-    .popup-box {
-      background: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 380px;
-      text-align: center;
-  
-      position: relative;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      /* Animation */
-      animation: slideDown 0.4s ease forwards;
-      transform: translateY(-50px);
-      opacity: 0;
-    }
+      /* Popup box */
+      .popup-box {
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        max-width: 380px;
+        text-align: center;
 
-    /* Keyframes for slide down */
-    @keyframes slideDown {
-      from {
+        position: relative;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        /* Animation */
+        animation: slideDown 0.4s ease forwards;
         transform: translateY(-50px);
         opacity: 0;
       }
-      to {
-        transform: translateY(0);
-        opacity: 1;
+
+      /* Keyframes for slide down */
+      @keyframes slideDown {
+        from {
+          transform: translateY(-50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
       }
-    }
-    /* Close button */
-    .close-btn {
-      position: absolute;
-      top: 0px;
-      right: 6px;
-      font-size: 29px;
-      color: #333;
-      cursor: pointer;
-    }
+      /* Close button */
+      .close-btn {
+        position: absolute;
+        top: 0px;
+        right: 6px;
+        font-size: 29px;
+        color: #333;
+        cursor: pointer;
+      }
 
-    /* Image */
-    .popup-box img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
+      /* Image */
+      .popup-box img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
 
-    /* Text */
-    .popup-box h3{
-      margin-top: 15px;
-      font-size: 16px;
-      font-weight: 900;
-      color: #080808;
-    }
+      /* Text */
+      .popup-box h3 {
+        margin-top: 15px;
+        font-size: 16px;
+        font-weight: 900;
+        color: #080808;
+      }
 
-  /* Responsive adjustments */
-@media (max-width: 480px) {
-  .popup-box {
-    padding: 14px;
-    border-radius: 10px;
-    max-width: 300px;
-    width: 85%;
-  }
+      /* Responsive adjustments */
+      @media (max-width: 480px) {
+        .popup-box {
+          padding: 14px;
+          border-radius: 10px;
+          max-width: 300px;
+          width: 85%;
+        }
 
-  .close-btn {
-    font-size: 24px;
-    top: 4px;
-    right: 8px;
-  }
+        .close-btn {
+          font-size: 24px;
+          top: 4px;
+          right: 8px;
+        }
 
-  .popup-box h3 {
-    font-size: 14px;
-  }
-}
-@media (max-width: 768px) {
-  .text-section {
-    position: absolute;
-    top: 60px; /* Adjust based on image position */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
-    text-align: center;
-    z-index: 2;
-    color: white;
-  }
+        .popup-box h3 {
+          font-size: 14px;
+        }
+      }
+      @media (max-width: 768px) {
+        .text-section {
+          position: absolute;
+          top: 60px; /* Adjust based on image position */
+          left: 50%;
+          transform: translateX(-50%);
+          width: 90%;
+          text-align: center;
+          z-index: 2;
+          color: white;
+        }
 
+        .text-section h2 {
+          font-size: 0.2rem; /* Smaller heading */
+          margin-bottom: 10px;
+        }
 
- .text-section h2 {
-    font-size: 0.2rem;  /* Smaller heading */
-    margin-bottom: 10px;
-    
-  }
+        .text-section p {
+          font-size: 0.9rem; /* Smaller paragraph */
+          line-height: 1.3;
+        }
 
-  .text-section p {
-    font-size: 0.9rem;  /* Smaller paragraph */
-    line-height: 1.3;
-  
-  }
+        #slide-title {
+          font-size: 29px !important;
+          line-height: 1.2 !important; /* or use rem/em/vw for responsive scaling */
+          font-weight: bold;
+          bottom: -50px !important;
+          text-align: left;
+        }
 
-  #slide-title {
-  font-size: 29px !important;
-  line-height: 1.2 !important; /* or use rem/em/vw for responsive scaling */
-  font-weight: bold;
-  bottom: -50px !important;
-  text-align: left;
-}
-
-#slide-text {
-  font-size: 12px;
-  line-height: 1.4;
-  text-align: left;
-  max-width: 50%;
-}
-
- .order-section {
-    position: absolute !important;
-    top: 110px !important;    /* Increased from 10px to 20px */
-    right: 130px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    width: calc(100% - 20px) !important;
-    z-index: 100 !important;
-  }
-
-  .doodle {
-    width: 50px !important;
-    margin: 10px 0 5px -3px !important;
-  }
-
-  .order-btn {
-    padding: 6px 12px !important;
-    font-size: 12px !important;
-    margin-top: 2px !important;  /* Added space above button */
-  }
-
- .circles {
-    margin-top: 150px !important;
-    top: 20px !important;
-    right: 70px;
-    position: absolute !important;
-  z-index: 999 !important; 
-  }
-
-  .circle {
-    width: 6px !important; /* Smaller dots */
-    height: 6px !important;
-    margin: 0 !important;
-  }
-}
-
-@media (max-width: 768px) {
- .image-section {
-    display: flex !important;
-    justify-content: flex-end !important;
-    padding-right: 50px !important;
-    overflow: visible !important;
-    align-items: flex-start !important; /* Add this to help with upward alignment */
-  }
-
- .image-section img {
-    width: 60% !important;
-    max-width: 200px !important;
-    height: auto !important;
-    object-fit: contain !important;
-    position: relative;
-    top: -10px; 
-    left: 85px;
-  }
-}
-.mobile-welcome {
-  display: none;
-  padding: 12px;
-  text-align: center;
-  font-size: 18px;
-  color: rgb(244, 239, 239);
-  font-weight: bold;
-}
-
-/* Show on mobile screens */
-@media screen and (max-width: 768px) {
-  .mobile-welcome {
-    display: block;
-  }
-
-  /* Optionally hide the nav bar welcome text on mobile */
-  #welcomeUser {
-    display: none;
-  }
-}
-
-
-@media (min-width: 600px) and (max-width: 1024px) {
-  /* 1. Background Image Fix */
-  .hero-section {
-    height: 100vh;
-    background: url('images/tabletimage.jpg') no-repeat right top;
-    background-size: auto 80%;
-    background-position: right -50px top 0;
-    padding-top: 50px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-  }
-
-  /* 2. Hero Content Container */
-  .hero-content {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 0 60px;
-    margin-top: 0;
-    gap: 40px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    z-index: 2;
-    transform: translateY(-600px);
-  }
-
-  /* 3. Text Section */
-  .text-section {
-    flex: 1;
-    padding: 20px 0;
-    position: relative;
-    z-index: 3;
-    margin-top: -500px;
-  }
-
-  .text-section h2 {
-    font-size: 32px;
-    margin-bottom: 16px;
-    line-height: 1.2;
-    color: #fff;
-  }
-
-  .text-section p {
-    font-size: 18px;
-    margin-bottom: 30px;
-    line-height: 1.4;
-    color: #eee;
-  }
-
-  /* 4. Order Section */
-  .order-section {
-    text-align: left;
-    margin-top: 0px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-  }
-
-  .order-btn {
-   /* padding: 12px 24px; */
-    font-size: 16px;
-    border-radius: 8px;
-    white-space: nowrap;
-    background-color: #080808!important;
-    color: white;
-    text-decoration: none;
-    transition: background-color 0.3s;
-  }
-
-
-  /* 5. Image Section */
-  .image-section {
-    flex: 1;
-    max-width: 350px;
-    position: relative;
-    z-index: 1;
-    transform: translateY(-250px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #slide-image {
-    width: 100%;
-    max-width: 350px;
-    height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
-  }
-
-  /* 6. Navigation Circles */
-  .circles {
-   position: absolute;
-  bottom: 20px;
-  left: 90% !important; /* Start from center */
-  transform: translateX(-100%); /* Center precisely */
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  z-index: 2;
-  width: auto; /* Let it take natural width */
-  }
-
-  .circle {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: rgba(255,255,255,0.6);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .circle.active {
-    background-color: #e10808 !important;
-  }
-
-  /* 7. Doodle Image */
-  .doodle {
-    max-width: 70px;
-    height: auto;
-    display: inline-block;
-    vertical-align: middle;
-  }
-}
-
-
-.text-section {
-  flex: 1.2;
-}
-
-.text-section h2 {
-  font-size: 40px;
-  margin-bottom: 20px;
-  font-weight: bold;
-}
-
-.text-section p {
-  font-size: 24px;
-  margin-bottom: 50px;
-}
-
-        .order-btn {
-
-            background-color: #ff6347;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+        #slide-text {
+          font-size: 12px;
+          line-height: 1.4;
+          text-align: left;
+          max-width: 50%;
         }
 
         .order-section {
-            text-align: left;
+          position: absolute !important;
+          top: 110px !important; /* Increased from 10px to 20px */
+          right: 130px !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          width: calc(100% - 20px) !important;
+          z-index: 100 !important;
         }
 
-        .order-btn:hover {
-            background-color: #e5533d;
-            /* Darker shade on hover */
+        .doodle {
+          width: 50px !important;
+          margin: 10px 0 5px -3px !important;
         }
 
-        .menu-card {
-            cursor: pointer;
-            /* Indicate clickable */
-            transition: transform 0.3s;
+        .order-btn {
+          padding: 6px 12px !important;
+          font-size: 12px !important;
+          margin-top: 2px !important; /* Added space above button */
         }
 
-        .menu-card:hover {
-            transform: scale(1.05);
-            /* Slight zoom effect */
+        .circles {
+          margin-top: 150px !important;
+          top: 20px !important;
+          right: 70px;
+          position: absolute !important;
+          z-index: 999 !important;
         }
 
-        /* Modal styles */
-        .modal {
-            display: none;
-            /* Hidden by default */
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.8);
-            padding-top: 60px;
+        .circle {
+          width: 6px !important; /* Smaller dots */
+          height: 6px !important;
+          margin: 0 !important;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .image-section {
+          display: flex !important;
+          justify-content: flex-end !important;
+          padding-right: 50px !important;
+          overflow: visible !important;
+          align-items: flex-start !important; /* Add this to help with upward alignment */
         }
 
-        .modal-content {
-            background-color: #fefefe;
-            margin: 5% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
+        .image-section img {
+          width: 60% !important;
+          max-width: 200px !important;
+          height: auto !important;
+          object-fit: contain !important;
+          position: relative;
+          top: -10px;
+          left: 85px;
         }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .about-section {
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .about-detail {
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-
-        .menu-section {
-            margin-bottom: 0;
-            padding-bottom: 0;
-        }
-
-        .footer {
-            margin-top: 50px;
-            padding-top: 60px;
-        }
-
-        .footer-container {
-            margin-top: 0;
-            padding-top: 0;
-        }
-
-        .footer-bottom {
-            margin-top: 0;
-            padding-top: 0;
-        }
-        .dropdown-menu {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 30px;
-  background-color: #000;
-  border: 2px solid #ff6600;
-  border-radius: 6px;
-  min-width: 140px; /* Reduced width */
-  z-index: 999;
-  list-style: none;
-  padding: 4px 0;
-  margin: 0;
-  box-shadow: 0 4px 10px rgba(255, 102, 0, 0.25);
-}
-
-.dropdown-menu li a {
-  display: block;
-  padding: 8px 12px; /* Smaller padding */
-  color: #fff;
-  font-size: 14px;   /* Smaller font */
-  text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-        .dropdown-menu li a:hover {
-          background-color: #ff6600;
-          color: #000;
-        }
-        
-/* Navbar */
-.navbar {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 20px 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
-  transition: background-color 0.3s ease;
-}
-
-.navbar.transparent {
-  background-color: transparent;
-}
-
-.navbar.scrolled {
-  background-color: rgba(19, 19, 18, 0.7);
-}
-
-/* Logo */
-.nav-logo img {
-  height: 70px;
-}
-
-/* Navigation Links */
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 40px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: white;
-  font-weight: 500;
-  font-size: 18px;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  left: 0;
-  bottom: -5px;
-  background-color: #FF5E18;
-  transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-.nav-links a.active::after {
-  width: 100%;
-}
-
-.nav-links a:hover {
-  color: #ffffff;
-}
-
-/* Right Side Button */
-.nav-buttons {
-  display: flex;
-  align-items: center;
-}
-
-.profile-container{
-  background-color: white;
-  padding: 6px 12px;
-  border-radius: 999px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Hamburger icon */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
-  z-index: 1100;
-}
-
-.hamburger span {
-  height: 3px;
-  width: 25px;
-  background-color: white;
-  border-radius: 2px;
-}
-
-/* Show hamburger and hide nav-links on mobile */
-/* Mobile layout arrangement */
-@media (max-width: 768px) {
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-  }
-
-  .nav-logo {
-    order: 2;
-    flex: 1;
-    display: flex;
-    justify-content: center;
-  }
-
-  .profile-container {
-    order: 1;
-  }
-
-  .hamburger {
-    order: 3;
-    display: flex;
-    margin-left: 15px;
-  }
-
-  .nav-links {
-   display: none;
-    flex-direction: column;
-    background-color: rgba(19, 19, 18, 0.9);
-    width: 100%;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    padding: 20px;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-    z-index: 999;
-  }
- .nav-links a {
-    color: white;
-    font-size: 18px;
-  }
-  .nav-links.active {
-    display: flex;
-  }
-}
-
-
-#image-container img {
-  width: 800px;
-  height:800px;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  position: relative;
-  left: 300px;
-}
-
-.order-section {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 10px 0;
-}
-
-.circles {
-  position: absolute;
-  bottom: 0px; /* adjust distance from bottom as you like */
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 15px;
-  z-index: 10;
-}
-
-.circle {
-  width: 14px;
-  height: 14px;
-  background: #ccc;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.3s;
-}
-
-
-.circle.active {
-  background: #e63946;
-  transform: scale(1.3);
-}
-
-.profile-container{
-  background-color: white;
-  padding: 6px 12px;
-  border-radius: 999px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-/* New styles for image section */
-.image-section {
-    width: 100%;
-  max-width: 600px;
-  height: auto;
-  display: flex;
-  justify-content: flex-start;     /* Align to the left */
-  align-items: flex-start;
-  padding-left: 0;                 /* Default: no left padding */
-  padding-right: 20px;             /* Keep some right padding */
-  box-sizing: border-box;
-  margin-left: -20px; 
-  }
-
-  #slide-image {
-    width: 100% !important;       
-    max-width: 600px !important; 
-    height: auto !important;       
-    object-fit: contain !important;
-    border-radius: 12px;
-    margin-top: 0 !important;
-  }
-
-
-/* popular dishes*/
-.popular-dishes {
-    max-width: 1200px;
-    margin: 70px auto 0;
-    padding: 0 20px;
-    position: relative;
-    overflow: hidden;
-}
-.popular-title {
-    font-size: 30px;
-    font-weight: 700;
-    color: white;
-    letter-spacing: 2px;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    margin-bottom: 30px;
-}
-.dishes-wrapper {
-    position: relative;
-    padding: 0 40px;
-}
-.dishes-container {
-  display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    gap: 20px;
-    padding: 20px 0;
-    cursor: grab;
-}
-.dishes-container:active {
-    cursor: grabbing;
-}
-.dishes-container::-webkit-scrollbar {
-    display: none;
-}
-.dish-card {
-    flex: 0 0 auto;
-    width: 220px;
-    height: 280px;
-    background: #2a2a28;
-    border-radius: 15px;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    transition: transform 0.3s ease opacity 0.3s ease;
-    padding: 20px;
-    border: 1px solid #3a3a38;
-    scroll-snap-align: center;
-}
-.dish-card.center {
-    width: 260px;
-    height: 300px;
-    background: linear-gradient(135deg, #ff6b00 0%, #1a1a1a 100%);
-    box-shadow: 0 10px 20px rgba(255, 107, 0, 0.4);
-    border: 1px solid #ff6b00;
-    transform: scale(1.05);
-    z-index: 10;
-}
-.dish-card h3 {
-    margin-top: 20px;
-    font-size: 20px;
-    color: white;
-    font-weight: 600;
-    text-align: center;
-    font-family: 'Fredoka', sans-serif;
-}
-.dish-card.center h3 {
-    font-size: 24px;
-    color: white;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-}
-.dish-image {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center;
-    border: 4px solid #3a3a38;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
-.dish-card.center .dish-image {
-    width: 140px;
-    height: 140px;
-    border: 4px solid rgba(255, 107, 0, 0.5);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-.nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 40px;
-    height: 40px;
-    background-color: rgba(255, 107, 0, 0.8);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 10;
-    border: none;
-    color: white;
-    font-size: 20px;
-    transition: all 0.3s ease;
-    opacity: 0.8;
-}
-.nav-btn:hover {
-    background-color: #ff6b00;
-    transform: translateY(-50%) scale(1.1);
-    opacity: 1;
-}
-.nav-btn.left {
-    left: 10px;
-}
-.nav-btn.right {
-    right: 10px;
-}
-
-@media (max-width: 360px) {
-    .reviews-section {
-        padding: 15px 5px;
-        width: 100%;
-        overflow-x: hidden;
-    }
-
-    .review-cards-container {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 15px;
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .review-card {
-        width: 100%;
-        max-width: 100%;
-        padding: 12px 8px;
-        box-sizing: border-box;
-        background-color: #333;
-        border-radius: 10px;
-        margin-bottom: 10px;
-        overflow: hidden;
-        word-wrap: break-word;
-    }
-
-    .review-header {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        margin-bottom: 10px;
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .review-avatar {
-        width: 35px;
-        height: 35px;
-        object-fit: cover;
-        border-radius: 50%;
-        margin-right: 10px;
-        flex-shrink: 0;
-    }
-
-    .review-info {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        width: 100%;
-        max-width: calc(100% - 45px);
-        overflow: hidden;
-    }
-
-    .review-info h4 {
-        margin: 0 0 4px 0;
-        font-size: 13px;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        width: 100%;
-        white-space: normal;
-    }
-
-    .review-stars {
-        font-size: 11px;
-        color: #ffc107;
-        margin: 0;
-    }
-
-    .review-text {
-        font-size: 11px;
-        line-height: 1.4;
-        text-align: left;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        hyphens: auto;
-        width: 100%;
-        max-width: 100%;
-        margin-bottom: 8px;
-        white-space: normal;
-        overflow: visible;
-        display: block;
-    }
-
-    .read-more {
-        color: #ff8000;
-        cursor: pointer;
-        font-weight: bold;
-        display: inline-block;
-        text-align: left;
-        margin-top: 5px;
-        font-size: 11px;
-        word-wrap: break-word;
-    }
-}
-.reviews-section {
-    padding: 60px 80px;
-    background-color: #191917;
-    text-align: center;
-}
-
-.reviews-title {
-    color: #fff;
-    margin-bottom: 40px;
-    font-family: 'Fredoka', sans-serif;
-}
-
-.review-cards-container {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 20px;
-    padding: 10px;
-    max-width: 100%;
-    margin: 0 auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.5);
-}
-
-.review-cards-container::-webkit-scrollbar {
-    height: 10px;
-}
-
-.review-cards-container::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.5);
-}
-
-.review-cards-container::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 5px;
-}
-
-.review-card {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 20px;
-    width: 300px;
-    flex: none;
-    text-align: left;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    scroll-snap-align: start;
-}
-
-.review-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
-
-.review-avatar {
-    width: 50px; /* Set the width to match the desired size of the circle */
-    height: 55px; /* Set the height to match the desired size of the circle */
-    border-radius: 50%; /* Ensure the image is circular */
-    object-fit: cover; /* Ensure the image covers the area without distortion */
-    object-position: center; /* Center the image within the circle */
-    margin: 10px;
-}
-
-
-.review-info {
-    display: flex;
-    flex-direction: column;
-}
-
-.review-info h4 {
-    margin: 0;
-    font-size: 16px;
-    color: #fff;
-}
-
-.review-stars {
-    color: #FFD700;
-    margin: 5px 0;
-}
-
-.review-text {
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.5;
-    color: #ccc;
-}
-/* Mobile styles */
-@media (max-width: 768px) {
-    .reviews-section {
-        padding: 30px 15px;
-        width: 100%;
-        box-sizing: border-box;
-    }
-    
-    .review-cards-container {
-        width: 100%;
-        padding: 10px 5px;
-    }
-    
-    .review-card {
-        width: 280px; /* Slightly smaller cards for mobile */
-        padding: 15px;
-    }
-}
-/* Mobile Styles */
-@media (max-width: 768px) {
-    .popular-dishes {
-        padding: 0 15px;
-        margin: 40px auto 0;
-    }
-    .popular-title {
-        font-size: 26px;
-        margin-bottom: 20px;
-    }
-    .dishes-wrapper {
-        padding: 0 30px;
-    }
-    .dishes-container {
-        gap: 15px;
-        padding: 30px 0;
-    }
-    .dish-card {
-        width: 160px;
-        height: 240px;
-        padding: 15px;
-    }
-    .dish-card.center {
-        width: 180px;
-        height: 280px;
-    }
-    .dish-image {
-        width: 90px;
-        height: 90px;
-    }
-    .dish-card.center .dish-image {
-        width: 100px;
-        height: 100px;
-    }
-    .dish-card h3 {
+      }
+      .mobile-welcome {
+        display: none;
+        padding: 12px;
+        text-align: center;
         font-size: 18px;
-        margin-top: 15px;
-    }
-    .dish-card.center h3 {
-        font-size: 20px;
-    }
-    .nav-btn {
-        width: 30px;
-        height: 30px;
-        font-size: 16px;
-    }
-    .nav-btn.left {
-        left: 5px;
-    }
-    .nav-btn.right {
-        right: 5px;
-    }
-}
+        color: rgb(244, 239, 239);
+        font-weight: bold;
+      }
 
-@media (max-width: 480px) {
-    .popular-title {
-        font-size: 22px;
-    }
-    .dishes-wrapper {
-        padding: 0 20px;
-    }
-    .dish-card {
-        width: 140px;
-        height: 220px;
-    }
-    .dish-card.center {
-        width: 160px;
-        height: 260px;
-    }
-    .dish-image {
-        width: 80px;
-        height: 80px;
-    }
-    .dish-card.center .dish-image {
-        width: 90px;
-        height: 90px;
-    }
-    .nav-btn {
+      /* Show on mobile screens */
+      @media screen and (max-width: 768px) {
+        .mobile-welcome {
+          display: block;
+        }
+
+        /* Optionally hide the nav bar welcome text on mobile */
+        #welcomeUser {
+          display: none;
+        }
+      }
+
+      @media (min-width: 600px) and (max-width: 1024px) {
+        /* 1. Background Image Fix */
+        .hero-section {
+          height: 100vh;
+          background: url("images/tabletimage.jpg") no-repeat right top;
+          background-size: auto 80%;
+          background-position: right -50px top 0;
+          padding-top: 50px;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+        }
+
+        /* 2. Hero Content Container */
+        .hero-content {
+          position: relative;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 0 60px;
+          margin-top: 0;
+          gap: 40px;
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          z-index: 2;
+          transform: translateY(-600px);
+        }
+
+        /* 3. Text Section */
+        .text-section {
+          flex: 1;
+          padding: 20px 0;
+          position: relative;
+          z-index: 3;
+          margin-top: -500px;
+        }
+
+        .text-section h2 {
+          font-size: 32px;
+          margin-bottom: 16px;
+          line-height: 1.2;
+          color: #fff;
+        }
+
+        .text-section p {
+          font-size: 18px;
+          margin-bottom: 30px;
+          line-height: 1.4;
+          color: #eee;
+        }
+
+        /* 4. Order Section */
+        .order-section {
+          text-align: left;
+          margin-top: 0px;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+        }
+
+        .order-btn {
+          /* padding: 12px 24px; */
+          font-size: 16px;
+          border-radius: 8px;
+          white-space: nowrap;
+          background-color: #080808 !important;
+          color: white;
+          text-decoration: none;
+          transition: background-color 0.3s;
+        }
+
+        /* 5. Image Section */
+        .image-section {
+          flex: 1;
+          max-width: 350px;
+          position: relative;
+          z-index: 1;
+          transform: translateY(-250px);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        #slide-image {
+          width: 100%;
+          max-width: 350px;
+          height: auto;
+          object-fit: contain;
+          filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        /* 6. Navigation Circles */
+        .circles {
+          position: absolute;
+          bottom: 20px;
+          left: 90% !important; /* Start from center */
+          transform: translateX(-100%); /* Center precisely */
+          display: flex;
+          justify-content: center;
+          gap: 10px;
+          z-index: 2;
+          width: auto; /* Let it take natural width */
+        }
+
+        .circle {
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.6);
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .circle.active {
+          background-color: #e10808 !important;
+        }
+
+        /* 7. Doodle Image */
+        .doodle {
+          max-width: 70px;
+          height: auto;
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+
+      .text-section {
+        flex: 1.2;
+      }
+
+      .text-section h2 {
+        font-size: 40px;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+
+      .text-section p {
+        font-size: 24px;
+        margin-bottom: 50px;
+      }
+
+      .order-btn {
+        background-color: #ff6347;
+        color: white;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+
+      .order-section {
+        text-align: left;
+      }
+
+      .order-btn:hover {
+        background-color: #e5533d;
+        /* Darker shade on hover */
+      }
+
+      .menu-card {
+        cursor: pointer;
+        /* Indicate clickable */
+        transition: transform 0.3s;
+      }
+
+      .menu-card:hover {
+        transform: scale(1.05);
+        /* Slight zoom effect */
+      }
+
+      /* Modal styles */
+      .modal {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+        padding-top: 60px;
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 5% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .about-section {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .about-detail {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .menu-section {
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .footer {
+        margin-top: 50px;
+        padding-top: 60px;
+      }
+
+      .footer-container {
+        margin-top: 0;
+        padding-top: 0;
+      }
+
+      .footer-bottom {
+        margin-top: 0;
+        padding-top: 0;
+      }
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 30px;
+        background-color: #000;
+        border: 2px solid #ff6600;
+        border-radius: 6px;
+        min-width: 140px; /* Reduced width */
+        z-index: 999;
+        list-style: none;
+        padding: 4px 0;
+        margin: 0;
+        box-shadow: 0 4px 10px rgba(255, 102, 0, 0.25);
+      }
+
+      .dropdown-menu li a {
+        display: block;
+        padding: 8px 12px; /* Smaller padding */
+        color: #fff;
+        font-size: 14px; /* Smaller font */
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      .dropdown-menu li a:hover {
+        background-color: #ff6600;
+        color: #000;
+      }
+
+      /* Navbar */
+      .navbar {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding: 20px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        transition: background-color 0.3s ease;
+      }
+
+      .navbar.transparent {
+        background-color: transparent;
+      }
+
+      .navbar.scrolled {
+        background-color: rgba(19, 19, 18, 0.7);
+      }
+
+      /* Logo */
+      .nav-logo img {
+        height: 70px;
+      }
+
+      /* Navigation Links */
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 40px;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        font-size: 18px;
+        position: relative;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        left: 0;
+        bottom: -5px;
+        background-color: #ff5e18;
+        transition: width 0.3s ease;
+      }
+
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .nav-links a.active::after {
+        width: 100%;
+      }
+
+      .nav-links a:hover {
+        color: #ffffff;
+      }
+
+      /* Right Side Button */
+      .nav-buttons {
+        display: flex;
+        align-items: center;
+      }
+
+      .profile-container {
+        background-color: white;
+        padding: 6px 12px;
+        border-radius: 999px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Hamburger icon */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+        z-index: 1100;
+      }
+
+      .hamburger span {
+        height: 3px;
         width: 25px;
-        height: 25px;
+        background-color: white;
+        border-radius: 2px;
+      }
+
+      /* Show hamburger and hide nav-links on mobile */
+      /* Mobile layout arrangement */
+      @media (max-width: 768px) {
+        .navbar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 15px 20px;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: 1000;
+        }
+
+        .nav-logo {
+          order: 2;
+          flex: 1;
+          display: flex;
+          justify-content: center;
+        }
+
+        .profile-container {
+          order: 1;
+        }
+
+        .hamburger {
+          order: 3;
+          display: flex;
+          margin-left: 15px;
+        }
+
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          background-color: rgba(19, 19, 18, 0.9);
+          width: 100%;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          padding: 20px;
+          align-items: center;
+          text-align: center;
+          gap: 20px;
+          z-index: 999;
+        }
+        .nav-links a {
+          color: white;
+          font-size: 18px;
+        }
+        .nav-links.active {
+          display: flex;
+        }
+      }
+
+      #image-container img {
+        width: 800px;
+        height: 800px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        position: relative;
+        left: 300px;
+      }
+
+      .order-section {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 10px 0;
+      }
+
+      .circles {
+        position: absolute;
+        bottom: 0px; /* adjust distance from bottom as you like */
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 15px;
+        z-index: 10;
+      }
+
+      .circle {
+        width: 14px;
+        height: 14px;
+        background: #ccc;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background 0.3s, transform 0.3s;
+      }
+
+      .circle.active {
+        background: #e63946;
+        transform: scale(1.3);
+      }
+
+      .profile-container {
+        background-color: white;
+        padding: 6px 12px;
+        border-radius: 999px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      /* New styles for image section */
+      .image-section {
+        width: 100%;
+        max-width: 600px;
+        height: auto;
+        display: flex;
+        justify-content: flex-start; /* Align to the left */
+        align-items: flex-start;
+        padding-left: 0; /* Default: no left padding */
+        padding-right: 20px; /* Keep some right padding */
+        box-sizing: border-box;
+        margin-left: -20px;
+      }
+
+      #slide-image {
+        width: 100% !important;
+        max-width: 600px !important;
+        height: auto !important;
+        object-fit: contain !important;
+        border-radius: 12px;
+        margin-top: 0 !important;
+      }
+
+      /* popular dishes*/
+      .popular-dishes {
+        max-width: 1200px;
+        margin: 70px auto 0;
+        padding: 0 20px;
+        position: relative;
+        overflow: hidden;
+      }
+      .popular-title {
+        font-size: 30px;
+        font-weight: 700;
+        color: white;
+        letter-spacing: 2px;
+        font-family: Arial, Helvetica, sans-serif;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .dishes-wrapper {
+        position: relative;
+        padding: 0 40px;
+      }
+      .dishes-container {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        gap: 20px;
+        padding: 20px 0;
+        cursor: grab;
+      }
+      .dishes-container:active {
+        cursor: grabbing;
+      }
+      .dishes-container::-webkit-scrollbar {
+        display: none;
+      }
+      .dish-card {
+        flex: 0 0 auto;
+        width: 220px;
+        height: 280px;
+        background: #2a2a28;
+        border-radius: 15px;
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        transition: transform 0.3s ease opacity 0.3s ease;
+        padding: 20px;
+        border: 1px solid #3a3a38;
+        scroll-snap-align: center;
+      }
+      .dish-card.center {
+        width: 260px;
+        height: 300px;
+        background: linear-gradient(135deg, #ff6b00 0%, #1a1a1a 100%);
+        box-shadow: 0 10px 20px rgba(255, 107, 0, 0.4);
+        border: 1px solid #ff6b00;
+        transform: scale(1.05);
+        z-index: 10;
+      }
+      .dish-card h3 {
+        margin-top: 20px;
+        font-size: 20px;
+        color: white;
+        font-weight: 600;
+        text-align: center;
+        font-family: "Fredoka", sans-serif;
+      }
+      .dish-card.center h3 {
+        font-size: 24px;
+        color: white;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      }
+      .dish-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        border: 4px solid #3a3a38;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+      }
+      .dish-card.center .dish-image {
+        width: 140px;
+        height: 140px;
+        border: 4px solid rgba(255, 107, 0, 0.5);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      }
+      .nav-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 40px;
+        height: 40px;
+        background-color: rgba(255, 107, 0, 0.8);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        border: none;
+        color: white;
+        font-size: 20px;
+        transition: all 0.3s ease;
+        opacity: 0.8;
+      }
+      .nav-btn:hover {
+        background-color: #ff6b00;
+        transform: translateY(-50%) scale(1.1);
+        opacity: 1;
+      }
+      .nav-btn.left {
+        left: 10px;
+      }
+      .nav-btn.right {
+        right: 10px;
+      }
+
+      @media (max-width: 360px) {
+        .reviews-section {
+          padding: 15px 5px;
+          width: 100%;
+          overflow-x: hidden;
+        }
+
+        .review-cards-container {
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
+          gap: 15px;
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .review-card {
+          width: 100%;
+          max-width: 100%;
+          padding: 12px 8px;
+          box-sizing: border-box;
+          background-color: #333;
+          border-radius: 10px;
+          margin-bottom: 10px;
+          overflow: hidden;
+          word-wrap: break-word;
+        }
+
+        .review-header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          margin-bottom: 10px;
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .review-avatar {
+          width: 35px;
+          height: 35px;
+          object-fit: cover;
+          border-radius: 50%;
+          margin-right: 10px;
+          flex-shrink: 0;
+        }
+
+        .review-info {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          width: 100%;
+          max-width: calc(100% - 45px);
+          overflow: hidden;
+        }
+
+        .review-info h4 {
+          margin: 0 0 4px 0;
+          font-size: 13px;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+          width: 100%;
+          white-space: normal;
+        }
+
+        .review-stars {
+          font-size: 11px;
+          color: #ffc107;
+          margin: 0;
+        }
+
+        .review-text {
+          font-size: 11px;
+          line-height: 1.4;
+          text-align: left;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+          hyphens: auto;
+          width: 100%;
+          max-width: 100%;
+          margin-bottom: 8px;
+          white-space: normal;
+          overflow: visible;
+          display: block;
+        }
+
+        .read-more {
+          color: #ff8000;
+          cursor: pointer;
+          font-weight: bold;
+          display: inline-block;
+          text-align: left;
+          margin-top: 5px;
+          font-size: 11px;
+          word-wrap: break-word;
+        }
+      }
+      .reviews-section {
+        padding: 60px 80px;
+        background-color: #191917;
+        text-align: center;
+      }
+
+      .reviews-title {
+        color: #fff;
+        margin-bottom: 40px;
+        font-family: "Fredoka", sans-serif;
+      }
+
+      .review-cards-container {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+        padding: 10px;
+        max-width: 100%;
+        margin: 0 auto;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255, 255, 255, 0.3) rgba(0, 0, 0, 0.5);
+      }
+
+      .review-cards-container::-webkit-scrollbar {
+        height: 10px;
+      }
+
+      .review-cards-container::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      .review-cards-container::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 5px;
+      }
+
+      .review-card {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+        width: 300px;
+        flex: none;
+        text-align: left;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        scroll-snap-align: start;
+      }
+
+      .review-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .review-avatar {
+        width: 50px; /* Set the width to match the desired size of the circle */
+        height: 55px; /* Set the height to match the desired size of the circle */
+        border-radius: 50%; /* Ensure the image is circular */
+        object-fit: cover; /* Ensure the image covers the area without distortion */
+        object-position: center; /* Center the image within the circle */
+        margin: 10px;
+      }
+
+      .review-info {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .review-info h4 {
+        margin: 0;
+        font-size: 16px;
+        color: #fff;
+      }
+
+      .review-stars {
+        color: #ffd700;
+        margin: 5px 0;
+      }
+
+      .review-text {
+        margin: 0;
         font-size: 14px;
-    }
-}
+        line-height: 1.5;
+        color: #ccc;
+      }
+      /* Mobile styles */
+      @media (max-width: 768px) {
+        .reviews-section {
+          padding: 30px 15px;
+          width: 100%;
+          box-sizing: border-box;
+        }
 
+        .review-cards-container {
+          width: 100%;
+          padding: 10px 5px;
+        }
 
+        .review-card {
+          width: 280px; /* Slightly smaller cards for mobile */
+          padding: 15px;
+        }
+      }
+      /* Mobile Styles */
+      @media (max-width: 768px) {
+        .popular-dishes {
+          padding: 0 15px;
+          margin: 40px auto 0;
+        }
+        .popular-title {
+          font-size: 26px;
+          margin-bottom: 20px;
+        }
+        .dishes-wrapper {
+          padding: 0 30px;
+        }
+        .dishes-container {
+          gap: 15px;
+          padding: 30px 0;
+        }
+        .dish-card {
+          width: 160px;
+          height: 240px;
+          padding: 15px;
+        }
+        .dish-card.center {
+          width: 180px;
+          height: 280px;
+        }
+        .dish-image {
+          width: 90px;
+          height: 90px;
+        }
+        .dish-card.center .dish-image {
+          width: 100px;
+          height: 100px;
+        }
+        .dish-card h3 {
+          font-size: 18px;
+          margin-top: 15px;
+        }
+        .dish-card.center h3 {
+          font-size: 20px;
+        }
+        .nav-btn {
+          width: 30px;
+          height: 30px;
+          font-size: 16px;
+        }
+        .nav-btn.left {
+          left: 5px;
+        }
+        .nav-btn.right {
+          right: 5px;
+        }
+      }
 
-</style>
+      @media (max-width: 480px) {
+        .popular-title {
+          font-size: 22px;
+        }
+        .dishes-wrapper {
+          padding: 0 20px;
+        }
+        .dish-card {
+          width: 140px;
+          height: 220px;
+        }
+        .dish-card.center {
+          width: 160px;
+          height: 260px;
+        }
+        .dish-image {
+          width: 80px;
+          height: 80px;
+        }
+        .dish-card.center .dish-image {
+          width: 90px;
+          height: 90px;
+        }
+        .nav-btn {
+          width: 25px;
+          height: 25px;
+          font-size: 14px;
+        }
+      }
+    </style>
+  </head>
 
-</head>
-
-<body>
+  <body>
     <!-- Background with Navbar on top -->
     <div class="hero-section">
-        <nav class="navbar">
-            <div class="nav-logo">
-                <a href="index.html"><img id="navLogo" src="images/logo.png" alt="Bhookie Logo" /></a>
-            </div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="menu.html">Menu</a></li>
-                <li><a href="aboutus.html">About Us</a></li>
-                <li><a href="contact_us.html">Contact</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <div class="profile-container">
-                <div class="nav-buttons">
-                <a class="profile-icon" ><img src="images/user.png" alt="User Icon" style="height: 25px; width: 25px;"></a>
-                <span id="welcomeUser" style="margin-left: 10px; color: rgb(11, 11, 11); font-weight: bold;"></span>
-                <ul class="dropdown-menu" id="profileDropdown" style="display: none;">
-                
-                </ul>
-            </div>
-              </div>
-              
-        </nav>
-        <div id="mobileWelcome" class="mobile-welcome"></div>
+      <nav class="navbar">
+        <div class="nav-logo">
+          <a href="index.html"
+            ><img id="navLogo" src="images/logo.png" alt="Bhookie Logo"
+          /></a>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="contact_us.html">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="profile-container">
+          <div class="nav-buttons">
+            <a class="profile-icon"
+              ><img
+                src="images/user.png"
+                alt="User Icon"
+                style="height: 25px; width: 25px"
+            /></a>
+            <span
+              id="welcomeUser"
+              style="
+                margin-left: 10px;
+                color: rgb(11, 11, 11);
+                font-weight: bold;
+              "
+            ></span>
+            <ul
+              class="dropdown-menu"
+              id="profileDropdown"
+              style="display: none"
+            ></ul>
+          </div>
+        </div>
+      </nav>
+      <div id="mobileWelcome" class="mobile-welcome"></div>
     </div>
 
-<!-- Popup structure -->
-<div id="popup" class="popup-overlay">
-  <div class="popup-box">
-    <span class="close-btn" id="closeBtn">&times;</span>
-    <img src="images/PopUp2.jpg" alt="Popup Image">
-    <h3>Welcome to Bhookie! “🎊 Grand Opening this weekend! Visit our store for exclusive deals.”</h3>
-  </div>
-</div>
-   <!-- Hero Content as Slider -->
-<div class="hero-content" id="home">
-  <div class="text-section">
-    <h2 id="slide-title">TASTE THE FUSION</h2>
-    <p id="slide-text">
-      "Craving street food magic? Vada Pav & Tea —<br />
-      together, better, cheaper!"
-    </p>
-    <div class="order-section">
-      <img src="images/chalk.png" alt="doodle" class="doodle" />
-      <a href="menu.html" class="order-btn">ORDER NOW</a>
+    <!-- Popup structure -->
+    <div id="popup" class="popup-overlay">
+      <div class="popup-box">
+        <span class="close-btn" id="closeBtn">&times;</span>
+        <img src="images/PopUp2.jpg" alt="Popup Image" />
+        <h3>
+          Welcome to Bhookie! “🎊 Grand Opening this weekend! Visit our store
+          for exclusive deals.”
+        </h3>
+      </div>
     </div>
-    <div class="circles">
-      <span class="circle active" onclick="changeSlide(0)"></span>
-      <span class="circle" onclick="changeSlide(1)"></span>
-      <span class="circle" onclick="changeSlide(2)"></span>
-      <span class="circle" onclick="changeSlide(3)"></span>
+    <!-- Hero Content as Slider -->
+    <div class="hero-content" id="home">
+      <div class="text-section">
+        <h2 id="slide-title">TASTE THE FUSION</h2>
+        <p id="slide-text">
+          "Craving street food magic? Vada Pav & Tea —<br />
+          together, better, cheaper!"
+        </p>
+        <div class="order-section">
+          <img src="images/chalk.png" alt="doodle" class="doodle" />
+          <a href="menu.html" class="order-btn">ORDER NOW</a>
+        </div>
+        <div class="circles">
+          <span class="circle active" onclick="changeSlide(0)"></span>
+          <span class="circle" onclick="changeSlide(1)"></span>
+          <span class="circle" onclick="changeSlide(2)"></span>
+          <span class="circle" onclick="changeSlide(3)"></span>
+        </div>
+      </div>
+
+      <div class="image-section">
+        <img id="slide-image" src="images/VadapavAndTea.png" alt="Slide" />
+      </div>
     </div>
-  </div>
 
-  <div class="image-section">
-    <img id="slide-image" src="images/VadapavAndTea.png" alt="Slide" />
-  </div>
-</div>
-
-<!-- CATEGORIES-->
-<div class="category-section">
-  <h2 class="category-title">CATEGORIES</h2>
-  <div class="category-box">
-      
-      <!-- Burgers -->
-      <div class="flip-card">
+    <!-- CATEGORIES-->
+    <div class="category-section">
+      <h2 class="category-title">CATEGORIES</h2>
+      <div class="category-box">
+        <!-- Burgers -->
+        <div class="flip-card">
           <div class="flip-inner">
-              <div class="flip-card-front">
-                  <div class="categorybox-item-section">
-                      <button class="info-icon mobile-info-btn" data-category="burgers">i</button>
-                      <img src="images/burger-icon.png" alt="Burger" class="small-icon">
-                      <a href="menu.html#burgers" class="burger-a">Burgers</a>
-                      <a href="menu.html#burgers" class="arrow">➤</a>
-                  </div>
+            <div class="flip-card-front">
+              <div class="categorybox-item-section">
+                <button
+                  class="info-icon mobile-info-btn"
+                  data-category="burgers"
+                >
+                  i
+                </button>
+                <img
+                  src="images/burger-icon.png"
+                  alt="Burger"
+                  class="small-icon"
+                />
+                <a href="menu.html#burgers" class="burger-a">Burgers</a>
+                <a href="menu.html#burgers" class="arrow">➤</a>
               </div>
-              <div class="flip-card-back categorybox-item-section">
-                  <p>BURGERS
-                    Classic and gourmet burger options with fresh patties, cheese, and signature sauces served in soft buns.</p>
-              </div>
+            </div>
+            <div class="flip-card-back categorybox-item-section">
+              <p>
+                BURGERS Classic and gourmet burger options with fresh patties,
+                cheese, and signature sauces served in soft buns.
+              </p>
+            </div>
           </div>
-      </div>
+        </div>
 
-      <!-- Fries -->
-      <div class="flip-card">
+        <!-- Fries -->
+        <div class="flip-card">
           <div class="flip-inner">
-              <div class="flip-card-front">
-                  <div class="categorybox-item-section">
-                      <button class="info-icon mobile-info-btn" data-category="fries">i</button>
-                      <img src="images/fries-icon.png" alt="Fries" class="small-icon">
-                      <a href="menu.html#fries">Fries</a>
-                      <a href="menu.html#fries" class="arrow">➤</a>
-                  </div>
+            <div class="flip-card-front">
+              <div class="categorybox-item-section">
+                <button class="info-icon mobile-info-btn" data-category="fries">
+                  i
+                </button>
+                <img
+                  src="images/fries-icon.png"
+                  alt="Fries"
+                  class="small-icon"
+                />
+                <a href="menu.html#fries">Fries</a>
+                <a href="menu.html#fries" class="arrow">➤</a>
               </div>
-              <div class="flip-card-back categorybox-item-section">
-                  <p>FRIES
-                    Crispy golden potato fries - regular, peri-peri, or loaded with toppings and cheese.</p>
-              </div>
+            </div>
+            <div class="flip-card-back categorybox-item-section">
+              <p>
+                FRIES Crispy golden potato fries - regular, peri-peri, or loaded
+                with toppings and cheese.
+              </p>
+            </div>
           </div>
-      </div>
+        </div>
 
-      <!-- Street Bites -->
-      <div class="flip-card">
+        <!-- Street Bites -->
+        <div class="flip-card">
           <div class="flip-inner">
-              <div class="flip-card-front">
-                  <div class="categorybox-item-section">
-                      <button class="info-icon mobile-info-btn" data-category="street">i</button>
-                      <img src="images/street-bites-icon.png" alt="Street Bites" class="small-icon">
-                      <a href="menu.html#street">Street Bites</a>
-                      <a href="menu.html#street" class="arrow">➤</a>
-                  </div>
+            <div class="flip-card-front">
+              <div class="categorybox-item-section">
+                <button
+                  class="info-icon mobile-info-btn"
+                  data-category="street"
+                >
+                  i
+                </button>
+                <img
+                  src="images/street-bites-icon.png"
+                  alt="Street Bites"
+                  class="small-icon"
+                />
+                <a href="menu.html#street">Street Bites</a>
+                <a href="menu.html#street" class="arrow">➤</a>
               </div>
-              <div class="flip-card-back categorybox-item-section">
-                  <p>STREET BITES
-                    Local street food favorites like samosa, pakoras, bhel puri, and chaat items for quick snacking.</p>
-              </div>
+            </div>
+            <div class="flip-card-back categorybox-item-section">
+              <p>
+                STREET BITES Local street food favorites like samosa, pakoras,
+                bhel puri, and chaat items for quick snacking.
+              </p>
+            </div>
           </div>
-      </div>
+        </div>
 
-      <!-- Drinks -->
-      <div class="flip-card">
+        <!-- Drinks -->
+        <div class="flip-card">
           <div class="flip-inner">
-              <div class="flip-card-front">
-                  <div class="categorybox-item-section">
-                      <button class="info-icon mobile-info-btn" data-category="drinks">i</button>
-                      <img src="images/chai-icon.png" alt="Drinks" class="large-icon">
-                      <a href="menu.html#drinks">Drinks</a>
-                      <a href="menu.html#drinks" class="arrow">➤</a>
-                  </div>
+            <div class="flip-card-front">
+              <div class="categorybox-item-section">
+                <button
+                  class="info-icon mobile-info-btn"
+                  data-category="drinks"
+                >
+                  i
+                </button>
+                <img
+                  src="images/chai-icon.png"
+                  alt="Drinks"
+                  class="large-icon"
+                />
+                <a href="menu.html#drinks">Drinks</a>
+                <a href="menu.html#drinks" class="arrow">➤</a>
               </div>
-              <div class="flip-card-back categorybox-item-section">
-                  <p>DRINKS
-                    Hot masala chai, cutting chai, ginger chai, and specialty tea blends served fresh and aromatic.</p>
-              </div>
+            </div>
+            <div class="flip-card-back categorybox-item-section">
+              <p>
+                DRINKS Hot masala chai, cutting chai, ginger chai, and specialty
+                tea blends served fresh and aromatic.
+              </p>
+            </div>
           </div>
-      </div>
+        </div>
 
-      <!-- Wraps -->
-      <div class="flip-card">
+        <!-- Wraps -->
+        <div class="flip-card">
           <div class="flip-inner">
-              <div class="flip-card-front">
-                  <div class="categorybox-item-section">
-                      <button class="info-icon mobile-info-btn" data-category="wraps">i</button>
-                      <img src="images/wraps-icon.png" alt="Wraps" class="small-icon">
-                      <a href="menu.html#wraps">Wraps</a>
-                      <a href="menu.html#wraps" class="arrow">➤</a>
-                  </div>
+            <div class="flip-card-front">
+              <div class="categorybox-item-section">
+                <button class="info-icon mobile-info-btn" data-category="wraps">
+                  i
+                </button>
+                <img
+                  src="images/wraps-icon.png"
+                  alt="Wraps"
+                  class="small-icon"
+                />
+                <a href="menu.html#wraps">Wraps</a>
+                <a href="menu.html#wraps" class="arrow">➤</a>
               </div>
-              <div class="flip-card-back categorybox-item-section">
-                  <p>WRAPS
-                    Rolled flatbreads stuffed with vegetables, paneer, or chicken with chutneys and fresh ingredients.</p>
-              </div>
+            </div>
+            <div class="flip-card-back categorybox-item-section">
+              <p>
+                WRAPS Rolled flatbreads stuffed with vegetables, paneer, or
+                chicken with chutneys and fresh ingredients.
+              </p>
+            </div>
           </div>
-      </div>
+        </div>
 
-      <!-- Bites -->
-      <div class="flip-card">
+        <!-- Bites -->
+        <div class="flip-card">
           <div class="flip-inner">
-              <div class="flip-card-front">
-                  <div class="categorybox-item-section">
-                      <button class="info-icon mobile-info-btn" data-category="bites">i</button>
-                      <img src="images/vadapav-icon.png" alt="Vadapav" class="small-icon">
-                      <a href="menu.html#bites">Bites</a>
-                      <a href="menu.html#bites" class="arrow">➤</a>
-                  </div>
+            <div class="flip-card-front">
+              <div class="categorybox-item-section">
+                <button class="info-icon mobile-info-btn" data-category="bites">
+                  i
+                </button>
+                <img
+                  src="images/vadapav-icon.png"
+                  alt="Vadapav"
+                  class="small-icon"
+                />
+                <a href="menu.html#bites">Bites</a>
+                <a href="menu.html#bites" class="arrow">➤</a>
               </div>
-              <div class="flip-card-back categorybox-item-section">
-                  <p>Mumbai's iconic vadapav - spiced potato fritter in pav bread with chutneys, plus other regional vada varieties.</p>
-              </div>
+            </div>
+            <div class="flip-card-back categorybox-item-section">
+              <p>
+                Mumbai's iconic vadapav - spiced potato fritter in pav bread
+                with chutneys, plus other regional vada varieties.
+              </p>
+            </div>
           </div>
+        </div>
       </div>
+    </div>
 
-  </div>
-</div>
- 
-<!-- FIXED POPUP STRUCTURE -->
-<div id="categoryPopup" class="popup-overlay-i">
-  <div class="popup-content">
-      <button class="close-x" id="closeX">&times;</button>
-      <h3 class="popup-title" id="popupTitle">Category Title</h3>
-      <p class="popup-description" id="popupDescription">Category description goes here.</p>
-      <button class="popup-close" id="closeBtn-i">Close</button>
-  </div>
-</div>
- <!-- Popular Dishes -->
- <section class="popular-dishes">
-  <h2 class="popular-title">Our Popular Dishes</h2>
-  <div class="dishes-wrapper">
-      <button class="nav-btn left">&lt;</button>
-      <div class="dishes-container"></div>
-      <button class="nav-btn right">&gt;</button>
-  </div>
-  <div class="scrollbar">
-      <div class="scroll-thumb"></div>
-  </div>
-</section>
+    <!-- FIXED POPUP STRUCTURE -->
+    <div id="categoryPopup" class="popup-overlay-i">
+      <div class="popup-content">
+        <button class="close-x" id="closeX">&times;</button>
+        <h3 class="popup-title" id="popupTitle">Category Title</h3>
+        <p class="popup-description" id="popupDescription">
+          Category description goes here.
+        </p>
+        <button class="popup-close" id="closeBtn-i">Close</button>
+      </div>
+    </div>
+    <!-- Popular Dishes -->
+    <section class="popular-dishes">
+      <h2 class="popular-title">Our Popular Dishes</h2>
+      <div class="dishes-wrapper">
+        <button class="nav-btn left">&lt;</button>
+        <div class="dishes-container"></div>
+        <button class="nav-btn right">&gt;</button>
+      </div>
+      <div class="scrollbar">
+        <div class="scroll-thumb"></div>
+      </div>
+    </section>
     <div class="view-more-container">
-        <a href="menu.html" class="view-more-btn">VIEW MORE</a>
+      <a href="menu.html" class="view-more-btn">VIEW MORE</a>
     </div>
 
-
-
- <!-- Google Reviews Section -->
-<section class="reviews-section">
-    <h2 class="reviews-title">Customer Reviews</h2>
-    <div class="review-cards-container">
-
+    <!-- Google Reviews Section -->
+    <section class="reviews-section">
+      <h2 class="reviews-title">Customer Reviews</h2>
+      <div class="review-cards-container">
         <!-- Review Card 1 -->
         <div class="review-card">
-            <div class="review-header">
-                <img src="images/johndow.png" alt="User" class="review-avatar">
-                <div class="review-info">
-                    <h4>John Doe</h4>
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
+          <div class="review-header">
+            <img src="images/johndow.png" alt="User" class="review-avatar" />
+            <div class="review-info">
+              <h4>John Doe</h4>
+              <div class="review-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
             </div>
-            <div class="review-text-container">
-                <p class="review-text" id="review1">Absolutely loved the Vada Pav! The flavors were amazing and the service was top-notch. Highly recommend Bhookie!</p>
-                <span class="read-more" onclick="toggleReadMore(this, 'review1')">Read more</span>
-            </div>
+          </div>
+          <div class="review-text-container">
+            <p class="review-text" id="review1">
+              Absolutely loved the Vada Pav! The flavors were amazing and the
+              service was top-notch. Highly recommend Bhookie!
+            </p>
+            <span class="read-more" onclick="toggleReadMore(this, 'review1')"
+              >Read more</span
+            >
+          </div>
         </div>
 
         <!-- Repeat the pattern for each card -->
         <div class="review-card">
-            <div class="review-header">
-                <img src="images/janesmith.png" alt="User" class="review-avatar">
-                <div class="review-info">
-                    <h4>Jane Smith</h4>
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
+          <div class="review-header">
+            <img src="images/janesmith.png" alt="User" class="review-avatar" />
+            <div class="review-info">
+              <h4>Jane Smith</h4>
+              <div class="review-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
             </div>
-            <div class="review-text-container">
-                <p class="review-text" id="review2">The Chicken Fries were delicious and perfectly spiced. The ambiance was great too. Will definitely be back!</p>
-                <span class="read-more" onclick="toggleReadMore(this, 'review2')">Read more</span>
-            </div>
+          </div>
+          <div class="review-text-container">
+            <p class="review-text" id="review2">
+              The Chicken Fries were delicious and perfectly spiced. The
+              ambiance was great too. Will definitely be back!
+            </p>
+            <span class="read-more" onclick="toggleReadMore(this, 'review2')"
+              >Read more</span
+            >
+          </div>
         </div>
 
         <div class="review-card">
-            <div class="review-header">
-                <img src="images/alexjohnson.jpg" alt="User" class="review-avatar">
-                <div class="review-info">
-                    <h4>Alex Johnson</h4>
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                </div>
+          <div class="review-header">
+            <img
+              src="images/alexjohnson.jpg"
+              alt="User"
+              class="review-avatar"
+            />
+            <div class="review-info">
+              <h4>Alex Johnson</h4>
+              <div class="review-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
             </div>
-            <div class="review-text-container">
-                <p class="review-text" id="review3">Great experience at Bhookie! The burgers are juicy and the staff is very friendly. A must-visit place in Liverpool!</p>
-                <span class="read-more" onclick="toggleReadMore(this, 'review3')">Read more</span>
-            </div>
+          </div>
+          <div class="review-text-container">
+            <p class="review-text" id="review3">
+              Great experience at Bhookie! The burgers are juicy and the staff
+              is very friendly. A must-visit place in Liverpool!
+            </p>
+            <span class="read-more" onclick="toggleReadMore(this, 'review3')"
+              >Read more</span
+            >
+          </div>
         </div>
 
         <div class="review-card">
-            <div class="review-header">
-                <img src="images/emilydavis.jpg" alt="User" class="review-avatar">
-                <div class="review-info">
-                    <h4>Emily Davis</h4>
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
+          <div class="review-header">
+            <img src="images/emilydavis.jpg" alt="User" class="review-avatar" />
+            <div class="review-info">
+              <h4>Emily Davis</h4>
+              <div class="review-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
             </div>
-            <div class="review-text-container">
-                <p class="review-text" id="review4">The wraps are fantastic! So much flavor in every bite. I can't wait to try more items from the menu.</p>
-                <span class="read-more" onclick="toggleReadMore(this, 'review4')">Read more</span>
-            </div>
+          </div>
+          <div class="review-text-container">
+            <p class="review-text" id="review4">
+              The wraps are fantastic! So much flavor in every bite. I can't
+              wait to try more items from the menu.
+            </p>
+            <span class="read-more" onclick="toggleReadMore(this, 'review4')"
+              >Read more</span
+            >
+          </div>
         </div>
 
         <div class="review-card">
-            <div class="review-header">
-                <img src="images/michaelbrown.jpg" alt="User" class="review-avatar">
-                <div class="review-info">
-                    <h4>Michael Brown</h4>
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                </div>
+          <div class="review-header">
+            <img
+              src="images/michaelbrown.jpg"
+              alt="User"
+              class="review-avatar"
+            />
+            <div class="review-info">
+              <h4>Michael Brown</h4>
+              <div class="review-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
             </div>
-            <div class="review-text-container">
-                <p class="review-text" id="review5">Bhookie's fusion special is a delightful surprise! Unique flavors and great presentation. Loved it!</p>
-                <span class="read-more" onclick="toggleReadMore(this, 'review5')">Read more</span>
-            </div>
+          </div>
+          <div class="review-text-container">
+            <p class="review-text" id="review5">
+              Bhookie's fusion special is a delightful surprise! Unique flavors
+              and great presentation. Loved it!
+            </p>
+            <span class="read-more" onclick="toggleReadMore(this, 'review5')"
+              >Read more</span
+            >
+          </div>
         </div>
 
         <div class="review-card">
-            <div class="review-header">
-                <img src="images/sarahwilson.jpg" alt="User" class="review-avatar">
-                <div class="review-info">
-                    <h4>Sarah Wilson</h4>
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                    </div>
-                </div>
+          <div class="review-header">
+            <img
+              src="images/sarahwilson.jpg"
+              alt="User"
+              class="review-avatar"
+            />
+            <div class="review-info">
+              <h4>Sarah Wilson</h4>
+              <div class="review-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
             </div>
-            <div class="review-text-container">
-                <p class="review-text" id="review6">The drinks at Bhookie are as amazing as their food. The spiced chai is a must-try!</p>
-                <span class="read-more" onclick="toggleReadMore(this, 'review6')">Read more</span>
-            </div>
+          </div>
+          <div class="review-text-container">
+            <p class="review-text" id="review6">
+              The drinks at Bhookie are as amazing as their food. The spiced
+              chai is a must-try!
+            </p>
+            <span class="read-more" onclick="toggleReadMore(this, 'review6')"
+              >Read more</span
+            >
+          </div>
         </div>
 
         <div class="review-card">
-            <div class="review-header">
-                <img src="images/davidlee.jpeg" alt="User" class="review-avatar">
-                <div class="review-info">
-                    <h4>David Lee</h4>
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                    </div>
-                </div>
+          <div class="review-header">
+            <img src="images/davidlee.jpeg" alt="User" class="review-avatar" />
+            <div class="review-info">
+              <h4>David Lee</h4>
+              <div class="review-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
             </div>
-            <div class="review-text-container">
-                <p class="review-text" id="review7">I had the street bites and they were incredible. Crispy, flavorful, and just the right amount of spice.</p>
-                <span class="read-more" onclick="toggleReadMore(this, 'review7')">Read more</span>
-            </div>
+          </div>
+          <div class="review-text-container">
+            <p class="review-text" id="review7">
+              I had the street bites and they were incredible. Crispy,
+              flavorful, and just the right amount of spice.
+            </p>
+            <span class="read-more" onclick="toggleReadMore(this, 'review7')"
+              >Read more</span
+            >
+          </div>
         </div>
 
         <div class="review-card">
-            <div class="review-header">
-                <img src="images/jessicataylor.jpg" alt="User" class="review-avatar">
-                <div class="review-info">
-                    <h4>Jessica Taylor</h4>
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                        <i class="far fa-star"></i>
-                    </div>
-                </div>
+          <div class="review-header">
+            <img
+              src="images/jessicataylor.jpg"
+              alt="User"
+              class="review-avatar"
+            />
+            <div class="review-info">
+              <h4>Jessica Taylor</h4>
+              <div class="review-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </div>
             </div>
-            <div class="review-text-container">
-                <p class="review-text" id="review8">Bhookie never disappoints. Every visit is a treat with their consistently delicious food and excellent service.</p>
-                <span class="read-more" onclick="toggleReadMore(this, 'review8')">Read more</span>
-            </div>
+          </div>
+          <div class="review-text-container">
+            <p class="review-text" id="review8">
+              Bhookie never disappoints. Every visit is a treat with their
+              consistently delicious food and excellent service.
+            </p>
+            <span class="read-more" onclick="toggleReadMore(this, 'review8')"
+              >Read more</span
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer" id="contact">
+      <div class="footer-container">
+        <!-- Menu Items -->
+        <div class="footer-menu">
+          <a href="menu.html#street">STREET BITES</a>
+          <a href="menu.html#fries">FRIES</a>
+          <a href="menu.html#bites">BITES</a>
+          <a href="menu.html#wraps">WRAPS</a>
+          <a href="menu.html#burgers">BURGERS</a>
+          <a href="menu.html#drinks">DRINKS</a>
         </div>
 
-    </div>
-</section>
+        <!-- Social Icons -->
+        <div class="footer-socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
 
+      <!-- Bottom Footer -->
+      <div class="footer-bottom">
+        <h3>&copy; BHOOKIE<sup>®</sup>. All Rights Reserved.</h3>
+      </div>
+    </footer>
 
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const container = document.querySelector(".dishes-container");
+        const leftBtn = document.querySelector(".nav-btn.left");
+        const rightBtn = document.querySelector(".nav-btn.right");
+        let currentIndex = 0;
+        let isScrolling = false;
+        let isDragging = false;
+        let startX, scrollLeft;
+        const welcomeUser = document.getElementById("welcomeUser");
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const userName = localStorage.getItem("userName");
 
+        if (isLoggedIn === "true" && userName) {
+          if (welcomeUser) {
+            welcomeUser.textContent = `Hi ${userName}!`;
+          }
+          const mobileWelcome = document.getElementById("mobileWelcome");
+          if (mobileWelcome) {
+            mobileWelcome.innerHTML = ` Hi ${userName}!<br>  What's on your mind today?`;
+          }
+        }
+        // Dish data
+        const dishes = [
+          { name: "Onion Bhaji", image: "images/onion bhaji.png" },
+          { name: "Potato Bhaji", image: "images/potato bhaji.png" },
+          { name: "Vadapav", image: "images/vada.png" },
+          { name: "Manchurian", image: "images/manchurian.png" },
+          { name: "Noodle Bhel", image: "images/chinese bhel.png" },
+          { name: "Chai", image: "images/chai.png" },
+          { name: "Burger", image: "images/burger.png" },
+          { name: "Wraps", image: "images/wrap.png" },
+          { name: "Fries", image: "images/fries.png" },
+          { name: "Bites", image: "images/bites.png" },
+        ];
 
-  <footer class="footer" id="contact">
-  <div class="footer-container">
-    <!-- Menu Items -->
-    <div class="footer-menu">
-      <a href="menu.html#street">STREET BITES</a>
-      <a href="menu.html#fries">FRIES</a>
-      <a href="menu.html#bites">BITES</a>
-      <a href="menu.html#wraps">WRAPS</a>
-      <a href="menu.html#burgers">BURGERS</a>
-      <a href="menu.html#drinks">DRINKS</a>
-    </div>
+        // Create initial cards (duplicate the array to make infinite scroll possible)
+        const duplicatedDishes = [...dishes, ...dishes, ...dishes];
 
-    <!-- Social Icons -->
-    <div class="footer-socials">
-      <a href="#"><i class="fab fa-facebook-f"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-    </div>
-  </div>
-
-  <!-- Bottom Footer -->
-  <div class="footer-bottom">
-    <h3>&copy; BHOOKIE<sup>®</sup>. All Rights Reserved.</h3>
-  </div>
-</footer>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    const container = document.querySelector('.dishes-container');
-    const leftBtn = document.querySelector('.nav-btn.left');
-    const rightBtn = document.querySelector('.nav-btn.right');
-    let currentIndex = 0;
-    let isScrolling = false;
-    let isDragging = false;
-    let startX, scrollLeft;
-    const welcomeUser = document.getElementById("welcomeUser");
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-  const userName = localStorage.getItem("userName");
-
-  if (isLoggedIn === "true" && userName) {
-  if (welcomeUser) {
-    welcomeUser.textContent = `Hi ${userName}!`;
-  }
-  const mobileWelcome = document.getElementById("mobileWelcome");
-  if (mobileWelcome) {
-    mobileWelcome.innerHTML = ` Hi ${userName}!<br>  What's on your mind today?`;
-  }
-}
-    // Dish data
-    const dishes = [
-        { name: "Onion Bhaji", image: "images/onion bhaji.png" },
-        { name: "Potato Bhaji", image: "images/potato bhaji.png" },
-        { name: "Vadapav", image: "images/vada.png" },
-        { name: "Manchurian", image: "images/manchurian.png" },
-        { name: "Noodle Bhel", image: "images/chinese bhel.png" },
-        { name: "Chai", image: "images/chai.png" },
-        { name: "Burger", image: "images/burger.png" },
-        { name: "Wraps", image: "images/wrap.png" },
-        { name: "Fries", image: "images/fries.png" },
-        { name: "Bites", image: "images/bites.png" }
-    ];
-    
-    // Create initial cards (duplicate the array to make infinite scroll possible)
-    const duplicatedDishes = [...dishes, ...dishes, ...dishes];
-    
-    // Render all cards
-    duplicatedDishes.forEach((dish, index) => {
-        const card = document.createElement('div');
-        card.className = 'dish-card';
-        card.innerHTML = `
+        // Render all cards
+        duplicatedDishes.forEach((dish, index) => {
+          const card = document.createElement("div");
+          card.className = "dish-card";
+          card.innerHTML = `
             <img src="${dish.image}" alt="${dish.name}" class="dish-image">
             <h3>${dish.name}</h3>
         `;
-        container.appendChild(card);
-    });
-    
-    const cards = document.querySelectorAll('.dish-card');
-    const totalCards = cards.length;
-    
-    // Set initial position to the middle of the duplicated cards
-    currentIndex = Math.floor(totalCards / 3);
-    updateCards();
-    
-    // Function to get current card width based on screen size
-    function getCardWidth() {
-        const card = cards[0];
-        if (!card) return 220;
-        return card.offsetWidth;
-    }
-    
-    // Function to get current gap between cards
-    function getCardGap() {
-        const containerStyles = window.getComputedStyle(container);
-        return parseInt(containerStyles.gap) || 20;
-    }
-    
-    // Function to update card classes and center the current card
-    function updateCards() {
-        if (isScrolling) return;
-        
-        cards.forEach(card => card.classList.remove('center'));
-        if (cards[currentIndex]) {
-            cards[currentIndex].classList.add('center');
-        }
-        
-        const cardWidth = getCardWidth();
-        const gap = getCardGap();
-        const scrollPos = (currentIndex * (cardWidth + gap)) - 
-                        (container.clientWidth / 2 - cardWidth / 2);
-        
-        isScrolling = true;
-        container.scrollTo({
-            left: scrollPos,
-            behavior: 'smooth'
+          container.appendChild(card);
         });
-        
-        setTimeout(() => {
+
+        const cards = document.querySelectorAll(".dish-card");
+        const totalCards = cards.length;
+
+        // Set initial position to the middle of the duplicated cards
+        currentIndex = Math.floor(totalCards / 3);
+        updateCards();
+
+        // Function to get current card width based on screen size
+        function getCardWidth() {
+          const card = cards[0];
+          if (!card) return 220;
+          return card.offsetWidth;
+        }
+
+        // Function to get current gap between cards
+        function getCardGap() {
+          const containerStyles = window.getComputedStyle(container);
+          return parseInt(containerStyles.gap) || 20;
+        }
+
+        // Function to update card classes and center the current card
+        function updateCards() {
+          if (isScrolling) return;
+
+          cards.forEach((card) => card.classList.remove("center"));
+          if (cards[currentIndex]) {
+            cards[currentIndex].classList.add("center");
+          }
+
+          const cardWidth = getCardWidth();
+          const gap = getCardGap();
+          const scrollPos =
+            currentIndex * (cardWidth + gap) -
+            (container.clientWidth / 2 - cardWidth / 2);
+
+          isScrolling = true;
+          container.scrollTo({
+            left: scrollPos,
+            behavior: "smooth",
+          });
+
+          setTimeout(() => {
             isScrolling = false;
-        }, 300);
-    }
-    
-    // Navigation buttons
-    leftBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-        updateCards();
-    });
-    
-    rightBtn.addEventListener('click', () => {
-        currentIndex = (currentIndex + 1) % totalCards;
-        updateCards();
-    });
-    
-    // Mouse drag functionality for desktop
-    container.addEventListener('mousedown', (e) => {
-        isDragging = true;
-        startX = e.pageX - container.offsetLeft;
-        scrollLeft = container.scrollLeft;
-        container.style.cursor = 'grabbing';
-        container.style.scrollBehavior = 'auto';
-    });
-    
-    container.addEventListener('mousemove', (e) => {
-        if (!isDragging) return;
-        e.preventDefault();
-        const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX) ; // Adjust scroll speed
-        container.scrollLeft = scrollLeft - walk;
-    });
-    
-    container.addEventListener('mouseup', () => {
-        if (isDragging) {
-            isDragging = false;
-            container.style.cursor = 'grab';
-            container.style.scrollBehavior = 'smooth';
-            snapToNearestCard();
+          }, 300);
         }
-    });
-    
-    container.addEventListener('mouseleave', () => {
-        if (isDragging) {
+
+        // Navigation buttons
+        leftBtn.addEventListener("click", () => {
+          currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+          updateCards();
+        });
+
+        rightBtn.addEventListener("click", () => {
+          currentIndex = (currentIndex + 1) % totalCards;
+          updateCards();
+        });
+
+        // Mouse drag functionality for desktop
+        container.addEventListener("mousedown", (e) => {
+          isDragging = true;
+          startX = e.pageX - container.offsetLeft;
+          scrollLeft = container.scrollLeft;
+          container.style.cursor = "grabbing";
+          container.style.scrollBehavior = "auto";
+        });
+
+        container.addEventListener("mousemove", (e) => {
+          if (!isDragging) return;
+          e.preventDefault();
+          const x = e.pageX - container.offsetLeft;
+          const walk = x - startX; // Adjust scroll speed
+          container.scrollLeft = scrollLeft - walk;
+        });
+
+        container.addEventListener("mouseup", () => {
+          if (isDragging) {
             isDragging = false;
-            container.style.cursor = 'grab';
-            container.style.scrollBehavior = 'smooth';
+            container.style.cursor = "grab";
+            container.style.scrollBehavior = "smooth";
             snapToNearestCard();
-        }
-    });
-    
-    // Touch functionality for mobile
-    let touchStartX;
-    
-    container.addEventListener('touchstart', (e) => {
-        touchStartX = e.touches[0].pageX;
-        container.style.scrollBehavior = 'auto';
-    }, { passive: true });
-    
-    container.addEventListener('touchmove', (e) => {
-        e.preventDefault();
-    }, { passive: false });
-    
-    container.addEventListener('touchend', (e) => {
-        const touchEndX = e.changedTouches[0].pageX;
-        const deltaX = touchEndX - touchStartX;
-        
-        if (Math.abs(deltaX) > 30) {
+          }
+        });
+
+        container.addEventListener("mouseleave", () => {
+          if (isDragging) {
+            isDragging = false;
+            container.style.cursor = "grab";
+            container.style.scrollBehavior = "smooth";
+            snapToNearestCard();
+          }
+        });
+
+        // Touch functionality for mobile
+        let touchStartX;
+
+        container.addEventListener(
+          "touchstart",
+          (e) => {
+            touchStartX = e.touches[0].pageX;
+            container.style.scrollBehavior = "auto";
+          },
+          { passive: true }
+        );
+
+        container.addEventListener(
+          "touchmove",
+          (e) => {
+            e.preventDefault();
+          },
+          { passive: false }
+        );
+
+        container.addEventListener("touchend", (e) => {
+          const touchEndX = e.changedTouches[0].pageX;
+          const deltaX = touchEndX - touchStartX;
+
+          if (Math.abs(deltaX) > 30) {
             if (deltaX > 0) {
-                currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+              currentIndex = (currentIndex - 1 + totalCards) % totalCards;
             } else {
-                currentIndex = (currentIndex + 1) % totalCards;
+              currentIndex = (currentIndex + 1) % totalCards;
             }
             updateCards();
-        } else {
+          } else {
             snapToNearestCard();
-        }
-        container.style.scrollBehavior = 'smooth';
-    });
-    
-    function snapToNearestCard() {
-        const containerCenter = container.scrollLeft + (container.clientWidth / 2);
-        let closestCard = null;
-        let minDistance = Infinity;
-        
-        cards.forEach((card, index) => {
-            const cardRect = card.getBoundingClientRect();
-            const cardCenter = cardRect.left + (cardRect.width / 2) - container.getBoundingClientRect().left;
-            const distance = Math.abs(containerCenter - cardCenter);
-            
-            if (distance < minDistance) {
-                minDistance = distance;
-                closestCard = index;
-            }
+          }
+          container.style.scrollBehavior = "smooth";
         });
-        
-        if (closestCard !== null && closestCard !== currentIndex) {
+
+        function snapToNearestCard() {
+          const containerCenter =
+            container.scrollLeft + container.clientWidth / 2;
+          let closestCard = null;
+          let minDistance = Infinity;
+
+          cards.forEach((card, index) => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter =
+              cardRect.left +
+              cardRect.width / 2 -
+              container.getBoundingClientRect().left;
+            const distance = Math.abs(containerCenter - cardCenter);
+
+            if (distance < minDistance) {
+              minDistance = distance;
+              closestCard = index;
+            }
+          });
+
+          if (closestCard !== null && closestCard !== currentIndex) {
             currentIndex = closestCard;
             updateCards();
+          }
         }
-    }
-    
-    // Handle scroll events for edge cases
-   /* container.addEventListener('scroll', function() {
+
+        // Handle scroll events for edge cases
+        /* container.addEventListener('scroll', function() {
         if (isScrolling || isDragging) return;
         
         clearTimeout(scrollTimeout);
@@ -1773,245 +1902,482 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 200);
     }, { passive: true });*/
-    
-    // Handle window resize
-    window.addEventListener('resize', function() {
-        updateCards();
-    });
-});  
 
-    function toggleReadMore(btn, id) {
+        // Handle window resize
+        window.addEventListener("resize", function () {
+          updateCards();
+        });
+      });
+
+      function toggleReadMore(btn, id) {
         const review = document.getElementById(id);
-        const isClamped = review.style.webkitLineClamp === "unset" ? false : true;
+        const isClamped =
+          review.style.webkitLineClamp === "unset" ? false : true;
 
         if (isClamped) {
-            review.style.display = "-webkit-box";
-            review.style.webkitLineClamp = "unset";
-            btn.textContent = "Show less";
+          review.style.display = "-webkit-box";
+          review.style.webkitLineClamp = "unset";
+          btn.textContent = "Show less";
         } else {
-            review.style.display = "-webkit-box";
-            review.style.webkitLineClamp = "3";
-            btn.textContent = "Read more";
+          review.style.display = "-webkit-box";
+          review.style.webkitLineClamp = "3";
+          btn.textContent = "Read more";
         }
-    }
-
-    // Optional: Set initial clamping for all review texts
-    document.querySelectorAll('.review-text').forEach(el => {
-        el.style.display = '-webkit-box';
-        el.style.webkitBoxOrient = 'vertical';
-        el.style.webkitLineClamp = '3';
-        el.style.overflow = 'hidden';
-    });
-  // Slideshow
-  let currentSlide = 0;
-  const slides = [
-    { image: "images/VadapavAndTea.png", title: "TASTE THE FUSION", text: "Craving street food magic? Vada Pav & Tea —<br> together, better, cheaper!" },
-    { image: "images/secondslide.png", title: "TASTE THE FUSION", text: "Juicy and loaded with flavor — our Chicken Combo hits different!" },
-    { image: "images/noodleBhelAndManchurian.png", title: "TASTE THE FUSION", text: "Combos you won’t forget — classic Indian flavors." },
-    { image: "images/bitesAndwrap.png", title: "BHOOKIE COMBOS", text: "Grab your combo deals, hot and fresh every day!" }
-  ];
-
-  function showSlide(index) {
-    document.getElementById("slide-image").src = slides[index].image;
-    document.getElementById("slide-title").textContent = slides[index].title;
-    document.getElementById("slide-text").innerHTML = slides[index].text;
-    const circles = document.querySelectorAll(".circle");
-    circles.forEach((circle, idx) => {
-      circle.classList.toggle("active", idx === index);
-    });
-    currentSlide = index;
-  }
-
-  function nextSlide() {
-    showSlide((currentSlide + 1) % slides.length);
-  }
-
-  showSlide(currentSlide);
-  setInterval(nextSlide, 4000);
-
-  document.querySelectorAll(".circle").forEach((circle, idx) => {
-    circle.addEventListener("click", () => showSlide(idx));
-  });
-
-  // Navbar scroll effect
-  window.addEventListener('scroll', () => {
-    document.querySelector('.navbar').classList.toggle('scrolled', window.scrollY > 0);
-  });
-
-  // Vadapav scroll animation
-  const vadapav = document.querySelector('.vadapav');
-  if (vadapav) {
-    let lastScroll = window.scrollY;
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.scrollY;
-      const scrollDirection = currentScroll > lastScroll ? 'down' : 'up';
-      lastScroll = currentScroll;
-      const containerTop = vadapav.getBoundingClientRect().top;
-      const triggerPoint = window.innerHeight * 0.8;
-      vadapav.classList[
-        containerTop < triggerPoint && scrollDirection === 'down' ? 'add' : 'remove'
-      ]('expanded');
-    });
-  }
-
-  // Smooth scroll for anchors
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-
-  // Profile icon dropdown logic
-  const icon = document.querySelector(".profile-icon");
-  const dropdown = document.getElementById("profileDropdown");
-  if (icon && dropdown) {
-    icon.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      if (!isLoggedIn) {
-        window.location.href = "login.html";
-        return;
       }
-      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-    });
 
-    window.addEventListener("click", () => dropdown.style.display = "none");
+      // Optional: Set initial clamping for all review texts
+      document.querySelectorAll(".review-text").forEach((el) => {
+        el.style.display = "-webkit-box";
+        el.style.webkitBoxOrient = "vertical";
+        el.style.webkitLineClamp = "3";
+        el.style.overflow = "hidden";
+      });
+      // Slideshow
+      let currentSlide = 0;
+      const slides = [
+        {
+          image: "images/VadapavAndTea.png",
+          title: "TASTE THE FUSION",
+          text: "Craving street food magic? Vada Pav & Tea —<br> together, better, cheaper!",
+        },
+        {
+          image: "images/secondslide.png",
+          title: "TASTE THE FUSION",
+          text: "Juicy and loaded with flavor — our Chicken Combo hits different!",
+        },
+        {
+          image: "images/noodleBhelAndManchurian.png",
+          title: "TASTE THE FUSION",
+          text: "Combos you won’t forget — classic Indian flavors.",
+        },
+        {
+          image: "images/bitesAndwrap.png",
+          title: "BHOOKIE COMBOS",
+          text: "Grab your combo deals, hot and fresh every day!",
+        },
+      ];
 
-    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-    if (isLoggedIn) {
-      dropdown.innerHTML = `
+      function showSlide(index) {
+        document.getElementById("slide-image").src = slides[index].image;
+        document.getElementById("slide-title").textContent =
+          slides[index].title;
+        document.getElementById("slide-text").innerHTML = slides[index].text;
+        const circles = document.querySelectorAll(".circle");
+        circles.forEach((circle, idx) => {
+          circle.classList.toggle("active", idx === index);
+        });
+        currentSlide = index;
+      }
+
+      function nextSlide() {
+        showSlide((currentSlide + 1) % slides.length);
+      }
+
+      showSlide(currentSlide);
+      setInterval(nextSlide, 4000);
+
+      document.querySelectorAll(".circle").forEach((circle, idx) => {
+        circle.addEventListener("click", () => showSlide(idx));
+      });
+
+      // Navbar scroll effect
+      window.addEventListener("scroll", () => {
+        document
+          .querySelector(".navbar")
+          .classList.toggle("scrolled", window.scrollY > 0);
+      });
+
+      // Vadapav scroll animation
+      const vadapav = document.querySelector(".vadapav");
+      if (vadapav) {
+        let lastScroll = window.scrollY;
+        window.addEventListener("scroll", () => {
+          const currentScroll = window.scrollY;
+          const scrollDirection = currentScroll > lastScroll ? "down" : "up";
+          lastScroll = currentScroll;
+          const containerTop = vadapav.getBoundingClientRect().top;
+          const triggerPoint = window.innerHeight * 0.8;
+          vadapav.classList[
+            containerTop < triggerPoint && scrollDirection === "down"
+              ? "add"
+              : "remove"
+          ]("expanded");
+        });
+      }
+
+      // Smooth scroll for anchors
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          document
+            .querySelector(this.getAttribute("href"))
+            .scrollIntoView({ behavior: "smooth" });
+        });
+      });
+
+      // Profile icon dropdown logic
+      const icon = document.querySelector(".profile-icon");
+      const dropdown = document.getElementById("profileDropdown");
+      if (icon && dropdown) {
+        icon.addEventListener("click", (e) => {
+          e.stopPropagation();
+          const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+          if (!isLoggedIn) {
+            window.location.href = "login.html";
+            return;
+          }
+          dropdown.style.display =
+            dropdown.style.display === "block" ? "none" : "block";
+        });
+
+        window.addEventListener(
+          "click",
+          () => (dropdown.style.display = "none")
+        );
+
+        const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+        if (isLoggedIn) {
+          dropdown.innerHTML = `
         <li><a href="myprofile.html">My Profile</a></li>
         <li><a href="#">My Orders</a></li>
         <li><a href="#" id="logoutLink">Logout</a></li>
       `;
-      document.body.addEventListener("click", (e) => {
-        if (e.target.id === "logoutLink") {
-          localStorage.removeItem("isLoggedIn");
-          localStorage.removeItem("userPhone");
-          window.location.reload();
+          document.body.addEventListener("click", (e) => {
+            if (e.target.id === "logoutLink") {
+              localStorage.removeItem("isLoggedIn");
+              localStorage.removeItem("userPhone");
+              window.location.reload();
+            }
+          });
         }
-      });
-    }
-  }
-
-  // Hamburger menu
- const hamburger = document.getElementById('hamburger');
- const navLinks = document.getElementById('navLinks');
- if (hamburger && navLinks) {
-  hamburger.addEventListener('click', () => {
-     navLinks.classList.toggle('active');
-   });
- }
-
- // Show popup on page load
-  window.onload = function() {
-    document.getElementById("popup").style.display = "flex";
-  };
-  
-
-
-  // Close button click handler
-  document.getElementById("closeBtn").addEventListener("click", function() {
-    document.getElementById("popup").style.display = "none";
-  });
-
-//popup for mobile-categories
-  document.addEventListener("DOMContentLoaded", function () {
-    const categoryInfo = {
-      burgers: {
-        title: "Burgers",
-        description: "Juicy burgers loaded with cheese and flavor! Classic and gourmet options with fresh patties and signature sauces."
-      },
-      fries: {
-        title: "Fries",
-        description: "Golden, crispy fries with mouthwatering seasoning! Regular, peri-peri, or loaded with toppings."
-      },
-      street: {
-        title: "Street Bites",
-        description: "Tangy and spicy snacks straight from the streets! Samosa, pakoras, bhel puri, and chaat items."
-      },
-      drinks: {
-        title: "Drinks",
-        description: "Refreshing beverages to cool you down! Hot masala chai, cutting chai, and specialty blends."
-      },
-      wraps: {
-        title: "Wraps",
-        description: "Soft, flavorful wraps with tasty fillings! Rolled flatbreads with vegetables, paneer, or chicken."
-      },
-      bites: {
-        title: "Bites",
-        description: "Quick bites that satisfy your hunger instantly! Mumbai's iconic vadapav and other regional varieties."
       }
-    };
 
-    const infoButtons = document.querySelectorAll(".mobile-info-btn");
+      // Hamburger menu
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("navLinks");
+      if (hamburger && navLinks) {
+        hamburger.addEventListener("click", () => {
+          navLinks.classList.toggle("active");
+        });
+      }
 
-    // Create popup elements
-    const popup = document.createElement("div");
-    popup.id = "categoryPopup";
-    popup.className = "popup-overlay-i";
+      // Show popup on page load
+      window.onload = function () {
+        document.getElementById("popup").style.display = "flex";
+      };
 
-    const popupContent = document.createElement("div");
-    popupContent.className = "popup-content";
+      // Close button click handler
+      document
+        .getElementById("closeBtn")
+        .addEventListener("click", function () {
+          document.getElementById("popup").style.display = "none";
+        });
 
-    const closeX = document.createElement("button");
-    closeX.className = "close-x";
-    closeX.innerHTML = "&times;";
+      //popup for mobile-categories
+      // document.addEventListener("DOMContentLoaded", function () {
+      //   const categoryInfo = {
 
-    const title = document.createElement("div");
-    title.className = "popup-title";
+      //     burgers: {
+      //       title: "Burgers",
+      //       description:
+      //         "Juicy burgers loaded with cheese and flavor! Classic and gourmet options with fresh patties and signature sauces.",
+      //     },
+      //     fries: {
+      //       title: "Fries",
+      //       description:
+      //         "Golden, crispy fries with mouthwatering seasoning! Regular, peri-peri, or loaded with toppings.",
+      //     },
+      //     street: {
+      //       title: "Street Bites",
+      //       description:
+      //         "Tangy and spicy snacks straight from the streets! Samosa, pakoras, bhel puri, and chaat items.",
+      //     },
+      //     drinks: {
+      //       title: "Drinks",
+      //       description:
+      //         "Refreshing beverages to cool you down! Hot masala chai, cutting chai, and specialty blends.",
+      //     },
+      //     wraps: {
+      //       title: "Wraps",
+      //       description:
+      //         "Soft, flavorful wraps with tasty fillings! Rolled flatbreads with vegetables, paneer, or chicken.",
+      //     },
+      //     bites: {
+      //       title: "Bites",
+      //       description:
+      //         "Quick bites that satisfy your hunger instantly! Mumbai's iconic vadapav and other regional varieties.",
+      //     },
+      //   };
 
-    const description = document.createElement("div");
-    description.className = "popup-description";
+      //   const infoButtons = document.querySelectorAll(".mobile-info-btn");
 
-    const closeBtn = document.createElement("button");
-    closeBtn.className = "popup-close";
-    closeBtn.textContent = "Close";
+      //   // Create popup elements
+      //   const popup = document.createElement("div");
+      //   popup.id = "categoryPopup";
+      //   popup.className = "popup-overlay-i";
 
-    // Append popup elements
-    popupContent.appendChild(closeX);
-    popupContent.appendChild(title);
-    popupContent.appendChild(description);
-    popupContent.appendChild(closeBtn);
-    popup.appendChild(popupContent);
-    document.body.appendChild(popup);
+      //   const popupContent = document.createElement("div");
+      //   popupContent.className = "popup-content";
 
-    // Show popup with correct data
-    function showPopup(categoryKey) {
-      const data = categoryInfo[categoryKey];
-      if (data) {
-        title.textContent = data.title;
-        description.textContent = data.description;
-        popup.style.display = "flex";
-        popup.style.visibility = "visible";
+      //   const closeX = document.createElement("button");
+      //   closeX.className = "close-x";
+      //   closeX.innerHTML = "&times;";
+
+      //   const title = document.createElement("div");
+      //   title.className = "popup-title";
+
+      //   const description = document.createElement("div");
+      //   description.className = "popup-description";
+
+      //   const closeBtn = document.createElement("button");
+      //   closeBtn.className = "popup-close";
+      //   closeBtn.textContent = "Close";
+
+      //   // Append popup elements
+      //   popupContent.appendChild(closeX);
+      //   popupContent.appendChild(title);
+      //   popupContent.appendChild(description);
+      //   popupContent.appendChild(closeBtn);
+      //   popup.appendChild(popupContent);
+      //   document.body.appendChild(popup);
+
+      //   // Show popup with correct data
+      //   function showPopup(categoryKey) {
+      //     const data = categoryInfo[categoryKey];
+      //     if (data) {
+      //       title.textContent = data.title;
+      //       description.textContent = data.description;
+      //       popup.style.display = "flex";
+      //       popup.style.visibility = "visible";
+      //     }
+      //   }
+
+      //   // Hide popup
+      //   function hidePopup() {
+      //     popup.style.display = "none";
+      //     popup.style.visibility = "hidden";
+      //   }
+
+      //   // Event listeners
+      //   infoButtons.forEach((btn) => {
+      //     btn.addEventListener("click", () => {
+      //       const category = btn.getAttribute("data-category");
+      //       showPopup(category);
+      //     });
+      //   });
+
+      //   closeX.addEventListener("click", hidePopup);
+      //   closeBtn.addEventListener("click", hidePopup);
+      //   popup.addEventListener("click", (e) => {
+      //     if (e.target === popup) hidePopup();
+      //   });
+      // });
+      // Fixed popup for mobile-categories
+      document.addEventListener("DOMContentLoaded", function () {
+        const categoryInfo = {
+          burgers: {
+            title: "Burgers",
+            description:
+              "BURGERS Classic and gourmet burger options with fresh patties,cheese, and signature sauces served in soft buns",
+          },
+          fries: {
+            title: "Fries",
+            description:
+              " FRIES Crispy golden potato fries - regular, peri-peri, or loaded with toppings and cheese.",
+          },
+          street: {
+            title: "Street Bites",
+            description:
+              "  STREET BITES Local street food favorites like samosa, pakoras,bhel puri, and chaat items for quick snacking.",
+          },
+          drinks: {
+            title: "Drinks",
+            description:
+              "Refreshing beverages to cool you down! Hot masala chai, cutting chai, and specialty blends.",
+          },
+          wraps: {
+            title: "Wraps",
+            description:
+              "Soft, flavorful wraps with tasty fillings! Rolled flatbreads with vegetables, paneer, or chicken.",
+          },
+          bites: {
+            title: "Bites",
+            description:
+              "Quick bites that satisfy your hunger instantly! Mumbai's iconic vadapav and other regional varieties.",
+          },
+        };
+
+        // Create popup elements with unique IDs to avoid conflicts
+        const categoryPopup = document.createElement("div");
+        categoryPopup.id = "categoryInfoPopup";
+        categoryPopup.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    visibility: hidden;
+  `;
+
+        const popupContent = document.createElement("div");
+        popupContent.style.cssText = `
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    max-width: 400px;
+    width: 60%;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: popupSlideIn 0.3s ease-out;
+  `;
+
+        const closeX = document.createElement("button");
+        closeX.innerHTML = "&times;";
+        closeX.style.cssText = `
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
+
+        const title = document.createElement("h3");
+        title.style.cssText = `
+    margin: 0 0 15px 0;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+  `;
+
+        const description = document.createElement("p");
+        description.style.cssText = `
+    margin: 0 0 20px 0;
+    color: #666;
+    line-height: 1.6;
+    font-size: 16px;
+  `;
+
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "Close";
+        closeBtn.style.cssText = `
+    background: #ff6b35;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  `;
+
+        // Add animation keyframes
+        const style = document.createElement("style");
+        style.textContent = `
+    @keyframes popupSlideIn {
+      from {
+        transform: scale(0.7);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
       }
     }
+  `;
+        document.head.appendChild(style);
 
-    // Hide popup
-    function hidePopup() {
-      popup.style.display = "none";
-      popup.style.visibility = "hidden";
-    }
+        // Append popup elements
+        popupContent.appendChild(closeX);
+        popupContent.appendChild(title);
+        popupContent.appendChild(description);
+        popupContent.appendChild(closeBtn);
+        categoryPopup.appendChild(popupContent);
+        document.body.appendChild(categoryPopup);
 
-    // Event listeners
-    infoButtons.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const category = btn.getAttribute("data-category");
-        showPopup(category);
+        // Show popup with correct data
+        function showCategoryPopup(categoryKey) {
+          const data = categoryInfo[categoryKey];
+          if (data) {
+            title.textContent = data.title;
+            description.textContent = data.description;
+            categoryPopup.style.display = "flex";
+            categoryPopup.style.visibility = "visible";
+            console.log(`Showing popup for category: ${categoryKey}`); // Debug log
+          } else {
+            console.log(`Category not found: ${categoryKey}`); // Debug log
+          }
+        }
+
+        // Hide popup
+        function hideCategoryPopup() {
+          categoryPopup.style.display = "none";
+          categoryPopup.style.visibility = "hidden";
+        }
+
+        // Wait for DOM to be fully loaded then attach event listeners
+        setTimeout(() => {
+          const infoButtons = document.querySelectorAll(".mobile-info-btn");
+          console.log(`Found ${infoButtons.length} info buttons`); // Debug log
+
+          infoButtons.forEach((btn, index) => {
+            console.log(
+              `Button ${index}:`,
+              btn,
+              `Category: ${btn.getAttribute("data-category")}`
+            ); // Debug log
+
+            btn.addEventListener("click", (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const category = btn.getAttribute("data-category");
+              console.log(`Button clicked, category: ${category}`); // Debug log
+              showCategoryPopup(category);
+            });
+          });
+
+          // Event listeners for closing
+          closeX.addEventListener("click", (e) => {
+            e.preventDefault();
+            hideCategoryPopup();
+          });
+
+          closeBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            hideCategoryPopup();
+          });
+
+          categoryPopup.addEventListener("click", (e) => {
+            if (e.target === categoryPopup) {
+              hideCategoryPopup();
+            }
+          });
+
+          // Add hover effect to close button
+          closeBtn.addEventListener("mouseenter", () => {
+            closeBtn.style.background = "#e55a2b";
+          });
+
+          closeBtn.addEventListener("mouseleave", () => {
+            closeBtn.style.background = "#ff6b35";
+          });
+        }, 500); // Wait 500ms to ensure all elements are loaded
       });
-    });
-
-    closeX.addEventListener("click", hidePopup);
-    closeBtn.addEventListener("click", hidePopup);
-    popup.addEventListener("click", (e) => {
-      if (e.target === popup) hidePopup();
-    });
-  });
-
-
-  </script>
-   
+    </script>
 
     <!-- About Us Section 
     <div class="about-section" id="about">
@@ -2045,9 +2411,5 @@ Born out of a love for food that brings people together, Bhookie brings the punc
         </div>
     </div>
  -->
-
-
-
-</body>
-
+  </body>
 </html>
