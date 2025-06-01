@@ -79,6 +79,8 @@
         <a class="profile-icon">
           <img src="images/user.png" alt="User Icon" style="height: 20px; width: 20px;">
         </a>
+        <span id="welcomeUser" style="margin-left: 10px; color: rgb(11, 11, 11); font-weight: bold;"></span>
+
         <ul class="dropdown-menu" id="profileDropdown" style="display: none;"></ul>
       </div>
     </div>
@@ -170,54 +172,32 @@
     </div>
   </section>
 
-        <footer class="footer" id="contact">
-        <div class="footer-container">
-            <!-- Links -->
-            <div class="footer-column quick_links">
-                <h3>Quick Links</h3>
-               <ul>
-                    <a href="index.html"><li>Home</li></a>
-                    <a href="menu.html"><li>Menu</li></a>
-                    <a href="aboutus.html"><li>About us</li></a>
-                    <a href="login.html"><li>Login</li></a>
-                    <a href="contact_us.html"><li>Contact</li></a>
-                </ul>
-            </div>
-            
-            <!-- Menu -->
-            <div class="footer-column menu">
-                <h3>Menu</h3>
-                <ul>
-                   <a href="menu.html#street"><li>STREET BITES</li></a> 
-                    <a href="menu.html#fries"><li>FRIES</li></a>
-                    <a href="menu.html#bites"><li>BITES</li></a>
-                   <a href="menu.html#wraps"><li>WRAPS</li></a>
-                    <a href="menu.html#burgers"><li>BURGERS</li></a>
-                    <a href="menu.html#drinks"><li>DRINKS</li></a>
-                </ul>
-            </div>
+ <footer class="footer" id="contact">
+  <div class="footer-container">
+    <!-- Menu Items -->
+    <div class="footer-menu">
+      <a href="menu.html#street">STREET BITES</a>
+      <a href="menu.html#fries">FRIES</a>
+      <a href="menu.html#bites">BITES</a>
+      <a href="menu.html#wraps">WRAPS</a>
+      <a href="menu.html#burgers">BURGERS</a>
+      <a href="menu.html#drinks">DRINKS</a>
+    </div>
 
-            <!-- Contact -->
-            <div class="footer-column contact">
-                <h3>Contact</h3>
-                <p>123 Street, City<br>info@example.com<br>+44 7867233721</p>
-                <div class="social-icons">
-                  <br> <br>
-            <h3>Follow Us</h3><br>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-            </div>
-        </div>
-<br>
-        <!-- Bottom Footer -->
-        <div class="footer-bottom">
-            <p>&copy; BHOOKIE. All Rights Reserved.</p>
-           
-        </div>
-    </footer>
-  
+    <!-- Social Icons -->
+    <div class="footer-socials">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
+
+  <!-- Bottom Footer -->
+  <div class="footer-bottom">
+    <h3>&copy; BHOOKIE<sup>®</sup>. All Rights Reserved.</h3>
+  </div>
+</footer>
+
   <script>
 
 window.addEventListener('scroll', function () {
@@ -353,6 +333,13 @@ window.addEventListener('scroll', function () {
 
   // Scroll to section if URL contains a hash (e.g. #wraps)
 window.addEventListener('DOMContentLoaded', () => {
+  const welcomeUser = document.getElementById("welcomeUser");
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const userName = localStorage.getItem("userName");
+
+  if (isLoggedIn === "true" && userName) {
+    welcomeUser.textContent = `Hi ${userName}!`;
+  }
   const hash = window.location.hash.replace('#', '').toUpperCase();
   if (hash && menuData[hash]) {
     updateMenuCards(hash);

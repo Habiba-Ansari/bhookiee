@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
     <style>
         /* Basic styles for responsiveness and hover effects */
         body {
@@ -28,9 +30,6 @@
             /* Space for fixed navbar */
           
         }
-
-
-
         @media (max-width: 768px) {
           .hero-section {
             background: url('images/phonenew.png') no-repeat center center / cover;
@@ -42,8 +41,7 @@
           }
         }
 
-        
-        .hero-content {
+    .hero-content {
     text-align: left;
     color: white;
     padding: 20px;
@@ -68,6 +66,7 @@
       justify-content: center;
       align-items: center;
       z-index: 9999;
+      
     }
 
     /* Popup box */
@@ -80,8 +79,23 @@
   
       position: relative;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      /* Animation */
+      animation: slideDown 0.4s ease forwards;
+      transform: translateY(-50px);
+      opacity: 0;
     }
 
+    /* Keyframes for slide down */
+    @keyframes slideDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
     /* Close button */
     .close-btn {
       position: absolute;
@@ -106,6 +120,26 @@
       font-weight: 900;
       color: #080808;
     }
+
+  /* Responsive adjustments */
+@media (max-width: 480px) {
+  .popup-box {
+    padding: 14px;
+    border-radius: 10px;
+    max-width: 300px;
+    width: 85%;
+  }
+
+  .close-btn {
+    font-size: 24px;
+    top: 4px;
+    right: 8px;
+  }
+
+  .popup-box h3 {
+    font-size: 14px;
+  }
+}
 @media (max-width: 768px) {
   .text-section {
     position: absolute;
@@ -199,6 +233,156 @@
     position: relative;
     top: -10px; 
     left: 85px;
+  }
+}
+.mobile-welcome {
+  display: none;
+  padding: 12px;
+  text-align: center;
+  font-size: 18px;
+  color: rgb(244, 239, 239);
+  font-weight: bold;
+}
+
+/* Show on mobile screens */
+@media screen and (max-width: 768px) {
+  .mobile-welcome {
+    display: block;
+  }
+
+  /* Optionally hide the nav bar welcome text on mobile */
+  #welcomeUser {
+    display: none;
+  }
+}
+
+
+@media (min-width: 600px) and (max-width: 1024px) {
+  /* 1. Background Image Fix */
+  .hero-section {
+    height: 100vh;
+    background: url('images/tabletimage.jpg') no-repeat right top;
+    background-size: auto 80%;
+    background-position: right -50px top 0;
+    padding-top: 50px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  /* 2. Hero Content Container */
+  .hero-content {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 60px;
+    margin-top: 0;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    z-index: 2;
+    transform: translateY(-600px);
+  }
+
+  /* 3. Text Section */
+  .text-section {
+    flex: 1;
+    padding: 20px 0;
+    position: relative;
+    z-index: 3;
+    margin-top: -500px;
+  }
+
+  .text-section h2 {
+    font-size: 32px;
+    margin-bottom: 16px;
+    line-height: 1.2;
+    color: #fff;
+  }
+
+  .text-section p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    line-height: 1.4;
+    color: #eee;
+  }
+
+  /* 4. Order Section */
+  .order-section {
+    text-align: left;
+    margin-top: 0px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+  }
+
+  .order-btn {
+   /* padding: 12px 24px; */
+    font-size: 16px;
+    border-radius: 8px;
+    white-space: nowrap;
+    background-color: #080808!important;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+
+  /* 5. Image Section */
+  .image-section {
+    flex: 1;
+    max-width: 350px;
+    position: relative;
+    z-index: 1;
+    transform: translateY(-250px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #slide-image {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  }
+
+  /* 6. Navigation Circles */
+  .circles {
+   position: absolute;
+  bottom: 20px;
+  left: 90% !important; /* Start from center */
+  transform: translateX(-100%); /* Center precisely */
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  z-index: 2;
+  width: auto; /* Let it take natural width */
+  }
+
+  .circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .circle.active {
+    background-color: #e10808 !important;
+  }
+
+  /* 7. Doodle Image */
+  .doodle {
+    max-width: 70px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
   }
 }
 
@@ -444,14 +628,39 @@
 }
 
 /* Show hamburger and hide nav-links on mobile */
+/* Mobile layout arrangement */
 @media (max-width: 768px) {
-  .hamburger {
+  .navbar {
     display: flex;
-    margin-right: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
+
+  .nav-logo {
+    order: 2;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+
+  .profile-container {
+    order: 1;
+  }
+
+  .hamburger {
+    order: 3;
+    display: flex;
+    margin-left: 15px;
   }
 
   .nav-links {
-    display: none;
+   display: none;
     flex-direction: column;
     background-color: rgba(19, 19, 18, 0.9);
     width: 100%;
@@ -459,87 +668,21 @@
     top: 100%;
     left: 0;
     right: 0;
-    padding: 20px ;
+    padding: 20px;
     align-items: center;
     text-align: center;
- }
-
+    gap: 20px;
+    z-index: 999;
+  }
+ .nav-links a {
+    color: white;
+    font-size: 18px;
+  }
   .nav-links.active {
     display: flex;
   }
 }
 
-/* Navbar */
-.navbar {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 20px 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
-  transition: background-color 0.3s ease;
-}
-
-.navbar.transparent {
-  background-color: transparent;
-}
-
-.navbar.scrolled {
-  background-color: rgba(19, 19, 18, 0.7);
-}
-
-/* Logo */
-.nav-logo img {
-  height: 70px;
-}
-
-/* Navigation Links */
-.nav-links {
-  display: flex;
-  list-style: none;
-  gap: 40px;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: white;
-  font-weight: 500;
-  font-size: 18px;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  left: 0;
-  bottom: -5px;
-  background-color: #FF5E18;
-  transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-  width: 100%;
-}
-
-.nav-links a.active::after {
-  width: 100%;
-}
-
-.nav-links a:hover {
-  color: #ffffff;
-}
-
-/* Right Side Button */
-.nav-buttons {
-  display: flex;
-  align-items: center;
-}
 
 #image-container img {
   width: 800px;
@@ -550,8 +693,6 @@
   position: relative;
   left: 300px;
 }
-
-
 
 .order-section {
   display: flex;
@@ -617,47 +758,6 @@
   }
 
 
-/* Hamburger icon */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
-  z-index: 1100;
-}
-
-.hamburger span {
-  height: 3px;
-  width: 25px;
-  background-color: white;
-  border-radius: 2px;
-}
-
-/* Show hamburger and hide nav-links on mobile */
-@media (max-width: 768px) {
-  .hamburger {
-    display: flex;
-    margin-right: 20px;
-  }
-
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    background-color: rgba(19, 19, 18, 0.9);
-    width: 100%;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    padding: 20px ;
-    align-items: center;
-    text-align: center;
- }
-
-  .nav-links.active {
-    display: flex;
-  }
-} 
 /* popular dishes*/
 .popular-dishes {
     max-width: 1200px;
@@ -680,16 +780,14 @@
     padding: 0 40px;
 }
 .dishes-container {
-    display: flex;
+  display: flex;
     overflow-x: auto;
+    scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-    padding: 40px 0;
     gap: 20px;
-    scrollbar-width: none;
-    scroll-snap-type: x mandatory;
+    padding: 20px 0;
     cursor: grab;
-    touch-action: pan-x;
 }
 .dishes-container:active {
     cursor: grabbing;
@@ -708,7 +806,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease opacity 0.3s ease;
     padding: 20px;
     border: 1px solid #3a3a38;
     scroll-snap-align: center;
@@ -720,7 +818,7 @@
     box-shadow: 0 10px 20px rgba(255, 107, 0, 0.4);
     border: 1px solid #ff6b00;
     transform: scale(1.05);
-    z-index: 1;
+    z-index: 10;
 }
 .dish-card h3 {
     margin-top: 20px;
@@ -781,6 +879,7 @@
 .nav-btn.right {
     right: 10px;
 }
+
 
        /* Reviews Section Styles */
 
@@ -1082,7 +1181,8 @@
             </div>
             <div class="profile-container">
                 <div class="nav-buttons">
-                <a class="profile-icon" ><img src="images/user.png" alt="User Icon" style="height: 20px; width: 20px;"></a>
+                <a class="profile-icon" ><img src="images/user.png" alt="User Icon" style="height: 25px; width: 25px;"></a>
+                <span id="welcomeUser" style="margin-left: 10px; color: rgb(11, 11, 11); font-weight: bold;"></span>
                 <ul class="dropdown-menu" id="profileDropdown" style="display: none;">
                 
                 </ul>
@@ -1090,15 +1190,15 @@
               </div>
               
         </nav>
+        <div id="mobileWelcome" class="mobile-welcome"></div>
     </div>
+
 <!-- Popup structure -->
 <div id="popup" class="popup-overlay">
   <div class="popup-box">
     <span class="close-btn" id="closeBtn">&times;</span>
     <img src="images/PopUp2.jpg" alt="Popup Image">
     <h3>Welcome to Bhookie! “🎊 Grand Opening this weekend! Visit our store for exclusive deals.”</h3>
-
-</p>
   </div>
 </div>
    <!-- Hero Content as Slider -->
@@ -1130,118 +1230,138 @@
 <div class="category-section">
   <h2 class="category-title">CATEGORIES</h2>
   <div class="category-box">
-
-    <!-- Burgers -->
-    <div class="flip-card">
-      <div class="flip-inner">
-        <div class="flip-card-front">
-          <div class="categorybox-item-section">
-            <img src="images/burger-icon.png" alt="Burger" class="small-icon">
-            <a href="menu.html#burgers" class="burger-a">Burgers</a>
-            <a href="menu.html#burgers" class="arrow">➤</a>
+      
+      <!-- Burgers -->
+      <div class="flip-card">
+          <div class="flip-inner">
+              <div class="flip-card-front">
+                  <div class="categorybox-item-section">
+                      <button class="info-icon mobile-info-btn" data-category="burgers">i</button>
+                      <img src="images/burger-icon.png" alt="Burger" class="small-icon">
+                      <a href="menu.html#burgers" class="burger-a">Burgers</a>
+                      <a href="menu.html#burgers" class="arrow">➤</a>
+                  </div>
+              </div>
+              <div class="flip-card-back categorybox-item-section">
+                  <p>BURGERS
+                    Classic and gourmet burger options with fresh patties, cheese, and signature sauces served in soft buns.</p>
+              </div>
           </div>
-        </div>
-        <div class="flip-card-back categorybox-item-section">
-          <p>Juicy burgers loaded with cheese and flavor!</p>
-        </div>
       </div>
-    </div>
 
-    <!-- Fries -->
-    <div class="flip-card">
-      <div class="flip-inner">
-        <div class="flip-card-front">
-          <div class="categorybox-item-section">
-            <img src="images/fries-icon.png" alt="Fries">
-            <a href="menu.html#fries">Fries</a>
-            <a href="menu.html#fries" class="arrow">➤</a>
+      <!-- Fries -->
+      <div class="flip-card">
+          <div class="flip-inner">
+              <div class="flip-card-front">
+                  <div class="categorybox-item-section">
+                      <button class="info-icon mobile-info-btn" data-category="fries">i</button>
+                      <img src="images/fries-icon.png" alt="Fries" class="small-icon">
+                      <a href="menu.html#fries">Fries</a>
+                      <a href="menu.html#fries" class="arrow">➤</a>
+                  </div>
+              </div>
+              <div class="flip-card-back categorybox-item-section">
+                  <p>FRIES
+                    Crispy golden potato fries - regular, peri-peri, or loaded with toppings and cheese.</p>
+              </div>
           </div>
-        </div>
-        <div class="flip-card-back categorybox-item-section">
-          <p>Golden, crispy fries with mouthwatering seasoning!</p>
-        </div>
       </div>
-    </div>
 
-    <!-- Street Bites -->
-    <div class="flip-card">
-      <div class="flip-inner">
-        <div class="flip-card-front">
-          <div class="categorybox-item-section">
-            <img src="images/street-bites-icon.png" alt="Street Bites">
-            <a href="menu.html#street">Street Bites</a>
-            <a href="menu.html#street" class="arrow">➤</a>
+      <!-- Street Bites -->
+      <div class="flip-card">
+          <div class="flip-inner">
+              <div class="flip-card-front">
+                  <div class="categorybox-item-section">
+                      <button class="info-icon mobile-info-btn" data-category="street">i</button>
+                      <img src="images/street-bites-icon.png" alt="Street Bites" class="small-icon">
+                      <a href="menu.html#street">Street Bites</a>
+                      <a href="menu.html#street" class="arrow">➤</a>
+                  </div>
+              </div>
+              <div class="flip-card-back categorybox-item-section">
+                  <p>STREET BITES
+                    Local street food favorites like samosa, pakoras, bhel puri, and chaat items for quick snacking.</p>
+              </div>
           </div>
-        </div>
-        <div class="flip-card-back categorybox-item-section">
-          <p>Tangy and spicy snacks straight from the streets!</p>
-        </div>
       </div>
-    </div>
 
-    <!-- Drinks -->
-    <div class="flip-card">
-      <div class="flip-inner">
-        <div class="flip-card-front">
-          <div class="categorybox-item-section">
-            <img src="images/chai-icon.png" alt="Drinks" class="large-icon">
-            <a href="menu.html#drinks">Drinks</a>
-            <a href="menu.html#drinks" class="arrow">➤</a>
+      <!-- Drinks -->
+      <div class="flip-card">
+          <div class="flip-inner">
+              <div class="flip-card-front">
+                  <div class="categorybox-item-section">
+                      <button class="info-icon mobile-info-btn" data-category="drinks">i</button>
+                      <img src="images/chai-icon.png" alt="Drinks" class="large-icon">
+                      <a href="menu.html#drinks">Drinks</a>
+                      <a href="menu.html#drinks" class="arrow">➤</a>
+                  </div>
+              </div>
+              <div class="flip-card-back categorybox-item-section">
+                  <p>DRINKS
+                    Hot masala chai, cutting chai, ginger chai, and specialty tea blends served fresh and aromatic.</p>
+              </div>
           </div>
-        </div>
-        <div class="flip-card-back categorybox-item-section">
-          <p>Refreshing beverages to cool you down!</p>
-        </div>
       </div>
-    </div>
 
-    <!-- Wraps -->
-    <div class="flip-card">
-      <div class="flip-inner">
-        <div class="flip-card-front">
-          <div class="categorybox-item-section">
-            <img src="images/wraps-icon.png" alt="Wraps">
-            <a href="menu.html#wraps">Wraps</a>
-            <a href="menu.html#wraps" class="arrow">➤</a>
+      <!-- Wraps -->
+      <div class="flip-card">
+          <div class="flip-inner">
+              <div class="flip-card-front">
+                  <div class="categorybox-item-section">
+                      <button class="info-icon mobile-info-btn" data-category="wraps">i</button>
+                      <img src="images/wraps-icon.png" alt="Wraps" class="small-icon">
+                      <a href="menu.html#wraps">Wraps</a>
+                      <a href="menu.html#wraps" class="arrow">➤</a>
+                  </div>
+              </div>
+              <div class="flip-card-back categorybox-item-section">
+                  <p>WRAPS
+                    Rolled flatbreads stuffed with vegetables, paneer, or chicken with chutneys and fresh ingredients.</p>
+              </div>
           </div>
-        </div>
-        <div class="flip-card-back categorybox-item-section">
-          <p>Soft, flavorful wraps with tasty fillings!</p>
-        </div>
       </div>
-    </div>
 
-    <!-- Bites -->
-    <div class="flip-card">
-      <div class="flip-inner">
-        <div class="flip-card-front">
-          <div class="categorybox-item-section">
-            <img src="images/vadapav-icon.png" alt="Vadapav">
-            <a href="menu.html#bites">Bites</a>
-            <a href="menu.html#bites" class="arrow">➤</a>
+      <!-- Bites -->
+      <div class="flip-card">
+          <div class="flip-inner">
+              <div class="flip-card-front">
+                  <div class="categorybox-item-section">
+                      <button class="info-icon mobile-info-btn" data-category="bites">i</button>
+                      <img src="images/vadapav-icon.png" alt="Vadapav" class="small-icon">
+                      <a href="menu.html#bites">Bites</a>
+                      <a href="menu.html#bites" class="arrow">➤</a>
+                  </div>
+              </div>
+              <div class="flip-card-back categorybox-item-section">
+                  <p>Mumbai's iconic vadapav - spiced potato fritter in pav bread with chutneys, plus other regional vada varieties.</p>
+              </div>
           </div>
-        </div>
-        <div class="flip-card-back categorybox-item-section">
-          <p>Quick bites that satisfy your hunger instantly!</p>
-        </div>
       </div>
-    </div>
 
   </div>
 </div>
  
+<!-- FIXED POPUP STRUCTURE -->
+<div id="categoryPopup" class="popup-overlay-i">
+  <div class="popup-content">
+      <button class="close-x" id="closeX">&times;</button>
+      <h3 class="popup-title" id="popupTitle">Category Title</h3>
+      <p class="popup-description" id="popupDescription">Category description goes here.</p>
+      <button class="popup-close" id="closeBtn-i">Close</button>
+  </div>
+</div>
  <!-- Popular Dishes -->
-  <section class="popular-dishes">
-    <h2 class="popular-title">Our Popular Dishes</h2>
-    <div class="dishes-wrapper">
-        <button class="nav-btn left">&lt;</button>
-        <div class="dishes-container">
-           
-        </div>
-        <button class="nav-btn right">&gt;</button>
-    </div>
+ <section class="popular-dishes">
+  <h2 class="popular-title">Our Popular Dishes</h2>
+  <div class="dishes-wrapper">
+      <button class="nav-btn left">&lt;</button>
+      <div class="dishes-container"></div>
+      <button class="nav-btn right">&gt;</button>
+  </div>
+  <div class="scrollbar">
+      <div class="scroll-thumb"></div>
+  </div>
 </section>
- 
     <div class="view-more-container">
         <a href="menu.html" class="view-more-btn">VIEW MORE</a>
     </div>
@@ -1402,6 +1522,7 @@
     </div>
 </section>
 
+<<<<<<< HEAD
 <script>
     function toggleReadMore(btn, id) {
         const review = document.getElementById(id);
@@ -1428,268 +1549,257 @@
 </script>
 
 
+=======
+  <footer class="footer" id="contact">
+  <div class="footer-container">
+    <!-- Menu Items -->
+    <div class="footer-menu">
+      <a href="menu.html#street">STREET BITES</a>
+      <a href="menu.html#fries">FRIES</a>
+      <a href="menu.html#bites">BITES</a>
+      <a href="menu.html#wraps">WRAPS</a>
+      <a href="menu.html#burgers">BURGERS</a>
+      <a href="menu.html#drinks">DRINKS</a>
+    </div>
+>>>>>>> 30ee1fa25be9238afded0dadc1f08198c29db74d
 
+    <!-- Social Icons -->
+    <div class="footer-socials">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+  </div>
 
-        <footer class="footer" id="contact">
-        <div class="footer-container">
-            <!-- Links -->
-            <div class="footer-column quick_links">
-                <h3>Quick Links</h3>
-               <ul>
-                    <a href="index.html"><li>Home</li></a>
-                    <a href="menu.html"><li>Menu</li></a>
-                    <a href="aboutus.html"><li>About us</li></a>
-                    <a href="login.html"><li>Login</li></a>
-                    <a href="contact_us.html"><li>Contact</li></a>
-                </ul>
-            </div>
-            
-            <!-- Menu -->
-            <div class="footer-column menu">
-                <h3>Menu</h3>
-                <ul>
-                   <a href="menu.html#street"><li>STREET BITES</li></a> 
-                    <a href="menu.html#fries"><li>FRIES</li></a>
-                    <a href="menu.html#bites"><li>BITES</li></a>
-                   <a href="menu.html#wraps"><li>WRAPS</li></a>
-                    <a href="menu.html#burgers"><li>BURGERS</li></a>
-                    <a href="menu.html#drinks"><li>DRINKS</li></a>
-                </ul>
-            </div>
-
-            <!-- Contact -->
-            <div class="footer-column contact">
-                <h3>Contact</h3>
-                <p>123 Street, City<br>info@example.com<br>+44 7867233721</p>
-                <div class="social-icons">
-                  <br> <br>
-            <h3>Follow Us</h3><br>
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-            </div>
-        </div>
-<br>
-        <!-- Bottom Footer -->
-        <div class="footer-bottom">
-            <p>&copy; BHOOKIE. All Rights Reserved.</p>
-           
-        </div>
-    </footer>
+  <!-- Bottom Footer -->
+  <div class="footer-bottom">
+    <h3>&copy; BHOOKIE<sup>®</sup>. All Rights Reserved.</h3>
+  </div>
+</footer>
 
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-      const container = document.querySelector('.dishes-container');
-      const leftBtn = document.querySelector('.nav-btn.left');
-      const rightBtn = document.querySelector('.nav-btn.right');
-      let currentIndex = 0;
-      let isDragging = false;
-      let startX, scrollLeft;
-      let touchStartX;
-      let isTouchDevice = 'ontouchstart' in window;
-      
-      // Dish data
-      const dishes = [
-          
-          { name: "Onion Bhaji", image: "images/onion bhaji.png" },
-          { name: "Potato Bhaji", image: "images/potato bhaji.png" },
-          { name: "Vadapav", image: "images/vada.png" },
-          { name: "Manchurian", image: "images/manchurian.png" },
-          { name: "Noodle Bhel", image: "images/chinese bhel.png" },
-         
-          { name: "Chai", image: "images/chai.png" },
-          { name: "Burger", image: "images/burger.png" },
-          { name: "Wraps", image: "images/wrap.png" },
-          { name: "Fries", image: "images/fries.png" },
-          { name: "Bites", image: "images/bites.png" }
-       
-      ];
-      
-      // Create initial cards (duplicate the array to make infinite scroll possible)
-      const duplicatedDishes = [...dishes, ...dishes, ...dishes];
-      
-      // Render all cards
-      duplicatedDishes.forEach((dish, index) => {
-          const card = document.createElement('div');
-          card.className = 'dish-card';
-          card.innerHTML = `
-              <img src="${dish.image}" alt="${dish.name}" class="dish-image">
-              <h3>${dish.name}</h3>
-          `;
-          container.appendChild(card);
-      });
-      
-      const cards = document.querySelectorAll('.dish-card');
-      const totalCards = cards.length;
-      
-      // Set initial position to the middle of the duplicated cards
-      currentIndex = Math.floor(totalCards / 3); // Start in the middle of the first set
-      updateCards();
-      
-      // Function to get current card width based on screen size
-      function getCardWidth() {
-          const card = cards[0];
-          if (!card) return 220; // Default fallback
-          return card.offsetWidth;
-      }
-      
-      // Function to get current gap between cards
-      function getCardGap() {
-          const containerStyles = window.getComputedStyle(container);
-          return parseInt(containerStyles.gap) || 20;
-      }
-      
-      // Function to update card classes and center the current card
-      function updateCards() {
-          // Remove center class from all cards
-          cards.forEach(card => card.classList.remove('center'));
-          
-          // Add center class to current card
-          cards[currentIndex].classList.add('center');
-          
-          // Get current dimensions
-          const cardWidth = getCardWidth();
-          const gap = getCardGap();
-          const centerCard = cards[currentIndex];
-          const centerCardWidth = centerCard.offsetWidth;
-          
-          // Calculate scroll position
-          const scrollPos = (currentIndex * (cardWidth + gap)) - 
-                           (container.clientWidth / 2 - centerCardWidth / 2);
-          
-          // Scroll to position
-          container.scrollTo({
-              left: scrollPos,
-              behavior: 'smooth'
-          });
-      }
-      
-      // Navigation buttons
-      leftBtn.addEventListener('click', () => {
-          currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-          updateCards();
-      });
-      
-      rightBtn.addEventListener('click', () => {
-          currentIndex = (currentIndex + 1) % totalCards;
-          updateCards();
-      });
-      
-      // Touch and mouse drag handling
-      container.addEventListener('mousedown', handleDragStart);
-      container.addEventListener('touchstart', handleDragStart, { passive: true });
-      container.addEventListener('mousemove', handleDragMove);
-      container.addEventListener('touchmove', handleDragMove, { passive: false });
-      container.addEventListener('mouseup', handleDragEnd);
-      container.addEventListener('mouseleave', handleDragEnd);
-      container.addEventListener('touchend', handleDragEnd);
-      
-      function handleDragStart(e) {
-          if (isTouchDevice && e.type === 'mousedown') return;
-          
-          isDragging = true;
-          startX = (e.pageX || e.touches[0].pageX) - container.offsetLeft;
-          scrollLeft = container.scrollLeft;
-          container.style.cursor = 'grabbing';
-          container.style.scrollBehavior = 'auto';
-          
-          if (e.type === 'touchstart') {
-              touchStartX = e.touches[0].pageX;
-          }
-      }
-      
-      function handleDragMove(e) {
-          if (!isDragging) return;
-          
-          if (e.type === 'touchmove') {
-              e.preventDefault();
-          }
-          
-          const x = (e.pageX || e.touches[0].pageX) - container.offsetLeft;
-          const walk = (x - startX) * 2;
-          container.scrollLeft = scrollLeft - walk;
-      }
-      
-      function handleDragEnd(e) {
-          if (!isDragging) return;
-          isDragging = false;
-          container.style.cursor = 'grab';
-          container.style.scrollBehavior = 'smooth';
-          
-          // For touch devices, check swipe direction
-          if (e.type === 'touchend') {
-              const touchEndX = e.changedTouches[0].pageX;
-              const deltaX = touchEndX - touchStartX;
-              
-              if (Math.abs(deltaX) > 30) { // Minimum swipe distance
-                  if (deltaX > 0) {
-                      // Swipe right - move left
-                      currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-                  } else {
-                      // Swipe left - move right
-                      currentIndex = (currentIndex + 1) % totalCards;
-                  }
-                  updateCards();
-                  return;
-              }
-          }
-          
-          // Snap to nearest card
-          const containerCenter = container.scrollLeft + (container.clientWidth / 2);
-          let closestCard = null;
-          let minDistance = Infinity;
-          
-          cards.forEach((card, index) => {
-              const cardRect = card.getBoundingClientRect();
-              const cardCenter = cardRect.left + (cardRect.width / 2) - container.getBoundingClientRect().left;
-              const distance = Math.abs(containerCenter - cardCenter);
-              
-              if (distance < minDistance) {
-                  minDistance = distance;
-                  closestCard = index;
-              }
-          });
-          
-          if (closestCard !== null && closestCard !== currentIndex) {
-              currentIndex = closestCard;
-              updateCards();
-          }
-      }
-      
-      // Handle scroll events for snapping
-      container.addEventListener('scroll', function() {
-          if (isDragging) return;
-          
-          // Detect when we're near the edges and reset position
-          const scrollLeft = container.scrollLeft;
-          const maxScroll = container.scrollWidth - container.clientWidth;
-          
-          if (scrollLeft < 100) {
-              // Near the left edge - jump to middle section
-              currentIndex = Math.floor(totalCards / 3 * 2) - 1;
-              updateCards();
-          } else if (scrollLeft > maxScroll - 100) {
-              // Near the right edge - jump to middle section
-              currentIndex = Math.floor(totalCards / 3) + 1;
-              updateCards();
-          }
-      }, { passive: true });
-      
-      // Handle window resize
-      window.addEventListener('resize', function() {
-          updateCards();
-      });
-  
+document.addEventListener('DOMContentLoaded', function() {
+    const container = document.querySelector('.dishes-container');
+    const leftBtn = document.querySelector('.nav-btn.left');
+    const rightBtn = document.querySelector('.nav-btn.right');
+    let currentIndex = 0;
+    let isScrolling = false;
+    let isDragging = false;
+    let startX, scrollLeft;
+    const welcomeUser = document.getElementById("welcomeUser");
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const userName = localStorage.getItem("userName");
 
-
+  if (isLoggedIn === "true" && userName) {
+  if (welcomeUser) {
+    welcomeUser.textContent = `Hi ${userName}!`;
+  }
+  const mobileWelcome = document.getElementById("mobileWelcome");
+  if (mobileWelcome) {
+    mobileWelcome.innerHTML = ` Hi ${userName}!<br>  What's on your mind today?`;
+  }
+}
+    // Dish data
+    const dishes = [
+        { name: "Onion Bhaji", image: "images/onion bhaji.png" },
+        { name: "Potato Bhaji", image: "images/potato bhaji.png" },
+        { name: "Vadapav", image: "images/vada.png" },
+        { name: "Manchurian", image: "images/manchurian.png" },
+        { name: "Noodle Bhel", image: "images/chinese bhel.png" },
+        { name: "Chai", image: "images/chai.png" },
+        { name: "Burger", image: "images/burger.png" },
+        { name: "Wraps", image: "images/wrap.png" },
+        { name: "Fries", image: "images/fries.png" },
+        { name: "Bites", image: "images/bites.png" }
+    ];
+    
+    // Create initial cards (duplicate the array to make infinite scroll possible)
+    const duplicatedDishes = [...dishes, ...dishes, ...dishes];
+    
+    // Render all cards
+    duplicatedDishes.forEach((dish, index) => {
+        const card = document.createElement('div');
+        card.className = 'dish-card';
+        card.innerHTML = `
+            <img src="${dish.image}" alt="${dish.name}" class="dish-image">
+            <h3>${dish.name}</h3>
+        `;
+        container.appendChild(card);
+    });
+    
+    const cards = document.querySelectorAll('.dish-card');
+    const totalCards = cards.length;
+    
+    // Set initial position to the middle of the duplicated cards
+    currentIndex = Math.floor(totalCards / 3);
+    updateCards();
+    
+    // Function to get current card width based on screen size
+    function getCardWidth() {
+        const card = cards[0];
+        if (!card) return 220;
+        return card.offsetWidth;
+    }
+    
+    // Function to get current gap between cards
+    function getCardGap() {
+        const containerStyles = window.getComputedStyle(container);
+        return parseInt(containerStyles.gap) || 20;
+    }
+    
+    // Function to update card classes and center the current card
+    function updateCards() {
+        if (isScrolling) return;
+        
+        cards.forEach(card => card.classList.remove('center'));
+        if (cards[currentIndex]) {
+            cards[currentIndex].classList.add('center');
+        }
+        
+        const cardWidth = getCardWidth();
+        const gap = getCardGap();
+        const scrollPos = (currentIndex * (cardWidth + gap)) - 
+                        (container.clientWidth / 2 - cardWidth / 2);
+        
+        isScrolling = true;
+        container.scrollTo({
+            left: scrollPos,
+            behavior: 'smooth'
+        });
+        
+        setTimeout(() => {
+            isScrolling = false;
+        }, 300);
+    }
+    
+    // Navigation buttons
+    leftBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+        updateCards();
+    });
+    
+    rightBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % totalCards;
+        updateCards();
+    });
+    
+    // Mouse drag functionality for desktop
+    container.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.pageX - container.offsetLeft;
+        scrollLeft = container.scrollLeft;
+        container.style.cursor = 'grabbing';
+        container.style.scrollBehavior = 'auto';
+    });
+    
+    container.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - startX) ; // Adjust scroll speed
+        container.scrollLeft = scrollLeft - walk;
+    });
+    
+    container.addEventListener('mouseup', () => {
+        if (isDragging) {
+            isDragging = false;
+            container.style.cursor = 'grab';
+            container.style.scrollBehavior = 'smooth';
+            snapToNearestCard();
+        }
+    });
+    
+    container.addEventListener('mouseleave', () => {
+        if (isDragging) {
+            isDragging = false;
+            container.style.cursor = 'grab';
+            container.style.scrollBehavior = 'smooth';
+            snapToNearestCard();
+        }
+    });
+    
+    // Touch functionality for mobile
+    let touchStartX;
+    
+    container.addEventListener('touchstart', (e) => {
+        touchStartX = e.touches[0].pageX;
+        container.style.scrollBehavior = 'auto';
+    }, { passive: true });
+    
+    container.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+    }, { passive: false });
+    
+    container.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].pageX;
+        const deltaX = touchEndX - touchStartX;
+        
+        if (Math.abs(deltaX) > 30) {
+            if (deltaX > 0) {
+                currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+            } else {
+                currentIndex = (currentIndex + 1) % totalCards;
+            }
+            updateCards();
+        } else {
+            snapToNearestCard();
+        }
+        container.style.scrollBehavior = 'smooth';
+    });
+    
+    function snapToNearestCard() {
+        const containerCenter = container.scrollLeft + (container.clientWidth / 2);
+        let closestCard = null;
+        let minDistance = Infinity;
+        
+        cards.forEach((card, index) => {
+            const cardRect = card.getBoundingClientRect();
+            const cardCenter = cardRect.left + (cardRect.width / 2) - container.getBoundingClientRect().left;
+            const distance = Math.abs(containerCenter - cardCenter);
+            
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestCard = index;
+            }
+        });
+        
+        if (closestCard !== null && closestCard !== currentIndex) {
+            currentIndex = closestCard;
+            updateCards();
+        }
+    }
+    
+    // Handle scroll events for edge cases
+   /* container.addEventListener('scroll', function() {
+        if (isScrolling || isDragging) return;
+        
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            const scrollLeft = container.scrollLeft;
+            const maxScroll = container.scrollWidth - container.clientWidth;
+            
+            if (scrollLeft < 100) {
+                currentIndex = Math.floor(totalCards / 3 * 2) - 1;
+                updateCards();
+            } else if (scrollLeft > maxScroll - 100) {
+                currentIndex = Math.floor(totalCards / 3) + 1;
+                updateCards();
+            }
+        }, 200);
+    }, { passive: true });*/
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        updateCards();
+    });
+});  
 
   // Slideshow
   let currentSlide = 0;
   const slides = [
     { image: "images/VadapavAndTea.png", title: "TASTE THE FUSION", text: "Craving street food magic? Vada Pav & Tea —<br> together, better, cheaper!" },
-    { image: "images/secondslide.png", title: "TASTE THE FUSION", text: "Juicy, crispy, and loaded with flavor —<br> our Chicken Combo hits different!" },
+    { image: "images/secondslide.png", title: "TASTE THE FUSION", text: "Juicy and loaded with flavor — our Chicken Combo hits different!" },
     { image: "images/noodleBhelAndManchurian.png", title: "TASTE THE FUSION", text: "Combos you won’t forget — classic Indian flavors." },
     { image: "images/bitesAndwrap.png", title: "BHOOKIE COMBOS", text: "Grab your combo deals, hot and fresh every day!" }
   ];
@@ -1779,13 +1889,13 @@
   }
 
   // Hamburger menu
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
-  if (hamburger && navLinks) {
-    hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-    });
-  }
+ const hamburger = document.getElementById('hamburger');
+ const navLinks = document.getElementById('navLinks');
+ if (hamburger && navLinks) {
+  hamburger.addEventListener('click', () => {
+     navLinks.classList.toggle('active');
+   });
+ }
 
  // Show popup on page load
   window.onload = function() {
@@ -1798,7 +1908,100 @@
   document.getElementById("closeBtn").addEventListener("click", function() {
     document.getElementById("popup").style.display = "none";
   });
-});
+
+//popup for mobile-categories
+  document.addEventListener("DOMContentLoaded", function () {
+    const categoryInfo = {
+      burgers: {
+        title: "Burgers",
+        description: "Juicy burgers loaded with cheese and flavor! Classic and gourmet options with fresh patties and signature sauces."
+      },
+      fries: {
+        title: "Fries",
+        description: "Golden, crispy fries with mouthwatering seasoning! Regular, peri-peri, or loaded with toppings."
+      },
+      street: {
+        title: "Street Bites",
+        description: "Tangy and spicy snacks straight from the streets! Samosa, pakoras, bhel puri, and chaat items."
+      },
+      drinks: {
+        title: "Drinks",
+        description: "Refreshing beverages to cool you down! Hot masala chai, cutting chai, and specialty blends."
+      },
+      wraps: {
+        title: "Wraps",
+        description: "Soft, flavorful wraps with tasty fillings! Rolled flatbreads with vegetables, paneer, or chicken."
+      },
+      bites: {
+        title: "Bites",
+        description: "Quick bites that satisfy your hunger instantly! Mumbai's iconic vadapav and other regional varieties."
+      }
+    };
+
+    const infoButtons = document.querySelectorAll(".mobile-info-btn");
+
+    // Create popup elements
+    const popup = document.createElement("div");
+    popup.id = "categoryPopup";
+    popup.className = "popup-overlay-i";
+
+    const popupContent = document.createElement("div");
+    popupContent.className = "popup-content";
+
+    const closeX = document.createElement("button");
+    closeX.className = "close-x";
+    closeX.innerHTML = "&times;";
+
+    const title = document.createElement("div");
+    title.className = "popup-title";
+
+    const description = document.createElement("div");
+    description.className = "popup-description";
+
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "popup-close";
+    closeBtn.textContent = "Close";
+
+    // Append popup elements
+    popupContent.appendChild(closeX);
+    popupContent.appendChild(title);
+    popupContent.appendChild(description);
+    popupContent.appendChild(closeBtn);
+    popup.appendChild(popupContent);
+    document.body.appendChild(popup);
+
+    // Show popup with correct data
+    function showPopup(categoryKey) {
+      const data = categoryInfo[categoryKey];
+      if (data) {
+        title.textContent = data.title;
+        description.textContent = data.description;
+        popup.style.display = "flex";
+        popup.style.visibility = "visible";
+      }
+    }
+
+    // Hide popup
+    function hidePopup() {
+      popup.style.display = "none";
+      popup.style.visibility = "hidden";
+    }
+
+    // Event listeners
+    infoButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const category = btn.getAttribute("data-category");
+        showPopup(category);
+      });
+    });
+
+    closeX.addEventListener("click", hidePopup);
+    closeBtn.addEventListener("click", hidePopup);
+    popup.addEventListener("click", (e) => {
+      if (e.target === popup) hidePopup();
+    });
+  });
+
 
   </script>
    
