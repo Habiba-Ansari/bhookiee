@@ -343,6 +343,8 @@
             <div class="profile-container">
                 <div class="nav-buttons">
                 <a class="profile-icon" ><img src="images/user.png" alt="User Icon" style="height: 20px; width: 20px;"></a>
+                <span id="welcomeUser" style="margin-left: 10px; color: rgb(11, 11, 11); font-weight: bold;"></span>
+
                 <ul class="dropdown-menu" id="profileDropdown" style="display: none;">
                 
                 </ul>
@@ -501,6 +503,16 @@
     });
     </script>
     <script>
+      window.addEventListener("DOMContentLoaded", () => {
+  const welcomeUser = document.getElementById("welcomeUser");
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const userName = localStorage.getItem("userName");
+
+  if (isLoggedIn === "true" && userName) {
+    welcomeUser.textContent = `Hi ${userName}!`;
+  }
+});
+
       const hamburger = document.getElementById('hamburger');
       const navLinks = document.getElementById('navLinks');
 

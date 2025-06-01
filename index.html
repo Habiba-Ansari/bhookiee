@@ -235,6 +235,26 @@
     left: 85px;
   }
 }
+.mobile-welcome {
+  display: none;
+  padding: 12px;
+  text-align: center;
+  font-size: 18px;
+  color: rgb(244, 239, 239);
+  font-weight: bold;
+}
+
+/* Show on mobile screens */
+@media screen and (max-width: 768px) {
+  .mobile-welcome {
+    display: block;
+  }
+
+  /* Optionally hide the nav bar welcome text on mobile */
+  #welcomeUser {
+    display: none;
+  }
+}
 
 
 @media (min-width: 600px) and (max-width: 1024px) {
@@ -1098,6 +1118,7 @@
             <div class="profile-container">
                 <div class="nav-buttons">
                 <a class="profile-icon" ><img src="images/user.png" alt="User Icon" style="height: 25px; width: 25px;"></a>
+                <span id="welcomeUser" style="margin-left: 10px; color: rgb(11, 11, 11); font-weight: bold;"></span>
                 <ul class="dropdown-menu" id="profileDropdown" style="display: none;">
                 
                 </ul>
@@ -1105,15 +1126,15 @@
               </div>
               
         </nav>
+        <div id="mobileWelcome" class="mobile-welcome"></div>
     </div>
+
 <!-- Popup structure -->
 <div id="popup" class="popup-overlay">
   <div class="popup-box">
     <span class="close-btn" id="closeBtn">&times;</span>
     <img src="images/PopUp2.jpg" alt="Popup Image">
     <h3>Welcome to Bhookie! “🎊 Grand Opening this weekend! Visit our store for exclusive deals.”</h3>
-
-</p>
   </div>
 </div>
    <!-- Hero Content as Slider -->
@@ -1469,7 +1490,19 @@ document.addEventListener('DOMContentLoaded', function() {
     let isScrolling = false;
     let isDragging = false;
     let startX, scrollLeft;
-    
+    const welcomeUser = document.getElementById("welcomeUser");
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  const userName = localStorage.getItem("userName");
+
+  if (isLoggedIn === "true" && userName) {
+  if (welcomeUser) {
+    welcomeUser.textContent = `Hi ${userName}!`;
+  }
+  const mobileWelcome = document.getElementById("mobileWelcome");
+  if (mobileWelcome) {
+    mobileWelcome.innerHTML = ` Hi ${userName}!<br>  What's on your mind today?`;
+  }
+}
     // Dish data
     const dishes = [
         { name: "Onion Bhaji", image: "images/onion bhaji.png" },

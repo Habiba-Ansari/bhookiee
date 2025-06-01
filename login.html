@@ -214,6 +214,7 @@
 
             localStorage.setItem("isLoggedIn", "true");
             localStorage.setItem("userPhone", savedPhone);
+            localStorage.setItem("userName", doc.data().name);
             window.location.href = "index.html";
           } catch (error) {
             alert("Error saving user: " + error.message);
