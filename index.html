@@ -785,40 +785,104 @@
        /* Reviews Section Styles */
 
        /* Mobile Styles for Review Section */
-@media (max-width: 768px) {
+@media (max-width: 360px) {
     .reviews-section {
-        padding: 30px 20px;
+        padding: 15px 5px;
+        width: 100%;
+        overflow-x: hidden;
     }
 
     .review-cards-container {
+        display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        gap: 15px;
+        width: 100%;
+        max-width: 100%;
     }
 
     .review-card {
-        width: 90%;
-        max-width: 300px;
-        margin-bottom: 20px;
+        width: 100%;
+        max-width: 100%;
+        padding: 12px 8px;
+        box-sizing: border-box;
+        background-color: #333;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        overflow: hidden;
+        word-wrap: break-word;
     }
 
     .review-header {
-        flex-direction: column;
-        align-items: flex-start;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-bottom: 10px;
+        width: 100%;
+        max-width: 100%;
     }
 
     .review-avatar {
-        margin-bottom: 10px;
+        width: 35px;
+        height: 35px;
+        object-fit: cover;
+        border-radius: 50%;
+        margin-right: 10px;
+        flex-shrink: 0;
     }
 
     .review-info {
+        display: flex;
+        flex-direction: column;
         align-items: flex-start;
+        width: 100%;
+        max-width: calc(100% - 45px);
+        overflow: hidden;
+    }
+
+    .review-info h4 {
+        margin: 0 0 4px 0;
+        font-size: 13px;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        width: 100%;
+        white-space: normal;
+    }
+
+    .review-stars {
+        font-size: 11px;
+        color: #ffc107;
+        margin: 0;
     }
 
     .review-text {
-        font-size: 14px;
+        font-size: 11px;
+        line-height: 1.4;
+        text-align: left;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 8px;
+        white-space: normal;
+        overflow: visible;
+        display: block;
+    }
+
+    .read-more {
+        color: #ff8000;
+        cursor: pointer;
+        font-weight: bold;
+        display: inline-block;
+        text-align: left;
+        margin-top: 5px;
+        font-size: 11px;
         word-wrap: break-word;
     }
 }
+
+
 
 .reviews-section {
     padding: 60px 80px;
@@ -1188,6 +1252,7 @@
 <section class="reviews-section">
     <h2 class="reviews-title">Customer Reviews</h2>
     <div class="review-cards-container">
+
         <!-- Review Card 1 -->
         <div class="review-card">
             <div class="review-header">
@@ -1195,144 +1260,173 @@
                 <div class="review-info">
                     <h4>John Doe</h4>
                     <div class="review-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
                 </div>
             </div>
-            <p class="review-text">Absolutely loved the Vada Pav! The flavors were amazing and the service was top-notch. Highly recommend Bhookie!</p>
+            <div class="review-text-container">
+                <p class="review-text" id="review1">Absolutely loved the Vada Pav! The flavors were amazing and the service was top-notch. Highly recommend Bhookie!</p>
+                <span class="read-more" onclick="toggleReadMore(this, 'review1')">Read more</span>
+            </div>
         </div>
 
-        <!-- Review Card 2 -->
+        <!-- Repeat the pattern for each card -->
         <div class="review-card">
             <div class="review-header">
                 <img src="images/janesmith.png" alt="User" class="review-avatar">
                 <div class="review-info">
                     <h4>Jane Smith</h4>
                     <div class="review-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
                     </div>
                 </div>
             </div>
-            <p class="review-text">The Chicken Fries were delicious and perfectly spiced. The ambiance was great too. Will definitely be back!</p>
+            <div class="review-text-container">
+                <p class="review-text" id="review2">The Chicken Fries were delicious and perfectly spiced. The ambiance was great too. Will definitely be back!</p>
+                <span class="read-more" onclick="toggleReadMore(this, 'review2')">Read more</span>
+            </div>
         </div>
 
-        <!-- Review Card 3 -->
         <div class="review-card">
             <div class="review-header">
                 <img src="images/alexjohnson.jpg" alt="User" class="review-avatar">
                 <div class="review-info">
                     <h4>Alex Johnson</h4>
                     <div class="review-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                         <i class="far fa-star"></i>
                     </div>
                 </div>
             </div>
-            <p class="review-text">Great experience at Bhookie! The burgers are juicy and the staff is very friendly. A must-visit place in Liverpool!</p>
+            <div class="review-text-container">
+                <p class="review-text" id="review3">Great experience at Bhookie! The burgers are juicy and the staff is very friendly. A must-visit place in Liverpool!</p>
+                <span class="read-more" onclick="toggleReadMore(this, 'review3')">Read more</span>
+            </div>
         </div>
 
-        <!-- Review Card 4 -->
         <div class="review-card">
             <div class="review-header">
                 <img src="images/emilydavis.jpg" alt="User" class="review-avatar">
                 <div class="review-info">
                     <h4>Emily Davis</h4>
                     <div class="review-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
                 </div>
             </div>
-            <p class="review-text">The wraps are fantastic! So much flavor in every bite. I can't wait to try more items from the menu.</p>
+            <div class="review-text-container">
+                <p class="review-text" id="review4">The wraps are fantastic! So much flavor in every bite. I can't wait to try more items from the menu.</p>
+                <span class="read-more" onclick="toggleReadMore(this, 'review4')">Read more</span>
+            </div>
         </div>
 
-        <!-- Review Card 5 -->
         <div class="review-card">
             <div class="review-header">
                 <img src="images/michaelbrown.jpg" alt="User" class="review-avatar">
                 <div class="review-info">
                     <h4>Michael Brown</h4>
                     <div class="review-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                         <i class="far fa-star"></i>
                     </div>
                 </div>
             </div>
-            <p class="review-text">Bhookie's fusion special is a delightful surprise! Unique flavors and great presentation. Loved it!</p>
+            <div class="review-text-container">
+                <p class="review-text" id="review5">Bhookie's fusion special is a delightful surprise! Unique flavors and great presentation. Loved it!</p>
+                <span class="read-more" onclick="toggleReadMore(this, 'review5')">Read more</span>
+            </div>
         </div>
 
-        <!-- Review Card 6 -->
         <div class="review-card">
             <div class="review-header">
                 <img src="images/sarahwilson.jpg" alt="User" class="review-avatar">
                 <div class="review-info">
                     <h4>Sarah Wilson</h4>
                     <div class="review-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                         <i class="fas fa-star-half-alt"></i>
                     </div>
                 </div>
             </div>
-            <p class="review-text">The drinks at Bhookie are as amazing as their food. The spiced chai is a must-try!</p>
+            <div class="review-text-container">
+                <p class="review-text" id="review6">The drinks at Bhookie are as amazing as their food. The spiced chai is a must-try!</p>
+                <span class="read-more" onclick="toggleReadMore(this, 'review6')">Read more</span>
+            </div>
         </div>
 
-        <!-- Review Card 7 -->
         <div class="review-card">
             <div class="review-header">
                 <img src="images/davidlee.jpeg" alt="User" class="review-avatar">
                 <div class="review-info">
                     <h4>David Lee</h4>
                     <div class="review-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
                     </div>
                 </div>
             </div>
-            <p class="review-text">I had the street bites and they were incredible. Crispy, flavorful, and just the right amount of spice.</p>
+            <div class="review-text-container">
+                <p class="review-text" id="review7">I had the street bites and they were incredible. Crispy, flavorful, and just the right amount of spice.</p>
+                <span class="read-more" onclick="toggleReadMore(this, 'review7')">Read more</span>
+            </div>
         </div>
 
-        <!-- Review Card 8 -->
         <div class="review-card">
             <div class="review-header">
                 <img src="images/jessicataylor.jpg" alt="User" class="review-avatar">
                 <div class="review-info">
                     <h4>Jessica Taylor</h4>
                     <div class="review-stars">
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i>
                         <i class="far fa-star"></i>
                     </div>
                 </div>
             </div>
-            <p class="review-text">Bhookie never disappoints. Every visit is a treat with their consistently delicious food and excellent service.</p>
+            <div class="review-text-container">
+                <p class="review-text" id="review8">Bhookie never disappoints. Every visit is a treat with their consistently delicious food and excellent service.</p>
+                <span class="read-more" onclick="toggleReadMore(this, 'review8')">Read more</span>
+            </div>
         </div>
+
     </div>
 </section>
+
+<script>
+    function toggleReadMore(btn, id) {
+        const review = document.getElementById(id);
+        const isClamped = review.style.webkitLineClamp === "unset" ? false : true;
+
+        if (isClamped) {
+            review.style.display = "-webkit-box";
+            review.style.webkitLineClamp = "unset";
+            btn.textContent = "Show less";
+        } else {
+            review.style.display = "-webkit-box";
+            review.style.webkitLineClamp = "3";
+            btn.textContent = "Read more";
+        }
+    }
+
+    // Optional: Set initial clamping for all review texts
+    document.querySelectorAll('.review-text').forEach(el => {
+        el.style.display = '-webkit-box';
+        el.style.webkitBoxOrient = 'vertical';
+        el.style.webkitLineClamp = '3';
+        el.style.overflow = 'hidden';
+    });
+</script>
+
 
 
 
