@@ -1648,73 +1648,43 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("closeBtn").addEventListener("click", function() {
     document.getElementById("popup").style.display = "none";
   });
-//popup close info for mobile view 
-// Category information for mobile popups
-const categoryInfo = {
-    burgers: {
-        title: "Burgers",
-        description: "Juicy burgers loaded with cheese and flavor!"
-    },
-    fries: {
-        title: "Fries", 
-        description: "Golden, crispy fries with mouthwatering seasoning!"
-    },
-    street: {
-        title: "Street Bites",
-        description: "Tangy and spicy snacks straight from the streets!"
-    },
-    drinks: {
-        title: "Drinks",
-        description: "Refreshing beverages to cool you down!"
-    },
-    wraps: {
-        title: "Wraps",
-        description: "Soft, flavorful wraps with tasty fillings!"
-    },
-    bites: {
-        title: "Bites",
-        description: "Quick bites that satisfy your hunger instantly!"
-    }
-};
 
-// Category information for mobile popups
-const categoryInfo1 = {
-    burgers: {
+//popup for mobile-categories
+  document.addEventListener("DOMContentLoaded", function () {
+    const categoryInfo = {
+      burgers: {
         title: "Burgers",
-        description: "Juicy burgers loaded with cheese and flavor!"
-    },
-    fries: {
-        title: "Fries", 
-        description: "Golden, crispy fries with mouthwatering seasoning!"
-    },
-    street: {
+        description: "Juicy burgers loaded with cheese and flavor! Classic and gourmet options with fresh patties and signature sauces."
+      },
+      fries: {
+        title: "Fries",
+        description: "Golden, crispy fries with mouthwatering seasoning! Regular, peri-peri, or loaded with toppings."
+      },
+      street: {
         title: "Street Bites",
-        description: "Tangy and spicy snacks straight from the streets!"
-    },
-    drinks: {
+        description: "Tangy and spicy snacks straight from the streets! Samosa, pakoras, bhel puri, and chaat items."
+      },
+      drinks: {
         title: "Drinks",
-        description: "Refreshing beverages to cool you down!"
-    },
-    wraps: {
+        description: "Refreshing beverages to cool you down! Hot masala chai, cutting chai, and specialty blends."
+      },
+      wraps: {
         title: "Wraps",
-        description: "Soft, flavorful wraps with tasty fillings!"
-    },
-    bites: {
+        description: "Soft, flavorful wraps with tasty fillings! Rolled flatbreads with vegetables, paneer, or chicken."
+      },
+      bites: {
         title: "Bites",
-        description: "Quick bites that satisfy your hunger instantly!"
-    }
-};
+        description: "Quick bites that satisfy your hunger instantly! Mumbai's iconic vadapav and other regional varieties."
+      }
+    };
 
-document.addEventListener("DOMContentLoaded", function () {
     const infoButtons = document.querySelectorAll(".mobile-info-btn");
-    const popup = document.createElement("div");
-    const overlay = document.createElement("div");
 
-    // Add class names
+    // Create popup elements
+    const popup = document.createElement("div");
     popup.id = "categoryPopup";
     popup.className = "popup-overlay-i";
 
-    // Popup inner content container
     const popupContent = document.createElement("div");
     popupContent.className = "popup-content";
 
@@ -1732,7 +1702,7 @@ document.addEventListener("DOMContentLoaded", function () {
     closeBtn.className = "popup-close";
     closeBtn.textContent = "Close";
 
-    // Append content
+    // Append popup elements
     popupContent.appendChild(closeX);
     popupContent.appendChild(title);
     popupContent.appendChild(description);
@@ -1740,44 +1710,31 @@ document.addEventListener("DOMContentLoaded", function () {
     popup.appendChild(popupContent);
     document.body.appendChild(popup);
 
-    // Category descriptions
-    const categoryDetails = {
-      burgers: {
-        title: "BURGERS",
-        desc: "Classic and gourmet burger options with fresh patties, cheese, and signature sauces served in soft buns."
-      },
-      fries: {
-        title: "FRIES",
-        desc: "Crispy golden potato fries - regular, peri-peri, or loaded with toppings and cheese."
-      },
-      // Add more categories here as needed
-    };
-
-    // Show popup function
+    // Show popup with correct data
     function showPopup(categoryKey) {
-      if (categoryDetails[categoryKey]) {
-        title.textContent = categoryDetails[categoryKey].title;
-        description.textContent = categoryDetails[categoryKey].desc;
+      const data = categoryInfo[categoryKey];
+      if (data) {
+        title.textContent = data.title;
+        description.textContent = data.description;
         popup.style.display = "flex";
         popup.style.visibility = "visible";
       }
     }
 
-    // Hide popup function
+    // Hide popup
     function hidePopup() {
       popup.style.display = "none";
       popup.style.visibility = "hidden";
     }
 
-    // Add click listeners to info buttons
+    // Event listeners
     infoButtons.forEach((btn) => {
-      btn.addEventListener("click", (e) => {
-        const category = e.currentTarget.getAttribute("data-category");
+      btn.addEventListener("click", () => {
+        const category = btn.getAttribute("data-category");
         showPopup(category);
       });
     });
 
-    // Add close listeners
     closeX.addEventListener("click", hidePopup);
     closeBtn.addEventListener("click", hidePopup);
     popup.addEventListener("click", (e) => {
