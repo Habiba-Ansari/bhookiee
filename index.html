@@ -1687,6 +1687,7 @@
         let currentIndex = 0;
         let isScrolling = false;
         let isDragging = false;
+        let scrollTimeout;
         let startX, scrollLeft;
         const welcomeUser = document.getElementById("welcomeUser");
         const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -1750,30 +1751,25 @@
         }
 
         // Function to update card classes and center the current card
-        function updateCards() {
-          if (isScrolling) return;
+         function updateCards() {
+        if (isScrolling) return;
 
-          cards.forEach((card) => card.classList.remove("center"));
-          if (cards[currentIndex]) {
-            cards[currentIndex].classList.add("center");
-          }
+        updateCenterCard();
 
-          const cardWidth = getCardWidth();
-          const gap = getCardGap();
-          const scrollPos =
-            currentIndex * (cardWidth + gap) -
-            (container.clientWidth / 2 - cardWidth / 2);
+        const cardWidth = getCardWidth();
+        const gap = getCardGap();
+        const scrollPos = currentIndex * (cardWidth + gap) - (container.clientWidth / 2 - cardWidth / 2);
 
-          isScrolling = true;
-          container.scrollTo({
+        isScrolling = true;
+        container.scrollTo({
             left: scrollPos,
-            behavior: "smooth",
-          });
+            behavior: "smooth"
+        });
 
-          setTimeout(() => {
+        setTimeout(() => {
             isScrolling = false;
-          }, 300);
-        }
+        }, 300);
+    }
 
         // Navigation buttons
         leftBtn.addEventListener("click", () => {
@@ -1820,7 +1816,14 @@
             snapToNearestCard();
           }
         });
-
+container.addEventListener('scroll', function() {
+    if (isScrolling || isDragging) return;
+    
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+        snapToNearestCard();
+    }, 100); // Adjust this timeout as needed for smoother behavior
+}, { passive: true });
         // Touch functionality for mobile
         let touchStartX;
 
@@ -1858,31 +1861,36 @@
           container.style.scrollBehavior = "smooth";
         });
 
-        function snapToNearestCard() {
-          const containerCenter =
-            container.scrollLeft + container.clientWidth / 2;
-          let closestCard = null;
-          let minDistance = Infinity;
+      function snapToNearestCard() {
+        const containerRect = container.getBoundingClientRect();
+        const containerCenterX = containerRect.left + containerRect.width / 2;
+        let closestCard = null;
+        let minDistance = Infinity;
 
-          cards.forEach((card, index) => {
+        cards.forEach((card, index) => {
             const cardRect = card.getBoundingClientRect();
-            const cardCenter =
-              cardRect.left +
-              cardRect.width / 2 -
-              container.getBoundingClientRect().left;
-            const distance = Math.abs(containerCenter - cardCenter);
+            const cardCenterX = cardRect.left + cardRect.width / 2;
+            const distance = Math.abs(containerCenterX - cardCenterX);
 
             if (distance < minDistance) {
-              minDistance = distance;
-              closestCard = index;
+                minDistance = distance;
+                closestCard = index;
             }
-          });
+        });
 
-          if (closestCard !== null && closestCard !== currentIndex) {
+        if (closestCard !== null && closestCard !== currentIndex) {
             currentIndex = closestCard;
-            updateCards();
-          }
+            updateCenterCard();
         }
+    }
+// New function to just update the center card highlight
+    function updateCenterCard() {
+        cards.forEach(card => card.classList.remove("center"));
+        if (cards[currentIndex]) {
+            cards[currentIndex].classList.add("center");
+        }
+    }
+
 
         // Handle scroll events for edge cases
         /* container.addEventListener('scroll', function() {
