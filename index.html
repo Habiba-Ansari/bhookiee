@@ -1132,7 +1132,7 @@
       <button class="close-x" id="closeX">&times;</button>
       <h3 class="popup-title" id="popupTitle">Category Title</h3>
       <p class="popup-description" id="popupDescription">Category description goes here.</p>
-      <button class="popup-close" id="closeBtn">Close</button>
+      <button class="popup-close" id="closeBtn-i">Close</button>
   </div>
 </div>
  <!-- Popular Dishes -->
@@ -1648,7 +1648,6 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById("closeBtn").addEventListener("click", function() {
     document.getElementById("popup").style.display = "none";
   });
-
 //popup close info for mobile view 
 // Category information for mobile popups
 const categoryInfo = {
@@ -1706,148 +1705,85 @@ const categoryInfo1 = {
     }
 };
 
-// Check if device is mobile
-function isMobileDevice() {
-    return window.innerWidth <= 768;
-}
+document.addEventListener("DOMContentLoaded", function () {
+    const infoButtons = document.querySelectorAll(".mobile-info-btn");
+    const popup = document.createElement("div");
+    const overlay = document.createElement("div");
 
-// Show popup only on mobile devices
-function showPopup(category) {
-    // Strict mobile-only check
-    if (!isMobileDevice()) {
-        console.log('Desktop detected - popup disabled');
-        return;
-    }
-    
-    console.log('Showing popup for:', category);
-    const popup = document.getElementById('categoryPopup');
-    const title = document.getElementById('popupTitle');
-    const description = document.getElementById('popupDescription');
-    
-    if (categoryInfo[category] && popup && title && description) {
-        title.textContent = categoryInfo[category].title;
-        description.textContent = categoryInfo[category].description;
-        
-        // Show popup
-        popup.style.display = 'flex';
-        popup.style.visibility = 'visible';
-        
-        // Prevent background scrolling but allow popup content to scroll
-        document.body.style.position = 'fixed';
-        document.body.style.top = `-${window.scrollY}px`;
-        document.body.style.width = '100%';
-        
-        console.log('Popup shown successfully');
-    } else {
-        console.error('Failed to show popup - missing elements or category data');
-    }
-}
+    // Add class names
+    popup.id = "categoryPopup";
+    popup.className = "popup-overlay-i";
 
-// Close popup and restore scrolling
-function closePopup() {
-    console.log('Closing popup');
-    const popup = document.getElementById('categoryPopup');
-    
-    if (popup) {
-        // Hide popup
-        popup.style.display = 'none';
-        popup.style.visibility = 'hidden';
-        
-        // Restore scrolling
-        const scrollY = document.body.style.top;
-        document.body.style.position = '';
-        document.body.style.top = '';
-        document.body.style.width = '';
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-        
-        console.log('Popup closed successfully');
-    }
-}
+    // Popup inner content container
+    const popupContent = document.createElement("div");
+    popupContent.className = "popup-content";
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM loaded, initializing mobile popup system');
-    
-    // Only initialize on mobile devices
-    if (!isMobileDevice()) {
-        console.log('Desktop detected - mobile popup system disabled');
-        return;
+    const closeX = document.createElement("button");
+    closeX.className = "close-x";
+    closeX.innerHTML = "&times;";
+
+    const title = document.createElement("div");
+    title.className = "popup-title";
+
+    const description = document.createElement("div");
+    description.className = "popup-description";
+
+    const closeBtn = document.createElement("button");
+    closeBtn.className = "popup-close";
+    closeBtn.textContent = "Close";
+
+    // Append content
+    popupContent.appendChild(closeX);
+    popupContent.appendChild(title);
+    popupContent.appendChild(description);
+    popupContent.appendChild(closeBtn);
+    popup.appendChild(popupContent);
+    document.body.appendChild(popup);
+
+    // Category descriptions
+    const categoryDetails = {
+      burgers: {
+        title: "BURGERS",
+        desc: "Classic and gourmet burger options with fresh patties, cheese, and signature sauces served in soft buns."
+      },
+      fries: {
+        title: "FRIES",
+        desc: "Crispy golden potato fries - regular, peri-peri, or loaded with toppings and cheese."
+      },
+      // Add more categories here as needed
+    };
+
+    // Show popup function
+    function showPopup(categoryKey) {
+      if (categoryDetails[categoryKey]) {
+        title.textContent = categoryDetails[categoryKey].title;
+        description.textContent = categoryDetails[categoryKey].desc;
+        popup.style.display = "flex";
+        popup.style.visibility = "visible";
+      }
     }
-    
-    // Add event listeners to all info buttons
-    const infoButtons = document.querySelectorAll('.info-icon, .mobile-info-btn');
-    console.log('Found', infoButtons.length, 'info buttons');
-    
-    infoButtons.forEach((button, index) => {
-        console.log('Setting up button', index, 'with category:', button.getAttribute('data-category'));
-        
-        button.addEventListener('click', function(e) {
-            console.log('Info button clicked on mobile!');
-            e.preventDefault();
-            e.stopPropagation();
-            
-            const category = this.getAttribute('data-category');
-            console.log('Button category:', category);
-            
-            if (category) {
-                showPopup(category);
-            } else {
-                console.error('No category found for button');
-            }
-        });
+
+    // Hide popup function
+    function hidePopup() {
+      popup.style.display = "none";
+      popup.style.visibility = "hidden";
+    }
+
+    // Add click listeners to info buttons
+    infoButtons.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const category = e.currentTarget.getAttribute("data-category");
+        showPopup(category);
+      });
     });
 
-    // Add event listeners for close buttons
-    const closeXBtn = document.getElementById('closeX');
-    const closeBtn = document.getElementById('closeBtn');
-    
-    if (closeXBtn) {
-        closeXBtn.addEventListener('click', function(e) {
-            console.log('X button clicked');
-            e.preventDefault();
-            e.stopPropagation();
-            closePopup();
-        });
-    }
-    
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function(e) {
-            console.log('Close button clicked');
-            e.preventDefault();
-            e.stopPropagation();
-            closePopup();
-        });
-    }
-
-    // Close popup when clicking outside
-    const popup = document.getElementById('categoryPopup');
-    if (popup) {
-        popup.addEventListener('click', function(e) {
-            if (e.target === this) {
-                console.log('Clicked outside popup');
-                closePopup();
-            }
-        });
-    }
-
-    // Close popup with Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            console.log('Escape key pressed');
-            closePopup();
-        }
+    // Add close listeners
+    closeX.addEventListener("click", hidePopup);
+    closeBtn.addEventListener("click", hidePopup);
+    popup.addEventListener("click", (e) => {
+      if (e.target === popup) hidePopup();
     });
-    
-    // Handle window resize
-    window.addEventListener('resize', function() {
-        if (!isMobileDevice()) {
-            closePopup();
-        }
-    });
-    
-    console.log('Mobile popup system initialized successfully');
-});
-  
+  });
 
 
   </script>
