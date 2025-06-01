@@ -120,88 +120,74 @@ body {
   text-decoration: underline;
 }
 
-.social-icons {
-  margin-top: 15px;
-}
-
-.social-icons a {
-  color: #ccc;
-  margin-right: 10px;
-  font-size: 1.2em;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.social-icons a:hover {
-  color: #fff;
-}
-
 .footer {
   background: linear-gradient(to top, #ff6b00, #ff6a0072, #191917);
   color: white;
-  padding: 40px 20px 20px; /* Reduced padding */
-  margin-top: 60px; /* Adjust top margin */
-  font-family: 'Montserrat', sans-serif;
+  padding: 60px 40px 20px;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
 }
 
 .footer-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 30px; /* Reduced gap */
-}
-
-.footer-column {
-  flex: 1 1 250px; /* Adjust flex basis */
-}
-
-.footer-column h3 {
-  font-size: 20px; /* Smaller heading */
-  font-weight: bold;
-  margin-bottom: 15px;
-}
-
-.footer-column p,
-.footer-column li {
-  font-size: 14px; /* Smaller text */
-  line-height: 1.6;
-  color: #f0f0f0;
-}
-
-.footer-column ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.footer-column li {
-  margin-bottom: 8px;
-}
-
-.footer-bottom {
-  border-top: 1px solid rgba(255, 255, 255, 0.2);
-  margin-top: 30px; /* Reduced margin */
-  padding-top: 15px; /* Reduced padding */
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+ display: flex;
+  flex-direction: column;
+  gap: 70px; 
   align-items: center;
-  text-align: center; /* Center text for smaller screens */
-  flex-direction: column-reverse; /* Put social icons on top on small screens */
 }
 
-.footer-bottom p {
-  font-size: 12px;
-  margin: 10px 0 0; /* Adjust margin */
+.footer-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 30px;
 }
 
-.footer-bottom .social-icons {
-  margin-top: 10px;
+.footer-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
-.footer-bottom .social-icons i {
+.footer-menu a:hover {
+  color: #0a0a0a;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-socials a {
+  color: #fff;
   font-size: 20px;
-  margin-left: 15px;
+  transition: color 0.3s ease;
+}
+
+.footer-socials a:hover {
+  color: #0a0909;
+}
+
+.footer-bottom h3 {
+  font-size: 14px;
+  margin-top: 50px;
+}
+@media (max-width: 600px) {
+  .footer-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .footer-menu a {
+    font-size: 16px;
+  }
+
+  .footer-socials {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
 }
 
 /* Media Queries for smaller screens */
@@ -210,45 +196,7 @@ body {
     padding-top: 55px; /* Adjust padding for smaller navbar */
   }
 
-  .navbar {
-    padding: 10px 15px;
-    justify-content: space-between; /* Keep logo on left, hamburger on right */
-    align-items: center; /* Vertically align logo and hamburger */
-  }
-
-  .nav-logo img {
-    height: 40px;
-  }
-
-  .nav-links {
-    display: none; /* Hide main links on smaller screens */
-    flex-direction: column;
-    position: absolute;
-    top: 45px; /* Adjust based on smaller navbar */
-    left: 0;
-    background-color: rgba(19, 19, 18, 0.9);
-    width: 100%;
-    text-align: center;
-    padding: 20px 0;
-  }
-
-  .nav-links.active {
-    display: flex;
-  }
-
-  .nav-links li {
-    margin-bottom: 15px;
-  }
-
-  .nav-links a {
-    font-size: 1.2em;
-  }
-
-  .hamburger {
-    display: block; /* Show hamburger menu */
-    /* Adjust position to move it slightly left */
-    margin-left: 15px; /* Add some left margin */
-  }
+  
 
   .hamburger.active .line:nth-child(1) {
     transform: rotate(-45deg) translate(-5px, 6px);
@@ -297,38 +245,7 @@ body {
     padding: 8px 20px;
   }
 
-  .footer {
-    padding: 30px 15px 20px;
-    margin-top: 50px;
-  }
 
-  .footer-container {
-    flex-direction: column;
-    gap: 20px;
-    text-align: center; /* Center footer content on smaller screens */
-  }
-
-  .footer-column {
-    text-align: center;
-  }
-
-  .footer-bottom {
-    margin-top: 20px;
-    padding-top: 10px;
-  }
-
-  .footer-bottom p {
-    font-size: 11px;
-  }
-
-  .footer-bottom .social-icons {
-    margin-top: 10px;
-  }
-
-  .footer-bottom .social-icons i {
-    font-size: 18px;
-    margin-left: 10px;
-  }
 }
 
 /* Media query for even smaller screens (phones) */

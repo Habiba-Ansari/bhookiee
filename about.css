@@ -258,43 +258,60 @@ body {
 /* Media Query for Smaller Screens (Mobile) */
 @media (max-width: 768px) {
     .navbar {
-        padding: 15px;
-    }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+  }
 
-    .nav-logo img {
-        height: 50px;
-    }
+  .nav-logo {
+    order: 2;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
 
-    .nav-links {
-        display: none !important;
-        flex-direction: column;
-        background-color: rgba(19, 19, 18, 0.9);
-        width: 100%;
-        position: absolute;
-        top: 70px;
-        left: 0;
-        right: 0;
-        padding: 20px;
-        align-items: center;
-        text-align: center;
-    }
+  .profile-container {
+    order: 1;
+  }
 
-    .nav-links.active {
-        display: flex !important;
-    }
+  .hamburger {
+    order: 3;
+    display: flex;
+    margin-left: 15px;
+  }
 
-    .nav-links a {
-        font-size: 16px;
-        padding: 10px 0;
-    }
+  .nav-links {
+   display: none;
+    flex-direction: column;
+    background-color: rgba(19, 19, 18, 0.9);
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    z-index: 999;
+  }
+ .nav-links a {
+    color: white;
+    font-size: 18px;
+  }
+  .nav-links.active {
+    display: flex;
+  }
 
-    .hamburger {
-        display: flex; /* Show hamburger on mobile */
-        margin-right: 20px;
-    }
 
     .about-section {
-        padding: 40px 5vw;
+        padding: 70px 5vw;
     }
 
     .intro h1 {
