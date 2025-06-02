@@ -29,7 +29,6 @@
         margin: 0;
         padding: 0;
         overflow-x: hidden;
-
       }
 
       .hero-section {
@@ -1420,17 +1419,6 @@
       </div>
     </div>
 
-    <!-- FIXED POPUP STRUCTURE -->
-    <div id="categoryPopup" class="popup-overlay-i">
-      <div class="popup-content">
-        <button class="close-x" id="closeX">&times;</button>
-        <h3 class="popup-title" id="popupTitle">Category Title</h3>
-        <p class="popup-description" id="popupDescription">
-          Category description goes here.
-        </p>
-        <button class="popup-close" id="closeBtn-i">Close</button>
-      </div>
-    </div>
     <!-- Popular Dishes -->
     <section class="popular-dishes">
       <h2 class="popular-title">Our Popular Dishes</h2>
@@ -1753,25 +1741,27 @@
         }
 
         // Function to update card classes and center the current card
-         function updateCards() {
-        if (isScrolling) return;
+        function updateCards() {
+          if (isScrolling) return;
 
-        updateCenterCard();
+          updateCenterCard();
 
-        const cardWidth = getCardWidth();
-        const gap = getCardGap();
-        const scrollPos = currentIndex * (cardWidth + gap) - (container.clientWidth / 2 - cardWidth / 2);
+          const cardWidth = getCardWidth();
+          const gap = getCardGap();
+          const scrollPos =
+            currentIndex * (cardWidth + gap) -
+            (container.clientWidth / 2 - cardWidth / 2);
 
-        isScrolling = true;
-        container.scrollTo({
+          isScrolling = true;
+          container.scrollTo({
             left: scrollPos,
-            behavior: "smooth"
-        });
+            behavior: "smooth",
+          });
 
-        setTimeout(() => {
+          setTimeout(() => {
             isScrolling = false;
-        }, 300);
-    }
+          }, 300);
+        }
 
         // Navigation buttons
         leftBtn.addEventListener("click", () => {
@@ -1818,14 +1808,18 @@
             snapToNearestCard();
           }
         });
-container.addEventListener('scroll', function() {
-    if (isScrolling || isDragging) return;
-    
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-        snapToNearestCard();
-    }, 100); // Adjust this timeout as needed for smoother behavior
-}, { passive: true });
+        container.addEventListener(
+          "scroll",
+          function () {
+            if (isScrolling || isDragging) return;
+
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+              snapToNearestCard();
+            }, 100); // Adjust this timeout as needed for smoother behavior
+          },
+          { passive: true }
+        );
         // Touch functionality for mobile
         let touchStartX;
 
@@ -1863,36 +1857,35 @@ container.addEventListener('scroll', function() {
           container.style.scrollBehavior = "smooth";
         });
 
-      function snapToNearestCard() {
-        const containerRect = container.getBoundingClientRect();
-        const containerCenterX = containerRect.left + containerRect.width / 2;
-        let closestCard = null;
-        let minDistance = Infinity;
+        function snapToNearestCard() {
+          const containerRect = container.getBoundingClientRect();
+          const containerCenterX = containerRect.left + containerRect.width / 2;
+          let closestCard = null;
+          let minDistance = Infinity;
 
-        cards.forEach((card, index) => {
+          cards.forEach((card, index) => {
             const cardRect = card.getBoundingClientRect();
             const cardCenterX = cardRect.left + cardRect.width / 2;
             const distance = Math.abs(containerCenterX - cardCenterX);
 
             if (distance < minDistance) {
-                minDistance = distance;
-                closestCard = index;
+              minDistance = distance;
+              closestCard = index;
             }
-        });
+          });
 
-        if (closestCard !== null && closestCard !== currentIndex) {
+          if (closestCard !== null && closestCard !== currentIndex) {
             currentIndex = closestCard;
             updateCenterCard();
+          }
         }
-    }
-// New function to just update the center card highlight
-    function updateCenterCard() {
-        cards.forEach(card => card.classList.remove("center"));
-        if (cards[currentIndex]) {
+        // New function to just update the center card highlight
+        function updateCenterCard() {
+          cards.forEach((card) => card.classList.remove("center"));
+          if (cards[currentIndex]) {
             cards[currentIndex].classList.add("center");
+          }
         }
-    }
-
 
         // Handle scroll events for edge cases
         /* container.addEventListener('scroll', function() {
@@ -2082,311 +2075,242 @@ container.addEventListener('scroll', function() {
         .addEventListener("click", function () {
           document.getElementById("popup").style.display = "none";
         });
+      // Mobile flip card functionality
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get all info buttons
+        const infoButtons = document.querySelectorAll(".mobile-info-btn");
 
-      //popup for mobile-categories
-      // document.addEventListener("DOMContentLoaded", function () {
-      //   const categoryInfo = {
+        infoButtons.forEach((button) => {
+          button.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
 
-      //     burgers: {
-      //       title: "Burgers",
-      //       description:
-      //         "Juicy burgers loaded with cheese and flavor! Classic and gourmet options with fresh patties and signature sauces.",
-      //     },
-      //     fries: {
-      //       title: "Fries",
-      //       description:
-      //         "Golden, crispy fries with mouthwatering seasoning! Regular, peri-peri, or loaded with toppings.",
-      //     },
-      //     street: {
-      //       title: "Street Bites",
-      //       description:
-      //         "Tangy and spicy snacks straight from the streets! Samosa, pakoras, bhel puri, and chaat items.",
-      //     },
-      //     drinks: {
-      //       title: "Drinks",
-      //       description:
-      //         "Refreshing beverages to cool you down! Hot masala chai, cutting chai, and specialty blends.",
-      //     },
-      //     wraps: {
-      //       title: "Wraps",
-      //       description:
-      //         "Soft, flavorful wraps with tasty fillings! Rolled flatbreads with vegetables, paneer, or chicken.",
-      //     },
-      //     bites: {
-      //       title: "Bites",
-      //       description:
-      //         "Quick bites that satisfy your hunger instantly! Mumbai's iconic vadapav and other regional varieties.",
-      //     },
-      //   };
+            // Find the parent flip card
+            const flipCard = this.closest(".flip-card");
+            const flipInner = flipCard.querySelector(".flip-inner");
 
-      //   const infoButtons = document.querySelectorAll(".mobile-info-btn");
+            // Toggle the flip class
+            flipInner.classList.toggle("flipped");
+          });
+        });
 
-      //   // Create popup elements
-      //   const popup = document.createElement("div");
-      //   popup.id = "categoryPopup";
-      //   popup.className = "popup-overlay-i";
+        // Optional: Close flipped cards when clicking outside
+        document.addEventListener("click", function (e) {
+          if (!e.target.closest(".flip-card")) {
+            const flippedCards = document.querySelectorAll(
+              ".flip-inner.flipped"
+            );
+            flippedCards.forEach((card) => {
+              card.classList.remove("flipped");
+            });
+          }
+        });
+      });
+      //     // Fixed popup for mobile-categories
+      //     document.addEventListener("DOMContentLoaded", function () {
+      //       const categoryInfo = {
+      //         burgers: {
+      //           title: "Burgers",
+      //           description:
+      //             "BURGERS Classic and gourmet burger options with fresh patties,cheese, and signature sauces served in soft buns",
+      //         },
+      //         fries: {
+      //           title: "Fries",
+      //           description:
+      //             " FRIES Crispy golden potato fries - regular, peri-peri, or loaded with toppings and cheese.",
+      //         },
+      //         street: {
+      //           title: "Street Bites",
+      //           description:
+      //             "  STREET BITES Local street food favorites like samosa, pakoras,bhel puri, and chaat items for quick snacking.",
+      //         },
+      //         drinks: {
+      //           title: "Drinks",
+      //           description:
+      //             "Refreshing beverages to cool you down! Hot masala chai, cutting chai, and specialty blends.",
+      //         },
+      //         wraps: {
+      //           title: "Wraps",
+      //           description:
+      //             "Soft, flavorful wraps with tasty fillings! Rolled flatbreads with vegetables, paneer, or chicken.",
+      //         },
+      //         bites: {
+      //           title: "Bites",
+      //           description:
+      //             "Quick bites that satisfy your hunger instantly! Mumbai's iconic vadapav and other regional varieties.",
+      //         },
+      //       };
 
-      //   const popupContent = document.createElement("div");
-      //   popupContent.className = "popup-content";
+      //       // Create popup elements with unique IDs to avoid conflicts
+      //       const categoryPopup = document.createElement("div");
+      //       categoryPopup.id = "categoryInfoPopup";
+      //       categoryPopup.style.cssText = `
+      //   position: fixed;
+      //   top: 0;
+      //   left: 0;
+      //   width: 100%;
+      //   height: 100%;
+      //   background: rgba(0, 0, 0, 0.8);
+      //   display: none;
+      //   justify-content: center;
+      //   align-items: center;
+      //   z-index: 10000;
+      //   visibility: hidden;
+      // `;
 
-      //   const closeX = document.createElement("button");
-      //   closeX.className = "close-x";
-      //   closeX.innerHTML = "&times;";
+      //       const popupContent = document.createElement("div");
+      //       popupContent.style.cssText = `
+      //   background: white;
+      //   padding: 30px;
+      //   border-radius: 15px;
+      //   max-width: 400px;
+      //   width: 60%;
+      //   text-align: center;
+      //   position: relative;
+      //   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      //   animation: popupSlideIn 0.3s ease-out;
+      // `;
 
-      //   const title = document.createElement("div");
-      //   title.className = "popup-title";
+      //       const closeX = document.createElement("button");
+      //       closeX.innerHTML = "&times;";
+      //       closeX.style.cssText = `
+      //   position: absolute;
+      //   top: 10px;
+      //   right: 15px;
+      //   background: none;
+      //   border: none;
+      //   font-size: 24px;
+      //   cursor: pointer;
+      //   color: #666;
+      //   width: 30px;
+      //   height: 30px;
+      //   display: flex;
+      //   align-items: center;
+      //   justify-content: center;
+      // `;
 
-      //   const description = document.createElement("div");
-      //   description.className = "popup-description";
+      //       const title = document.createElement("h3");
+      //       title.style.cssText = `
+      //   margin: 0 0 15px 0;
+      //   color: #333;
+      //   font-size: 24px;
+      //   font-weight: bold;
+      // `;
 
-      //   const closeBtn = document.createElement("button");
-      //   closeBtn.className = "popup-close";
-      //   closeBtn.textContent = "Close";
+      //       const description = document.createElement("p");
+      //       description.style.cssText = `
+      //   margin: 0 0 20px 0;
+      //   color: #666;
+      //   line-height: 1.6;
+      //   font-size: 16px;
+      // `;
 
-      //   // Append popup elements
-      //   popupContent.appendChild(closeX);
-      //   popupContent.appendChild(title);
-      //   popupContent.appendChild(description);
-      //   popupContent.appendChild(closeBtn);
-      //   popup.appendChild(popupContent);
-      //   document.body.appendChild(popup);
+      //       const closeBtn = document.createElement("button");
+      //       closeBtn.textContent = "Close";
+      //       closeBtn.style.cssText = `
+      //   background: #ff6b35;
+      //   color: white;
+      //   border: none;
+      //   padding: 12px 24px;
+      //   border-radius: 25px;
+      //   cursor: pointer;
+      //   font-size: 16px;
+      //   font-weight: bold;
+      //   transition: background 0.3s ease;
+      // `;
 
-      //   // Show popup with correct data
-      //   function showPopup(categoryKey) {
-      //     const data = categoryInfo[categoryKey];
-      //     if (data) {
-      //       title.textContent = data.title;
-      //       description.textContent = data.description;
-      //       popup.style.display = "flex";
-      //       popup.style.visibility = "visible";
+      //       // Add animation keyframes
+      //       const style = document.createElement("style");
+      //       style.textContent = `
+      //   @keyframes popupSlideIn {
+      //     from {
+      //       transform: scale(0.7);
+      //       opacity: 0;
+      //     }
+      //     to {
+      //       transform: scale(1);
+      //       opacity: 1;
       //     }
       //   }
+      // `;
+      //       document.head.appendChild(style);
 
-      //   // Hide popup
-      //   function hidePopup() {
-      //     popup.style.display = "none";
-      //     popup.style.visibility = "hidden";
-      //   }
+      //       // Append popup elements
+      //       popupContent.appendChild(closeX);
+      //       popupContent.appendChild(title);
+      //       popupContent.appendChild(description);
+      //       popupContent.appendChild(closeBtn);
+      //       categoryPopup.appendChild(popupContent);
+      //       document.body.appendChild(categoryPopup);
 
-      //   // Event listeners
-      //   infoButtons.forEach((btn) => {
-      //     btn.addEventListener("click", () => {
-      //       const category = btn.getAttribute("data-category");
-      //       showPopup(category);
+      //       // Show popup with correct data
+      //       function showCategoryPopup(categoryKey) {
+      //         const data = categoryInfo[categoryKey];
+      //         if (data) {
+      //           title.textContent = data.title;
+      //           description.textContent = data.description;
+      //           categoryPopup.style.display = "flex";
+      //           categoryPopup.style.visibility = "visible";
+      //           console.log(`Showing popup for category: ${categoryKey}`); // Debug log
+      //         } else {
+      //           console.log(`Category not found: ${categoryKey}`); // Debug log
+      //         }
+      //       }
+
+      //       // Hide popup
+      //       function hideCategoryPopup() {
+      //         categoryPopup.style.display = "none";
+      //         categoryPopup.style.visibility = "hidden";
+      //       }
+
+      //       // Wait for DOM to be fully loaded then attach event listeners
+      //       setTimeout(() => {
+      //         const infoButtons = document.querySelectorAll(".mobile-info-btn");
+      //         console.log(`Found ${infoButtons.length} info buttons`); // Debug log
+
+      //         infoButtons.forEach((btn, index) => {
+      //           console.log(
+      //             `Button ${index}:`,
+      //             btn,
+      //             `Category: ${btn.getAttribute("data-category")}`
+      //           ); // Debug log
+
+      //           btn.addEventListener("click", (e) => {
+      //             e.preventDefault();
+      //             e.stopPropagation();
+      //             const category = btn.getAttribute("data-category");
+      //             console.log(`Button clicked, category: ${category}`); // Debug log
+      //             showCategoryPopup(category);
+      //           });
+      //         });
+
+      //         // Event listeners for closing
+      //         closeX.addEventListener("click", (e) => {
+      //           e.preventDefault();
+      //           hideCategoryPopup();
+      //         });
+
+      //         closeBtn.addEventListener("click", (e) => {
+      //           e.preventDefault();
+      //           hideCategoryPopup();
+      //         });
+
+      //         categoryPopup.addEventListener("click", (e) => {
+      //           if (e.target === categoryPopup) {
+      //             hideCategoryPopup();
+      //           }
+      //         });
+
+      //         // Add hover effect to close button
+      //         closeBtn.addEventListener("mouseenter", () => {
+      //           closeBtn.style.background = "#e55a2b";
+      //         });
+
+      //         closeBtn.addEventListener("mouseleave", () => {
+      //           closeBtn.style.background = "#ff6b35";
+      //         });
+      //       }, 500); // Wait 500ms to ensure all elements are loaded
       //     });
-      //   });
-
-      //   closeX.addEventListener("click", hidePopup);
-      //   closeBtn.addEventListener("click", hidePopup);
-      //   popup.addEventListener("click", (e) => {
-      //     if (e.target === popup) hidePopup();
-      //   });
-      // });
-      // Fixed popup for mobile-categories
-      document.addEventListener("DOMContentLoaded", function () {
-        const categoryInfo = {
-          burgers: {
-            title: "Burgers",
-            description:
-              "BURGERS Classic and gourmet burger options with fresh patties,cheese, and signature sauces served in soft buns",
-          },
-          fries: {
-            title: "Fries",
-            description:
-              " FRIES Crispy golden potato fries - regular, peri-peri, or loaded with toppings and cheese.",
-          },
-          street: {
-            title: "Street Bites",
-            description:
-              "  STREET BITES Local street food favorites like samosa, pakoras,bhel puri, and chaat items for quick snacking.",
-          },
-          drinks: {
-            title: "Drinks",
-            description:
-              "Refreshing beverages to cool you down! Hot masala chai, cutting chai, and specialty blends.",
-          },
-          wraps: {
-            title: "Wraps",
-            description:
-              "Soft, flavorful wraps with tasty fillings! Rolled flatbreads with vegetables, paneer, or chicken.",
-          },
-          bites: {
-            title: "Bites",
-            description:
-              "Quick bites that satisfy your hunger instantly! Mumbai's iconic vadapav and other regional varieties.",
-          },
-        };
-
-        // Create popup elements with unique IDs to avoid conflicts
-        const categoryPopup = document.createElement("div");
-        categoryPopup.id = "categoryInfoPopup";
-        categoryPopup.style.cssText = `
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 10000;
-    visibility: hidden;
-  `;
-
-        const popupContent = document.createElement("div");
-        popupContent.style.cssText = `
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    max-width: 400px;
-    width: 60%;
-    text-align: center;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    animation: popupSlideIn 0.3s ease-out;
-  `;
-
-        const closeX = document.createElement("button");
-        closeX.innerHTML = "&times;";
-        closeX.style.cssText = `
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #666;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  `;
-
-        const title = document.createElement("h3");
-        title.style.cssText = `
-    margin: 0 0 15px 0;
-    color: #333;
-    font-size: 24px;
-    font-weight: bold;
-  `;
-
-        const description = document.createElement("p");
-        description.style.cssText = `
-    margin: 0 0 20px 0;
-    color: #666;
-    line-height: 1.6;
-    font-size: 16px;
-  `;
-
-        const closeBtn = document.createElement("button");
-        closeBtn.textContent = "Close";
-        closeBtn.style.cssText = `
-    background: #ff6b35;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background 0.3s ease;
-  `;
-
-        // Add animation keyframes
-        const style = document.createElement("style");
-        style.textContent = `
-    @keyframes popupSlideIn {
-      from {
-        transform: scale(0.7);
-        opacity: 0;
-      }
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-  `;
-        document.head.appendChild(style);
-
-        // Append popup elements
-        popupContent.appendChild(closeX);
-        popupContent.appendChild(title);
-        popupContent.appendChild(description);
-        popupContent.appendChild(closeBtn);
-        categoryPopup.appendChild(popupContent);
-        document.body.appendChild(categoryPopup);
-
-        // Show popup with correct data
-        function showCategoryPopup(categoryKey) {
-          const data = categoryInfo[categoryKey];
-          if (data) {
-            title.textContent = data.title;
-            description.textContent = data.description;
-            categoryPopup.style.display = "flex";
-            categoryPopup.style.visibility = "visible";
-            console.log(`Showing popup for category: ${categoryKey}`); // Debug log
-          } else {
-            console.log(`Category not found: ${categoryKey}`); // Debug log
-          }
-        }
-
-        // Hide popup
-        function hideCategoryPopup() {
-          categoryPopup.style.display = "none";
-          categoryPopup.style.visibility = "hidden";
-        }
-
-        // Wait for DOM to be fully loaded then attach event listeners
-        setTimeout(() => {
-          const infoButtons = document.querySelectorAll(".mobile-info-btn");
-          console.log(`Found ${infoButtons.length} info buttons`); // Debug log
-
-          infoButtons.forEach((btn, index) => {
-            console.log(
-              `Button ${index}:`,
-              btn,
-              `Category: ${btn.getAttribute("data-category")}`
-            ); // Debug log
-
-            btn.addEventListener("click", (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              const category = btn.getAttribute("data-category");
-              console.log(`Button clicked, category: ${category}`); // Debug log
-              showCategoryPopup(category);
-            });
-          });
-
-          // Event listeners for closing
-          closeX.addEventListener("click", (e) => {
-            e.preventDefault();
-            hideCategoryPopup();
-          });
-
-          closeBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            hideCategoryPopup();
-          });
-
-          categoryPopup.addEventListener("click", (e) => {
-            if (e.target === categoryPopup) {
-              hideCategoryPopup();
-            }
-          });
-
-          // Add hover effect to close button
-          closeBtn.addEventListener("mouseenter", () => {
-            closeBtn.style.background = "#e55a2b";
-          });
-
-          closeBtn.addEventListener("mouseleave", () => {
-            closeBtn.style.background = "#ff6b35";
-          });
-        }, 500); // Wait 500ms to ensure all elements are loaded
-      });
     </script>
 
     <!-- About Us Section 
