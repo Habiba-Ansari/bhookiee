@@ -264,6 +264,9 @@ body {
   position: relative;
   flex-shrink: 0;
 }
+.categorybox-item-section:hover {
+  cursor: pointer;
+}
 
 .categorybox-item-section img {
   height: 80px !important;
@@ -356,7 +359,9 @@ body {
   text-align: center;
   pointer-events: none;
 }
-
+.flip-card:hover {
+  cursor: pointer;
+}
 /* MOBILE STYLES */
 @media (max-width: 768px) {
   .category-section {
