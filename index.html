@@ -23,6 +23,9 @@
     />
 
     <style>
+        * {
+  box-sizing: border-box;
+}
       /* Basic styles for responsiveness and hover effects */
       body {
         font-family: "Montserrat", sans-serif;
@@ -36,19 +39,21 @@
 
         background: url("images/backg2.png") no-repeat right center;
         background-size: 100% auto;
-        /* Slightly reduce the size of the background image */
         position: relative;
         padding-top: 100px;
-        /* Space for fixed navbar */
       }
       @media (max-width: 768px) {
         .hero-section {
           background: url("images/phonebg.png") no-repeat center center / cover;
           width: 100%; /* Full width */
+          overflow: hidden;
           min-height: 100vh; /* Full viewport height */
           margin: 0; /* Remove default margins */
           padding-top: 80px; /* Space for navbar */
-          right: -20px;
+            display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+          right: -20px; 
         }
       }
 
@@ -150,10 +155,19 @@
           font-size: 14px;
         }
       }
+     
       @media (max-width: 768px) {
+     * {
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
         .text-section {
           position: absolute;
-          top: 50px; /* Adjust based on image position */
+          top: 5vh; /* Adjust based on image position */
           left: 50%;
           transform: translateX(-50%);
           width: 90%;
@@ -163,53 +177,59 @@
         }
 
         .text-section h2 {
-          font-size: 0.2rem; /* Smaller heading */
-          margin-bottom: 10px;
+          font-size: 0.5rem; /* Smaller heading */
+          margin-bottom: 0;
         }
 
         .text-section p {
-          font-size: 0.9rem; /* Smaller paragraph */
-          line-height: 1.3;
+          font-size: 1rem; /* Smaller paragraph */
+          line-height: 1.2;
         }
 
         #slide-title {
-          font-size: 29px !important;
+  font-size: clamp(20px, 5.5vw, 32px);
           line-height: 1.2 !important; /* or use rem/em/vw for responsive scaling */
           font-weight: bold;
-          bottom: -50px !important;
+         /* bottom: 30vh !important; */
           text-align: left;
         }
-
+  .circle.active {
+        background: #e50707 !important;
+        transform: scale(1.3);
+      }
         #slide-text {
           font-size: 12px;
           line-height: 1.4;
           text-align: left;
-          max-width: 50%;
+          max-width: 50vw;
         }
 
         .order-section {
-          position: absolute !important;
-          top: 110px !important; /* Increased from 10px to 20px */
-          right: 130px !important;
+          position: relative !important;
+          top: -5vh !important;
+          bottom: auto;
+         right: 25vw !important;
           margin: 0 !important;
           padding: 0 !important;
-          width: calc(100% - 20px) !important;
+         width: calc(100% - 20px) !important;
           z-index: 100 !important;
         }
 
         .doodle {
           width: 50px !important;
-          margin: 10px 0 5px -3px !important;
+          margin: 20px 4px 4px -3px !important;
         }
 
-        .order-btn {
-          padding: 6px 12px !important;
-          font-size: 12px !important;
-          margin-top: 2px !important; /* Added space above button */
-        }
+       .order-btn {
+  padding: 6px 12px !important;
+  font-size: 12px !important;
+  background-color: #000 !important;
+  position: relative;
+  left: -20px; /* safer, or adjust as needed */
+}
 
         .circles {
-          margin-top: 150px !important;
+          margin-top: 20vh !important;
           top: 30px !important;
           right: 70px;
           position: absolute !important;
@@ -639,7 +659,7 @@
           position: fixed;
           top: 0;
           left: 0;
-          width: 90%;
+          width: 100vw;
           z-index: 1000;
         }
 
@@ -685,13 +705,14 @@
       }
 
       #image-container img {
-        width: 800px;
-        height: 800px;
-        object-fit: cover;
-        border-radius: 12px;
-        margin-bottom: 20px;
-        position: relative;
-        left: 300px;
+         width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  position: relative;
+  left: 0;
       }
 
       .order-section {
@@ -744,7 +765,7 @@
         padding-left: 0; /* Default: no left padding */
         padding-right: 20px; /* Keep some right padding */
         box-sizing: border-box;
-        margin-left: -20px;
+        margin-left: 0px;
       }
 
       #slide-image {
