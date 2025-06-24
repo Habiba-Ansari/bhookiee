@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>History</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #e26920;
+      background-image: radial-gradient(circle at 20% 30%, #ff8c42, #e26920 60%);
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar {
+      background-color: rgba(0, 0, 0, 0.3);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+    }
+
+    .navbar-logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #f9c55c;
+    }
+
+    .navbar-logo span {
+      font-size: 12px;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0%;
+      height: 2px;
+      background: #f9c55c;
+      transition: 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Main Section */
+    .history-section {
+      padding: 80px 30px;
+      background: url('https://www.transparenttextures.com/patterns/food.png') repeat;
+      background-size: 150px;
+    }
+
+    .history-section h2 {
+      font-size: 42px;
+      text-align: center;
+      margin-bottom: 60px;
+      color: #fff;
+      position: relative;
+    }
+
+    .history-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: linear-gradient(90deg, #f9c55c, #fff, #f9c55c);
+      border-radius: 5px;
+    }
+
+    .food-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 50px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .food-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .food-card img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 20px;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+
+    .food-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .info-box {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 20px;
+      border-radius: 0 0 20px 20px;
+      transform: translateY(100%);
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      opacity: 0;
+      color: #fff;
+    }
+
+    .food-card:hover .info-box {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .info-box h3 {
+      margin-bottom: 10px;
+      font-size: 20px;
+      color: #f9c55c;
+    }
+
+    .info-box p {
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .read-more {
+      color: #f9c55c;
+      font-weight: 600;
+      font-size: 13px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 5px;
+      transition: all 0.3s;
+    }
+
+    .read-more:hover {
+      text-decoration: underline;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(5px);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      width: 90%;
+      max-width: 700px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      animation: modalFadeIn 0.4s ease;
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .modal-header {
+      background-color: #e26920;
+      color: white;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-size: 24px;
+      color: #f9c55c;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .close-modal:hover {
+      transform: rotate(90deg);
+    }
+
+    .modal-body {
+      padding: 30px;
+      color: #333;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    .modal-body p {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    /* Decorative Elements */
+    .spice {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      opacity: 0.1;
+      background-size: contain;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+
+    .spice1 {
+      top: 10%;
+      left: 5%;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/54/Chili_pepper_icon.svg');
+    }
+
+    .spice2 {
+      top: 30%;
+      right: 6%;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/3/3f/Spices_icon.svg');
+    }
+
+    @media (max-width: 768px) {
+      .history-section {
+        padding: 50px 20px;
+      }
+
+      .history-section h2 {
+        font-size: 32px;
+      }
+      
+      .modal-content {
+        width: 95%;
+      }
+      
+      .modal-body {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="navbar-logo">
+      BHOOKIE
+      <span>TASTE THE FUSION</span>
+    </div>
+    <div class="nav-links">
+      <a href="#">HOME</a>
+      <a href="#">MENU</a>
+      <a href="#">ABOUT US</a>
+      <a href="#">CONTACT</a>
+    </div>
+  </nav>
+
+  <section class="history-section">
+    <div class="spice spice1"></div>
+    <div class="spice spice2"></div>
+    <h2>OUR CULINARY HISTORY</h2>
+    <div class="food-grid">
+      <div class="food-card" data-food="vadapav">
+        <img src="images/vadapavHistory.png" alt="Vada Pav">
+        <div class="info-box">
+          <h3>VADA PAV</h3>
+          <p>Originated in Mumbai in the 1960s as an affordable snack for mill workers. Known as the "poor man's burger".</p>
+          <a class="read-more">Read More →</a>
+        </div>
+      </div>
+      <div class="food-card" data-food="potato-bhaji">
+        <img src="images/pbja.png" alt="Potato Bhaji Pav">
+        <div class="info-box">
+          <h3>POTATO BHAJI PAV</h3>
+          <p>Inspired by Batata Poha, it became a staple breakfast in the 1970s across Maharashtra with spicy potatoes.</p>
+          <a class="read-more">Read More →</a>
+        </div>
+      </div>
+      <div class="food-card" data-food="onion-bhaji">
+        <img src="images/onionbhajipav.png" alt="Onion Bhaji Pav">
+        <div class="info-box">
+          <h3>ONION BHAJI PAV</h3>
+          <p>A fusion of Gujarati pakoras and Mumbai's pav culture, this veggie delight was born in the 1980s.</p>
+          <a class="read-more">Read More →</a>
+        </div>
+      </div>
+      <div class="food-card" data-food="chai">
+        <img src="images/chai.png" alt="Chai">
+        <div class="info-box">
+          <h3>CHAI</h3>
+          <p>From Ayurvedic roots to railway stalls, chai became the soul of India in the early 1900s.</p>
+          <a class="read-more">Read More →</a>
+        </div>
+      </div>
+      <div class="food-card" data-food="manchurian">
+        <img src="images/manchurian.png" alt="Manchurian">
+        <div class="info-box">
+          <h3>MANCHURIAN</h3>
+          <p>Invented in 1975 by Nelson Wang in Mumbai, blending Indian and Chinese flavors in a sizzling fusion.</p>
+          <a class="read-more">Read More →</a>
+        </div>
+      </div>
+      <div class="food-card" data-food="noodle-bhel">
+        <img src="images/chinese bhel.png" alt="Chinese Bhel">
+        <div class="info-box">
+          <h3>NOODLE BHEL</h3>
+          <p>Mumbai's crunchy take on bhel puri using fried noodles and desi masalas - street food innovation at its best!</p>
+          <a class="read-more">Read More →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal" id="foodModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalTitle">Food Title</h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Content will be inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Food history data
+    const foodHistory = {
+      'vadapav': {
+        title: 'VADA PAV',
+        content: `
+          <p>Vada Pav, often called the "poor man's burger", originated in Mumbai in the 1960s. It was created by Ashok Vaidya, a street food vendor outside Dadar railway station, to provide mill workers with a cheap, filling meal.</p>
+          <p>The dish consists of a spicy potato fritter (vada) sandwiched between a pav (soft bread roll), accompanied by chutneys made of garlic, tamarind, and chili. Its popularity grew rapidly due to its affordability (originally costing just 25 paise) and portability.</p>
+          <p>Today, Vada Pav is considered Mumbai's signature street food, with an estimated 20 million consumed daily across the city. It represents the spirit of Mumbai - simple, spicy, and full of energy.</p>
+        `
+      },
+      'potato-bhaji': {
+        title: 'POTATO BHAJI PAV',
+        content: `
+          <p>Potato Bhaji Pav has its roots in traditional Maharashtrian "Batata Poha", a breakfast dish made with flattened rice and potatoes. The street food version emerged in the 1970s as vendors sought to create a more substantial meal.</p>
+          <p>The dish features a spicy potato curry (bhaji) made with mustard seeds, turmeric, curry leaves, and green chilies, served with buttered pav. What sets it apart is the use of boiled (rather than fried) potatoes, making it softer and more flavorful.</p>
+          <p>It became particularly popular in Pune and Kolhapur before spreading throughout Maharashtra. Many office workers and students rely on this affordable, nutritious breakfast that costs less than ₹20 even today.</p>
+        `
+      },
+      'onion-bhaji': {
+        title: 'ONION BHAJI PAV',
+        content: `
+          <p>Onion Bhaji Pav represents the fusion of Gujarati and Maharashtrian street food cultures. It first appeared in Mumbai's street food scene in the early 1980s when vendors near Churchgate station began serving Gujarati-style onion pakoras with local pav bread.</p>
+          <p>The dish features crispy, golden-brown onion fritters made with besan (gram flour) and spices, served in fresh pav with green and tamarind chutneys. The contrast between the crunchy bhaji and soft pav makes it particularly satisfying.</p>
+          <p>This vegetarian alternative to meat sandwiches became especially popular during Jain fasting periods when root vegetables are avoided, as onions are permitted. Today, it's a staple at Mumbai's beachside stalls and college canteens.</p>
+        `
+      },
+      'chai': {
+        title: 'CHAI',
+        content: `
+          <p>Chai's history in India dates back 5,000 years to Ayurvedic medicinal recipes. The modern version with milk and sugar became popular after the British established tea plantations in Assam in the 1830s to break China's tea monopoly.</p>
+          <p>Railway stations played a crucial role in popularizing chai. The Indian Railways began offering tea at stations in the early 1900s, and "railway chai wallahs" developed the strong, milky brew we know today. The distinctive pouring style (high from the kettle) aerates the tea, creating its characteristic froth.</p>
+          <p>Each region developed unique variations - Mumbai's cutting chai (half portions), Kashmiri kahwa (with saffron), and Kerala's sulaimani (black tea with lemon). India now consumes about 30% of the world's tea production, with an average person drinking 3-4 cups daily.</p>
+        `
+      },
+      'manchurian': {
+        title: 'MANCHURIAN',
+        content: `
+          <p>Manchurian was invented in 1975 by Nelson Wang, a Chinese-Indian chef at Mumbai's Cricket Club of India. When a customer asked for "something different", Wang combined Indian flavors with Chinese cooking techniques, creating the first vegetable Manchurian.</p>
+          <p>The dish features vegetable (or meat) balls in a sweet-spicy sauce made with soy, chili, and garlic. Wang's original recipe used minced chicken, but the vegetarian version became more popular in India. The name references Manchuria, though the dish has no actual connection to Northeast Chinese cuisine.</p>
+          <p>Manchurian sparked the entire Indo-Chinese cuisine movement, leading to dishes like Chilli Chicken and Hakka Noodles. Today, it's served everywhere from five-star hotels to roadside stalls, with regional variations across India.</p>
+        `
+      },
+      'noodle-bhel': {
+        title: 'NOODLE BHEL',
+        content: `
+          <p>Noodle Bhel (or Chinese Bhel) emerged in the late 1980s at Mumbai's Chowpatty Beach as vendors experimented with fusion snacks. It combines the textures of traditional bhel puri with the flavors of Hakka noodles.</p>
+          <p>The dish features crispy fried noodles tossed with onions, peppers, sauces, and Indian spices like chaat masala. Unlike traditional bhel puri made with puffed rice, the noodle version offers more chewiness and absorbs flavors better.</p>
+          <p>Its popularity exploded in the 1990s as Indo-Chinese cuisine became mainstream. Today, Noodle Bhel represents Mumbai's culinary innovation - taking foreign ingredients and making them distinctly Indian. Versions now include Schezwan Bhel and even Pizza Bhel!</p>
+        `
+      }
+    };
+
+    // Modal functionality
+    const modal = document.getElementById('foodModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const closeModal = document.querySelector('.close-modal');
+
+    // Add click event to all read more links
+    document.querySelectorAll('.read-more').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const foodCard = this.closest('.food-card');
+        const foodId = foodCard.getAttribute('data-food');
+        
+        // Set modal content
+        modalTitle.textContent = foodHistory[foodId].title;
+        modalBody.innerHTML = foodHistory[foodId].content;
+        
+        // Show modal
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    // Close modal when clicking X
+    closeModal.addEventListener('click', function() {
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    });
+
+    // Close modal when clicking outside
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Close modal with ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // Also allow clicking the card itself to open modal
+    document.querySelectorAll('.food-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const foodId = this.getAttribute('data-food');
+        
+        // Set modal content
+        modalTitle.textContent = foodHistory[foodId].title;
+        modalBody.innerHTML = foodHistory[foodId].content;
+        
+        // Show modal
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      });
+    });
+  </script>
+</body>
+</html>
