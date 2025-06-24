@@ -13,65 +13,187 @@
 
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #e26920;
-      background-image: radial-gradient(circle at 20% 30%, #ff8c42, #e26920 60%);
+      background-color: #1a1a1a;
       background-size: cover;
       background-repeat: no-repeat;
       color: #fff;
       overflow-x: hidden;
     }
 
-    /* Navbar */
-    .navbar {
-      background-color: rgba(0, 0, 0, 0.3);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 40px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      backdrop-filter: blur(10px);
-    }
+ /* Navbar */
+      .navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: rgba(19, 18, 18, 0.8); /* 0.8 = 80% opaque */
+  left: 0;
+  padding: 5px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
 
-    .navbar-logo {
-      font-size: 24px;
-      font-weight: bold;
-      color: #f9c55c;
-    }
+      .navbar.transparent {
+        background-color: transparent;
+      }
 
-    .navbar-logo span {
-      font-size: 12px;
-      display: block;
-    }
+      .navbar.scrolled {
+        background-color: rgba(19, 19, 18, 0.7)!important;
+      }
 
-    .nav-links {
-      display: flex;
-      gap: 25px;
-    }
+      /* Logo */
+      .nav-logo img {
+        height: 70px;
+      }
 
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-    }
+      /* Navigation Links */
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 40px;
+      }
 
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      bottom: -4px;
-      width: 0%;
-      height: 2px;
-      background: #f9c55c;
-      transition: 0.3s;
-    }
+      .nav-links a {
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        font-size: 18px;
+        position: relative;
+        transition: color 0.3s ease;
+      }
 
-    .nav-links a:hover::after {
-      width: 100%;
-    }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        width: 0%;
+        height: 2px;
+        left: 0;
+        bottom: -5px;
+        background-color: #ff5e18;
+        transition: width 0.3s ease;
+      }
 
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .nav-links a.active::after {
+        width: 100%;
+      }
+
+      .nav-links a:hover {
+        color: #ffffff;
+      }
+
+      /* Right Side Button */
+      .nav-buttons {
+        display: flex;
+        align-items: center;
+      }
+
+      .profile-container {
+        background-color: white;
+        padding: 6px 12px;
+        border-radius: 999px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Hamburger icon */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        cursor: pointer;
+        gap: 5px;
+        z-index: 1100;
+      }
+
+      .hamburger span {
+        height: 3px;
+        width: 25px;
+        background-color: white;
+        border-radius: 2px;
+      }
+
+      /* Show hamburger and hide nav-links on mobile */
+      /* Mobile layout arrangement */
+      @media (max-width: 768px) {
+        .navbar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 15px 20px;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          z-index: 1000;
+        }
+
+        .nav-logo {
+          order: 2;
+          flex: 1;
+          display: flex;
+          justify-content: center;
+        }
+
+        .profile-container {
+          order: 1;
+        }
+
+        .hamburger {
+          order: 3;
+          display: flex;
+          margin-left: 15px;
+        }
+
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          background-color: rgba(19, 19, 18, 0.9);
+          width: 100%;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          padding: 20px;
+          align-items: center;
+          text-align: center;
+          gap: 20px;
+          z-index: 999;
+        }
+        .nav-links a {
+          color: white;
+          font-size: 18px;
+        }
+        .nav-links.active {
+          display: flex;
+        }
+      }
+
+      .mobile-welcome {
+        display: none;
+        padding: 12px;
+        text-align: center;
+        font-size: 18px;
+        color: rgb(244, 239, 239);
+        font-weight: bold;
+      }
+
+      /* Show on mobile screens */
+      @media screen and (max-width: 768px) {
+        .mobile-welcome {
+          display: block;
+        }
+
+        /* Optionally hide the nav bar welcome text on mobile */
+        #welcomeUser {
+          display: none;
+        }
+      }
     /* Main Section */
     .history-section {
       padding: 80px 30px;
@@ -292,18 +414,52 @@
 </head>
 <body>
 
-  <nav class="navbar">
-    <div class="navbar-logo">
-      BHOOKIE
-      <span>TASTE THE FUSION</span>
+   <!-- Background with Navbar on top -->
+    <div class="hero-section">
+      <nav class="navbar">
+        <div class="nav-logo">
+          <a href="index.html"
+            ><img id="navLogo" src="images/logo.png" alt="Bhookie Logo"
+          /></a>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="menu.html">Menu</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="contact_us.html">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="profile-container">
+          <div class="nav-buttons">
+            <a class="profile-icon"
+              ><img
+                src="images/user.png"
+                alt="User Icon"
+                style="height: 25px; width: 25px"
+            /></a>
+            <span
+              id="welcomeUser"
+              style="
+                margin-left: 10px;
+                color: rgb(11, 11, 11);
+                font-weight: bold;
+              "
+            ></span>
+            <ul
+              class="dropdown-menu"
+              id="profileDropdown"
+              style="display: none"
+            ></ul>
+          </div>
+        </div>
+      </nav>
+      <div id="mobileWelcome" class="mobile-welcome"></div>
     </div>
-    <div class="nav-links">
-      <a href="index.html">HOME</a>
-      <a href="menu.html">MENU</a>
-      <a href="aboutus.html">ABOUT US</a>
-      <a href="contact_us.html">CONTACT</a>
-    </div>
-  </nav>
+
 
   <section class="history-section">
     <div class="spice spice1"></div>
@@ -432,7 +588,19 @@
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
     const closeModal = document.querySelector('.close-modal');
+ const welcomeUser = document.getElementById("welcomeUser");
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const userName = localStorage.getItem("userName");
 
+        if (isLoggedIn === "true" && userName) {
+          if (welcomeUser) {
+            welcomeUser.textContent = `Hi ${userName}!`;
+          }
+          const mobileWelcome = document.getElementById("mobileWelcome");
+          if (mobileWelcome) {
+            mobileWelcome.innerHTML = ` Hi ${userName}!<br>  What's on your mind today?`;
+          }
+        }
     // Add click event to all read more links
     document.querySelectorAll('.read-more').forEach(link => {
       link.addEventListener('click', function(e) {
