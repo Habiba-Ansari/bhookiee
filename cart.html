@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Domino's Cart UI Clone</title>
+  <style>
+    body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: #121212;
+  color: #ffffff;
+}
+header {
+  background-color: #121212;
+  color: #ff6f00;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ff6f00;
+}
+.container {
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+}
+.main, .sidebar {
+  background: #1e1e1e;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #2c2c2c;
+}
+.main {
+  flex: 3;
+}
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: transparent;
+  padding: 0;
+  flex: 1.5;
+  min-width: 350px;
+  max-width: 400px;
+}
+
+.card {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 15px;
+  border: 1px solid #2e2e2e;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.sub-label {
+  font-size: 10px;
+  color: gray;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.card-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.change-btn {
+  background-color:  #ff6f00;
+  color: white;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.offer-card {
+  cursor: pointer;
+  background-color: #262626;
+  transition: background 0.3s ease;
+}
+.offer-card:hover {
+  background-color: #333;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: #ffffff; /* Fixed: previously wrongly greyed */
+  font-size: 14px;
+}
+
+.price-row.total {
+  border-top: 1px solid #333;
+  padding-top: 10px;
+  font-weight: bold;
+}
+
+.place-order-btn {
+  background-color: #ff6f00;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-radius: 4px;
+  margin-top: 15px;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #333;
+  padding: 15px 0;
+}
+.item img {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  margin-right: 15px;
+  border-radius: 8px;
+  border: 1px solid #ff6f00;
+}
+.item-info {
+  flex: 1;
+}
+.addons {
+  display: flex;
+  overflow-x: auto;
+  gap: 10px;
+  padding: 15px 0;
+}
+.addon-card {
+  background: #2a2a2a;
+  border: 1px solid #ff6f00;
+  border-radius: 8px;
+  padding: 10px;
+  min-width: 120px;
+  text-align: center;
+}
+.addon-card img {
+  width: 100%;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+.price-box {
+  margin-top: 20px;
+}
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: #ccc;
+}
+.btn {
+  background: #ff6f00;
+  color: white;
+  padding: 12px;
+  text-align: center;
+  border: none;
+  width: 100%;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.3s;
+}
+.btn:hover {
+  background: #e05c00;
+}
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.qty-controls button {
+  padding: 4px 10px;
+  background-color: #2a2a2a;
+  color: #ff6f00;
+  border: 1px solid #ff6f00;
+  border-radius: 4px;
+  cursor: pointer;
+}
+  </style>
+</head>
+<body>
+
+<header>
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <img src="images/logo.png" alt="Bhookhie Logo" style="height: 60px;">
+  </div>
+</header>
+
+<div class="container">
+  <!-- Main Content -->
+  <div class="main">
+    <h3>2 Items you have selected</h3>
+
+    <div id="cart">
+      <!-- JS will render items here -->
+    </div>
+
+    <h4>Complete your meal</h4>
+    <div class="addons">
+      <div class="addon-card">
+        <img src="https://img.dominos.co.in/new_garlic_bread_2502.jpg" alt="bread">
+        <p>Garlic Bread ₹137</p>
+        <button class="btn" style="font-size: 12px;">ADD</button>
+      </div>
+      <div class="addon-card">
+        <img src="https://img.dominos.co.in/pepsi_black.png" alt="pepsi">
+        <p>Pepsi 295ml ₹49</p>
+        <button class="btn" style="font-size: 12px;">ADD</button>
+      </div>
+      <!-- Add more cards if needed -->
+    </div>
+  </div>
+
+ <div class="sidebar">
+  <!-- Address Section -->
+  <div class="card">
+    <p class="label">Choose a delivery address</p>
+    <div class="card-row">
+      <div>
+        <p class="sub-label">CURRENT ADDRESS</p>
+        <p>Thane</p>
+      </div>
+      <button class="change-btn">CHANGE</button>
+    </div>
+  </div>
+
+  <!-- Offer Section -->
+  <div class="card offer-card">
+    <div class="card-row">
+      <img src="https://cdn-icons-png.flaticon.com/512/633/633611.png" width="25" height="25" alt="offer icon" />
+      <div style="flex: 1; margin-left: 10px;">
+        <p style="margin: 0; font-weight: bold;">Select offer / Apply coupon</p>
+        <p style="margin: 0; font-size: 12px; color: gray;">Get discount with your order</p>
+      </div>
+      <span style="font-size: 20px; color: gray;">›</span>
+    </div>
+  </div>
+
+  <!-- Price Details -->
+  <div class="card">
+    <div class="price-row"><span>Sub Total</span><span id="subTotal">₹0</span></div>
+    <div class="price-row"><span>Discount</span><span>-</span></div>
+    <div class="price-row"><span>Taxes and Charges</span><span>₹65.15</span></div>
+    <div class="price-row total"><strong>Grand Total</strong><strong id="grandTotal">₹0</strong></div>
+    <button class="place-order-btn">PLACE ORDER</button>
+  </div>
+</div>
+
+<script>
+  const cartItems = [
+    { name: "Veg Extravaganza", price: 309, qty: 1 },
+    { name: "Farmhouse", price: 259, qty: 1 }
+  ];
+
+  function renderCart() {
+    const cartDiv = document.getElementById("cart");
+    cartDiv.innerHTML = '';
+    cartItems.forEach((item, index) => {
+      const itemHTML = `
+        <div class="item">
+          <img src="https://img.dominos.co.in/veg_extravaganza.jpg" alt="pizza" />
+          <div class="item-info">
+            <h4>${item.name}</h4>
+            <p>Regular | New Hand Tossed</p>
+          </div>
+          <div>
+            ₹${item.price}
+            <div class="qty-controls">
+              <button onclick="updateQty(${index}, -1)">-</button>
+              <span>${item.qty}</span>
+              <button onclick="updateQty(${index}, 1)">+</button>
+            </div>
+          </div>
+        </div>`;
+      cartDiv.innerHTML += itemHTML;
+    });
+    updateTotals();
+  }
+
+  function updateQty(index, change) {
+    cartItems[index].qty += change;
+    if (cartItems[index].qty < 1) cartItems[index].qty = 1;
+    renderCart();
+  }
+
+  function updateTotals() {
+    const subTotal = cartItems.reduce((sum, item) => sum + item.price * item.qty, 0);
+    document.getElementById("subTotal").textContent = `₹${subTotal}`;
+    document.getElementById("grandTotal").textContent = `₹${(subTotal + 65.15).toFixed(2)}`;
+  }
+
+  renderCart();
+</script>
+
+</body>
+</html>
