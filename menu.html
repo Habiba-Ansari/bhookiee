@@ -96,67 +96,31 @@
 
 <br><br>
  <div class="category-menu">
-    <a href="#">STREET BITES</a>
-    <a href="#">WRAPS</a>
-    <a href="#">BITES</a>
-    <a href="#" class="active">BURGERS</a>
-    <a href="#">DRINKS</a>
-    <a href="#">VADAPAV</a>
-  </div>
-<div class="container">
- <div class="card">
-    <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="Veggie Burger">
-    <h3>Veggie Burger</h3>
-    <p>Calories: 350 kcal</p>
-    <p>Protein: 18g</p>
-    <div class="price-add">
-      <span class="price">₹149</span>
-      <button class="add-btn">+</button>
-    </div>
+    <a href="#">Bombay Street Chaska</a>
+    <a href="#">Wraps</a>
+    <a href="#">Bites</a>
+    <a href="#" class="active">Burgers</a>
+    <a href="#">Drinks</a>
+    <a href="#">Sides and Fries</a>
+    <a href="#">Sauces(Dips)</a>
+
   </div>
 
-  <div class="card">
-    <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="Veggie Burger">
-    <h3>Veggie Burger</h3>
-    <p>Calories: 350 kcal</p>
-    <p>Protein: 18g</p>
-    <div class="price-add">
-      <span class="price">₹149</span>
-      <button class="add-btn">+</button>
-    </div>
-  </div>
-<div class="card">
-    <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="Veggie Burger">
-    <h3>Veggie Burger</h3>
-    <p>Calories: 350 kcal</p>
-    <p>Protein: 18g</p>
-    <div class="price-add">
-      <span class="price">₹149</span>
-      <button class="add-btn">+</button>
-    </div>
-  </div>
-<div class="card">
-    <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="Veggie Burger">
-    <h3>Veggie Burger</h3>
-    <p>Calories: 350 kcal</p>
-    <p>Protein: 18g</p>
-    <div class="price-add">
-      <span class="price">₹149</span>
-      <button class="add-btn">+</button>
-    </div>
-  </div>
-</div>
+<div class="container"></div>
+
 <br><br><br>
  <footer class="footer" id="contact">
   <div class="footer-container">
     <!-- Menu Items -->
     <div class="footer-menu">
-      <a href="menu.html#street">STREET BITES</a>
+      <a href="menu.html#street">Street Bites</a>
       <a href="menu.html#fries">FRIES</a>
       <a href="menu.html#bites">BITES</a>
       <a href="menu.html#wraps">WRAPS</a>
       <a href="menu.html#burgers">BURGERS</a>
       <a href="menu.html#drinks">DRINKS</a>
+      <a href="menu.html#drinks">Dips</a>
+
     </div>
 
     <!-- Social Icons -->
@@ -174,64 +138,245 @@
 </footer>
 
   <script>
-  const menuData = {
-    "STREET BITES": [
-      "Vada Pav",
-      "Potato Bhajji Pav",
-      "Onion Bhajji Pav",
-    ],
-    "WRAPS": [
-      "Chicken Wrap",
-      "Veggie Wrap",
-      "Paneer Wrap",
-      "Spicy Wrap"
-    ],
-    "BITES": [
-      "Chicken Bites",
-      "Manchurian Bites ",
-      "Chicken Drumsticks",
-    ],
-    "BURGERS": [
-      "Classic Burger",
-      "Cheese Burger",
-      "Veggie Burger",
-      "BBQ Burger"
-    ],
-    "DRINKS": [
-      "Cold Coffee",
-      "Iced Tea",
-      "Soft Drink",
-      "Thick Shake"
-    ],
-    "VADAPAV": [
-      "Classic Vada Pav",
-      "Cheese Vada Pav",
-      "Tandoori Vada Pav",
-      "Masala Vada Pav"
-    ]
-  };
+const menuData = {
+  "Bites": [
+    {
+      name: "Chicken Bites",
+      calories: "400 kcal",
+      protein: "20g",
+      price: 3.99,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Manchurian Bites",
+      calories: "450 kcal",
+      protein: "22g",
+      price: 3.99,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Chicken Drumsticks",
+      calories: "450 kcal",
+      protein: "22g",
+      price: 3.99,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    }
+  ],
+  "Bombay Street Chaska": [
+    {
+      name: "Vada Pav",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 5.49,
+      image: "images/vadapavHistory.png"
+    },
+     {
+      name: "Potato Bhajji",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 5.49,
+      image: "images/potato bhaji.png"
+    },
+     {
+      name: "Onion Bhajji",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 5.49,
+      image: "images/onionbhajipav.png"
+    }
+  ],
+    "Sides and Fries": [
+    {
+      name: "Classic Fries (R)",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 1.99,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+     {
+      name: "Classic Fries (L)",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 2.99,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Cheesy Fries (R)",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 2.99,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Cheesy Fries (L)",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 3.99,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Noodle Bhel (R)",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 3.99,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Noodle Bhel (L)",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 4.99,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Spiral Potato",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 3.99,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Gravy Pot",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 1.99,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+  ],
+    "Wraps": [
+    {
+      name: "Chicken Wrap",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 5.49,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Manchurian Wrap",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 5.49,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    }
+  ],
+    "Burgers": [
+    {
+      name: "VeggieAloo Tikki Burger",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 5.49,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Chicken Burger",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 5.49,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Spicy Chicken Burger",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 5.49,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+  ],
+     "Drinks": [
+    {
+      name: "Chai",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 1.99,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Coffee",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 1.99,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Soda Cans",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 1.49,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+  ],
+     "Sauces(Dips)": [
+    {
+      name: "Mayo",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 0.50,
+      image: "images/mayo.png"
+    },
+    {
+      name: "Garlic Mayo",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 0.50,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Special Mayo",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 0.50,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "BBQ Sauce",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 0.50,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Schezwan(Spicy)",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 0.50,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+    {
+      name: "Honey and Chilly Sauce",
+      calories: "300 kcal",
+      protein: "18g",
+      price: 0.60,
+      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+    },
+  ]
+  
+};
+
 
   const container = document.querySelector('.container');
 
-  function generateCards(category) {
-    container.innerHTML = ''; // clear existing cards
-    const items = menuData[category];
+function generateCards(category) {
+  container.innerHTML = ''; // clear previous cards
+  const items = menuData[category];
+  if (items) {
     items.forEach(item => {
       const card = document.createElement('div');
       card.className = 'card';
       card.innerHTML = `
-        <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="${item}">
-        <h3>${item}</h3>
-        <p>Calories: 350 kcal</p>
-        <p>Protein: 18g</p>
+        <img src="${item.image}" alt="${item.name}">
+        <h3>${item.name}</h3>
+        <p>Calories: ${item.calories}</p>
+        <p>Protein: ${item.protein}</p>
         <div class="price-add">
-          <span class="price">₹149</span>
+          <span class="price">£${item.price}</span>
           <button class="add-btn">+</button>
         </div>
       `;
       container.appendChild(card);
     });
   }
+}
+
 
   // Handle category clicks
   document.querySelectorAll('.category-menu a').forEach(link => {
