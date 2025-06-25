@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
     .dropdown-menu {
@@ -44,6 +45,7 @@
 .profile-container {
   position: relative;
 }
+
 
   </style>
 </head>
@@ -86,92 +88,65 @@
     </div>
   </nav>
 </div>
+<a href="cart.html" class="cart-button">
+ View Cart <i class="fas fa-shopping-cart"></i>
+  <span id="cartCount">0</span>
+</a>
 
 
-  <!-- Our Menu Section -->
-  <section class="menu-section">
-    <h1>OUR MENU</h1>
-    <div class="menu-categories">
-  <span id="street" onclick="scrollToCategory('STREET BITES')">STREET BITES</span>
-  <span id="fries" onclick="scrollToCategory('FRIES')">FRIES</span>
-  <span id="bites" class="active" onclick="scrollToCategory('BITES')">BITES</span>
-  <span id="wraps" onclick="scrollToCategory('WRAPS')">WRAPS</span>
-  <span id="burgers" onclick="scrollToCategory('BURGERS')">BURGERS</span>
-</div>
-
-    <p class="menu-description">Order now and enjoy the magic...</p>
-
-    <!-- New Bites Card Section -->
-    <div class="menu-cards-wrapper" style="overflow-x: auto; white-space: nowrap; padding-bottom: 20px;">
-      <div class="menu-cards" style="display: inline-flex; flex-wrap: nowrap; gap: 40px; padding: 80px; padding-bottom: 100px;">
-        <div class="menu-card" style="display: inline-block;">
-          <img src="images/1.png" alt="Plain Chicken Bites" />
-          <h3><span class="highlight">Plain</span><br>Chicken Bites</h3>
-          <div class="price-cart">
-            <span>$100</span>
-            <i class="fa-solid fa-cart-shopping"></i>
-          </div>
-        </div>
-        <div class="menu-card" style="display: inline-block;">
-          <img src="images/2.png" alt="Peri Peri Chicken Bites" />
-          <h3><span class="highlight">Peri Peri</span><br>Chicken Bites</h3>
-          <div class="price-cart">
-            <span>$100</span>
-            <i class="fa-solid fa-cart-shopping"></i>
-          </div>
-        </div>
-        <div class="menu-card" style="display: inline-block;">
-          <img src="images/3.png" alt="BBQ Chicken Bites" />
-          <h3><span class="highlight">BBQ</span><br>Chicken Bites</h3>
-          <div class="price-cart">
-            <span>$100</span>
-            <i class="fa-solid fa-cart-shopping"></i>
-          </div>
-        </div>
-        <div class="menu-card" style="display: inline-block;">
-          <img src="images/4.png" alt="BBQ Chicken Bites" />
-          <h3><span class="highlight">BBQ</span><br>Chicken Bites</h3>
-          <div class="price-cart">
-            <span>$100</span>
-            <i class="fa-solid fa-cart-shopping"></i>
-          </div>
-        </div>
-        <div class="menu-card" style="display: inline-block;">
-          <img src="images/5.png" alt="Signature Chicken Bites" />
-          <h3><span class="highlight">BBQ</span><br>Chicken Bites</h3>
-          <div class="price-cart">
-            <span>$100</span>
-            <i class="fa-solid fa-cart-shopping"></i>
-          </div>
-        </div>
-        <div class="menu-card" style="display: inline-block;">
-          <img src="images/5.png" alt="Signature Chicken Bites" />
-          <h3><span class="highlight">BBQ</span><br>Chicken Bites</h3>
-          <div class="price-cart">
-            <span>$100</span>
-            <i class="fa-solid fa-cart-shopping"></i>
-          </div>
-        </div>
-        <div class="menu-card" style="display: inline-block;">
-          <img src="images/5.png" alt="Signature Chicken Bites" />
-          <h3><span class="highlight">BBQ</span><br>Chicken Bites</h3>
-          <div class="price-cart">
-            <span>$100</span>
-            <i class="fa-solid fa-cart-shopping"></i>
-          </div>
-        </div>
-        <div class="menu-card" style="display: inline-block;">
-          <img src="images/5.png" alt="Signature Chicken Bites" />
-          <h3><span class="highlight">BBQ</span><br>Chicken Bites</h3>
-          <div class="price-cart">
-            <span>$100</span>
-            <i class="fa-solid fa-cart-shopping"></i>
-          </div>
-        </div>
-      </div>
+<br><br>
+ <div class="category-menu">
+    <a href="#">STREET BITES</a>
+    <a href="#">WRAPS</a>
+    <a href="#">BITES</a>
+    <a href="#" class="active">BURGERS</a>
+    <a href="#">DRINKS</a>
+    <a href="#">VADAPAV</a>
+  </div>
+<div class="container">
+ <div class="card">
+    <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="Veggie Burger">
+    <h3>Veggie Burger</h3>
+    <p>Calories: 350 kcal</p>
+    <p>Protein: 18g</p>
+    <div class="price-add">
+      <span class="price">₹149</span>
+      <button class="add-btn">+</button>
     </div>
-  </section>
+  </div>
 
+  <div class="card">
+    <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="Veggie Burger">
+    <h3>Veggie Burger</h3>
+    <p>Calories: 350 kcal</p>
+    <p>Protein: 18g</p>
+    <div class="price-add">
+      <span class="price">₹149</span>
+      <button class="add-btn">+</button>
+    </div>
+  </div>
+<div class="card">
+    <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="Veggie Burger">
+    <h3>Veggie Burger</h3>
+    <p>Calories: 350 kcal</p>
+    <p>Protein: 18g</p>
+    <div class="price-add">
+      <span class="price">₹149</span>
+      <button class="add-btn">+</button>
+    </div>
+  </div>
+<div class="card">
+    <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="Veggie Burger">
+    <h3>Veggie Burger</h3>
+    <p>Calories: 350 kcal</p>
+    <p>Protein: 18g</p>
+    <div class="price-add">
+      <span class="price">₹149</span>
+      <button class="add-btn">+</button>
+    </div>
+  </div>
+</div>
+<br><br><br>
  <footer class="footer" id="contact">
   <div class="footer-container">
     <!-- Menu Items -->
@@ -199,89 +174,88 @@
 </footer>
 
   <script>
+  const menuData = {
+    "STREET BITES": [
+      "Vada Pav",
+      "Potato Bhajji Pav",
+      "Onion Bhajji Pav",
+    ],
+    "WRAPS": [
+      "Chicken Wrap",
+      "Veggie Wrap",
+      "Paneer Wrap",
+      "Spicy Wrap"
+    ],
+    "BITES": [
+      "Chicken Bites",
+      "Manchurian Bites ",
+      "Chicken Drumsticks",
+    ],
+    "BURGERS": [
+      "Classic Burger",
+      "Cheese Burger",
+      "Veggie Burger",
+      "BBQ Burger"
+    ],
+    "DRINKS": [
+      "Cold Coffee",
+      "Iced Tea",
+      "Soft Drink",
+      "Thick Shake"
+    ],
+    "VADAPAV": [
+      "Classic Vada Pav",
+      "Cheese Vada Pav",
+      "Tandoori Vada Pav",
+      "Masala Vada Pav"
+    ]
+  };
 
-window.addEventListener('scroll', function () {
-            const navbar = document.querySelector('.navbar');
-            if (window.scrollY > 0) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+  const container = document.querySelector('.container');
 
-    const menuData = {
-      "STREET BITES": [
-        "Plain Chicken Bites",
-        "Peri Peri Chicken Bites",
-        "BBQ Chicken Bites",
-        "BBQ Chicken Bites",
-        "Signature Chicken Bites",
-        "Signature Chicken Bites",
-        "Signature Chicken Bites",
-        "Signature Chicken Bites"
-      ],
-      "FRIES": [
-        "Classic Fries",
-        "Cheese Fries",
-        "Peri Peri Fries",
-        "Garlic Fries",
-        "Loaded Fries",
-        "Spicy Fries",
-        "Curly Fries",
-        "Sweet Potato Fries"
-      ],
-      "BITES": [
-        "Plain Chicken Bites",
-        "Peri Peri Chicken Bites",
-        "BBQ Chicken Bites",
-        "BBQ Chicken Bites",
-        "Signature Chicken Bites",
-        "Signature Chicken Bites",
-        "Signature Chicken Bites",
-        "Signature Chicken Bites"
-      ],
-      "WRAPS": [
-        "Chicken Wrap",
-        "Veggie Wrap",
-        "Paneer Wrap",
-        "Spicy Wrap",
-        "BBQ Wrap",
-        "Classic Wrap",
-        "Tandoori Wrap",
-        "Falafel Wrap"
-      ],
-      "BURGERS": [
-        "Classic Burger",
-        "Cheese Burger",
-        "Veggie Burger",
-        "BBQ Burger",
-        "Spicy Burger",
-        "Chicken Burger",
-        "Mushroom Burger",
-        "Signature Burger"
-      ]
-    };
-
-    function updateMenuCards(category) {
-      const cards = document.querySelectorAll('.menu-card h3');
-      const items = menuData[category];
-      cards.forEach((card, index) => {
-        if (items && items[index]) {
-          const parts = items[index].split(' ');
-          const highlight = parts[0];
-          const rest = parts.slice(1).join(' ');
-          card.innerHTML = `<span class="highlight">${highlight}</span><br>${rest}`;
-        }
-      });
-    }
-
-    document.querySelectorAll('.menu-categories span').forEach(span => {
-      span.addEventListener('click', () => {
-        document.querySelectorAll('.menu-categories span').forEach(s => s.classList.remove('active'));
-        span.classList.add('active');
-        updateMenuCards(span.textContent);
-      });
+  function generateCards(category) {
+    container.innerHTML = ''; // clear existing cards
+    const items = menuData[category];
+    items.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="${item}">
+        <h3>${item}</h3>
+        <p>Calories: 350 kcal</p>
+        <p>Protein: 18g</p>
+        <div class="price-add">
+          <span class="price">₹149</span>
+          <button class="add-btn">+</button>
+        </div>
+      `;
+      container.appendChild(card);
     });
+  }
+
+  // Handle category clicks
+  document.querySelectorAll('.category-menu a').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelectorAll('.category-menu a').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      const category = link.textContent.trim();
+      generateCards(category);
+    });
+  });
+
+  // Load default category on page load
+  const defaultCategory = document.querySelector('.category-menu a.active').textContent.trim();
+  generateCards(defaultCategory);
+
+let cartCount = 0;
+
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('add-btn')) {
+    cartCount++;
+    document.getElementById('cartCount').textContent = cartCount;
+  }
+});
 
     // Initialize with active category
     updateMenuCards(document.querySelector('.menu-categories span.active').textContent);
