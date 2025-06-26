@@ -106,9 +106,9 @@
 
   </div>
 
-<div class="container"></div>
-
-<br><br><br>
+<div class="content-area">
+  <div class="container"></div>
+  <br><br><br>
  <footer class="footer" id="contact">
   <div class="footer-container">
     <!-- Menu Items -->
@@ -136,6 +136,8 @@
     <h3>&copy; BHOOKIE<sup>®</sup>. All Rights Reserved.</h3>
   </div>
 </footer>
+</div>
+
 
   <script>
 const menuData = {
@@ -145,21 +147,21 @@ const menuData = {
       calories: "400 kcal",
       protein: "20g",
       price: 3.99,
-      image: "images/bites.png"
+      image: "images/3.png"
     },
     {
       name: "Manchurian Bites",
       calories: "450 kcal",
       protein: "22g",
       price: 3.99,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+      image: "images/manchurian.png"
     },
     {
       name: "Chicken Drumsticks",
       calories: "450 kcal",
       protein: "22g",
       price: 3.99,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+      image: "images/5.png"
     }
   ],
   "Bombay Street Chaska": [
@@ -191,49 +193,49 @@ const menuData = {
       calories: "300 kcal",
       protein: "18g",
       price: 1.99,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+      image: "images/cheesy fries.png"
     },
      {
       name: "Classic Fries (L)",
       calories: "300 kcal",
       protein: "18g",
       price: 2.99,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+      image:"images/cheesy fries.png"
     },
     {
       name: "Cheesy Fries (R)",
       calories: "300 kcal",
       protein: "18g",
       price: 2.99,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+      image: "images/cheesy fries.png"
     },
     {
       name: "Cheesy Fries (L)",
       calories: "300 kcal",
       protein: "18g",
       price: 3.99,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+      image: "images/cheesy fries.png"
     },
     {
       name: "Noodle Bhel (R)",
       calories: "300 kcal",
       protein: "18g",
       price: 3.99,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+      image: "images/chinese bhel.png"
     },
     {
       name: "Noodle Bhel (L)",
       calories: "300 kcal",
       protein: "18g",
       price: 4.99,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+      image: "images/chinese bhel.png"
     },
     {
       name: "Spiral Potato",
       calories: "300 kcal",
       protein: "18g",
       price: 3.99,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+      image: "images/spiralpotato.png"
     },
     {
       name: "Gravy Pot",
@@ -295,7 +297,7 @@ const menuData = {
       calories: "300 kcal",
       protein: "18g",
       price: 1.99,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
+      image: "images/coffee.png"
     },
     {
       name: "Soda Cans",
@@ -353,7 +355,7 @@ const menuData = {
 };
 
 
-  const container = document.querySelector('.container');
+const container = document.querySelector('.container');
 
 function generateCards(category) {
   container.innerHTML = ''; // clear previous cards
@@ -362,17 +364,38 @@ function generateCards(category) {
     items.forEach(item => {
       const card = document.createElement('div');
       card.className = 'card';
-      card.innerHTML = `
-        <img src="${item.image}" alt="${item.name}">
-        <h3>${item.name}</h3>
-        <p>Calories: ${item.calories}</p>
-        <p>Protein: ${item.protein}</p>
-        <div class="price-add">
-          <span class="price">£ ${item.price}</span>
-          <button class="add-btn">+</button>
-        </div>
-      `;
+    card.innerHTML = `
+  <img src="${item.image}" alt="${item.name}">
+  <h3>${item.name}</h3>
+  <p>Calories: ${item.calories}</p>
+  <p>Protein: ${item.protein}</p>
+  <div class="price-add">
+    <span class="price">£ ${item.price}</span>
+    <div class="price-add-buttons">
+      <button class="sub-btn" style="display: none;">-</button>
+      <button class="add-btn">+</button>
+    </div>
+  </div>
+`;
+
       container.appendChild(card);
+
+      const addBtn = card.querySelector('.add-btn');
+      const subBtn = card.querySelector('.sub-btn');
+
+      let quantity = 0;
+
+      addBtn.addEventListener('click', () => {
+        quantity++;
+        subBtn.style.display = 'inline-block';
+      });
+
+      subBtn.addEventListener('click', () => {
+        quantity--;
+        if (quantity <= 0) {
+          subBtn.style.display = 'none';
+        }
+      });
     });
   }
 }
@@ -393,14 +416,7 @@ function generateCards(category) {
   const defaultCategory = document.querySelector('.category-menu a.active').textContent.trim();
   generateCards(defaultCategory);
 
-let cartCount = 0;
 
-document.addEventListener('click', function(e) {
-  if (e.target.classList.contains('add-btn')) {
-    cartCount++;
-    document.getElementById('cartCount').textContent = cartCount;
-  }
-});
 
     // Initialize with active category
     updateMenuCards(document.querySelector('.menu-categories span.active').textContent);
@@ -450,7 +466,6 @@ document.addEventListener('click', function(e) {
     navLinks.classList.toggle('active');
   });
 
-  // Scroll to section if URL contains a hash (e.g. #wraps)
 window.addEventListener('DOMContentLoaded', () => {
   const welcomeUser = document.getElementById("welcomeUser");
   const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -472,7 +487,9 @@ window.addEventListener('DOMContentLoaded', () => {
         span.scrollIntoView({ behavior: 'smooth' });
       }
     });
-  }document.addEventListener('click', function(e) {
+  }
+
+  document.addEventListener('click', function(e) {
   if (e.target.classList.contains('add-btn')) {
     const card = e.target.closest('.card');
     const itemName = card.querySelector('h3').textContent;
@@ -506,6 +523,8 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   });
 });
+
+
 </script>
 
 </body>
