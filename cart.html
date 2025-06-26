@@ -1,360 +1,330 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bhookie Cart</title>
-  <link rel="stylesheet" href="menu.css">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    body {
-      font-family: 'Montserrat', sans-serif;
-      margin: 0;
-      background: #121212;
-      color: #ffffff;
+    * {
+      box-sizing: border-box;
     }
-    header {
+    body {
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
       background-color: #121212;
-      color: #ff6f00;
-      padding: 15px 20px;
+      color: #fff;
+    }
+
+    header {
+      background-color: #1b1b1b;
+      padding: 20px;
+      border-bottom: 2px solid #ff6600;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid #ff6f00;
     }
+
+    .back-to-menu {
+      background-color: #ff6600;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
     .container {
       display: flex;
-      padding: 20px;
+      flex-wrap: wrap;
       gap: 20px;
+      padding: 20px;
     }
-    .main, .sidebar {
-      background: #1e1e1e;
+
+    .main {
+      flex: 2;
+      background-color: #1e1e1e;
       padding: 20px;
       border-radius: 8px;
-      border: 1px solid #2c2c2c;
     }
-    .main {
-      flex: 3;
-    }
+
     .sidebar {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      background: transparent;
-      padding: 0;
-      flex: 1.5;
-      min-width: 350px;
-      max-width: 400px;
-    }
-    .card {
-      background-color: #1a1a1a;
+      flex: 1;
+      min-width: 300px;
+      background-color: #1e1e1e;
+      padding: 20px;
       border-radius: 8px;
-      padding: 15px;
-      border: 1px solid #2e2e2e;
     }
-    .label {
-      font-size: 14px;
-      font-weight: bold;
-      margin-bottom: 10px;
-      color: #ffffff;
+
+    h2, h3 {
+      margin-top: 0;
     }
-    .sub-label {
-      font-size: 10px;
-      color: gray;
-      text-transform: uppercase;
-      margin-bottom: 3px;
-    }
-    .card-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .change-btn {
-      background-color: #ff6600;
-      color: white;
-      border: none;
-      padding: 5px 15px;
-      border-radius: 4px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .offer-card {
-      cursor: pointer;
-      background-color: #262626;
-      transition: background 0.3s ease;
-    }
-    .offer-card:hover {
-      background-color: #333;
-    }
-    .price-row {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 8px;
-      color: #ffffff;
-      font-size: 14px;
-    }
-    .price-row.total {
-      border-top: 1px solid #333;
-      padding-top: 10px;
-      font-weight: bold;
-    }
-    .place-order-btn {
-      background-color: #ff6600;
-      color: white;
-      padding: 10px;
-      width: 100%;
-      border: none;
-      border-radius: 4px;
-      margin-top: 15px;
-      font-weight: bold;
-      font-size: 15px;
-      cursor: pointer;
-    }
+
     .item {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       border-bottom: 1px solid #333;
       padding: 15px 0;
     }
+
     .item img {
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
       object-fit: cover;
-      margin-right: 15px;
       border-radius: 8px;
       border: 1px solid #ff6600;
+      margin-right: 15px;
     }
+
     .item-info {
       flex: 1;
     }
+
+    .qty-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+    }
+
+    .qty-controls button {
+      background: #ff6600;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
     .addons {
       display: flex;
-      overflow-x: auto;
-      gap: 10px;
-      padding: 15px 0;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
     }
+
     .addon-card {
-      background: #2a2a2a;
+      background-color: #2a2a2a;
       border: 1px solid #ff6600;
       border-radius: 8px;
       padding: 10px;
-      min-width: 120px;
+      width: 140px;
       text-align: center;
     }
+
     .addon-card img {
       width: 100%;
       height: 70px;
       object-fit: cover;
       border-radius: 6px;
     }
-    .price-box {
-      margin-top: 20px;
+
+    .addon-name {
+      font-weight: bold;
+      margin: 5px 0 2px;
     }
-  
+
+    .addon-price {
+      margin: 0;
+      font-size: 14px;
+    }
+
     .btn {
       background: #ff6600;
       color: white;
-      padding: 12px;
-      text-align: center;
       border: none;
+      padding: 8px;
       width: 100%;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 6px;
-      transition: background 0.3s;
-    }
-    .btn:hover {
-      background: #e05c00;
-    }
-    .qty-controls {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .qty-controls button {
-      padding: 4px 10px;
-      background-color: #2a2a2a;
-      color: #ff6600;
-      border: 1px solid #ff6600;
       border-radius: 4px;
+      font-weight: bold;
+      margin-top: 5px;
       cursor: pointer;
     }
-    .back-to-menu {
+
+    .card {
+      background: #2b2b2b;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+    }
+
+    .card-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      margin: 8px 0;
+    }
+
+    .total {
+      border-top: 1px solid #444;
+      padding-top: 10px;
+      font-weight: bold;
+    }
+
+    .place-order-btn {
+      width: 100%;
+      padding: 12px;
       background-color: #ff6600;
       color: white;
-      padding: 10px 20px;
       border: none;
-      border-radius: 4px;
+      border-radius: 6px;
+      font-size: 16px;
       font-weight: bold;
       cursor: pointer;
-      margin-bottom: 20px;
-      display: inline-block;
+    }
+
+    @media screen and (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <div style="display: flex; align-items: center; gap: 10px;">
-    <img src="images/logo.png" alt="Bhookie Logo" style="height: 60px;">
-  </div>
-  <a href="menu.html" class="back-to-menu">Back to Menu</a>
+  <img src="images/logo.png" alt="Bhookie Logo" height="50">
+  <a class="back-to-menu" href="menu.html">Back to Menu</a>
 </header>
 
 <div class="container">
-  <!-- Main Content -->
+  <!-- Left -->
   <div class="main">
-    <h3 id="itemCount">Items you have selected</h3>
-
-    <div id="cart">
-      <!-- JS will render items here -->
-    </div>
-
-    <h4>Complete your meal</h4>
+    <h2 id="itemCount">Items you have selected</h2>
+    <div id="cart"></div>
+    <br>
+    <br>
+    <h3>Complete your meal</h3>
     <div class="addons">
       <div class="addon-card">
-        <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="bread">
-        <p>Garlic Bread £1.99</p>
-        <button class="btn" style="font-size: 12px;">ADD</button>
+        <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="Garlic Bread">
+        <p class="addon-name">Garlic Bread</p>
+        <p class="addon-price">£1.99</p>
+        <button class="btn">ADD</button>
       </div>
       <div class="addon-card">
-        <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="pepsi">
-        <p>Pepsi £1.49</p>
-        <button class="btn" style="font-size: 12px;">ADD</button>
+        <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="Pepsi">
+        <p class="addon-name">Pepsi</p>
+        <p class="addon-price">£1.49</p>
+        <button class="btn">ADD</button>
       </div>
     </div>
   </div>
 
+  <!-- Right -->
   <div class="sidebar">
-    <!-- Address Section -->
     <div class="card">
-      <p class="label">Choose a delivery address</p>
+      <p class="label">Delivery Address</p>
       <div class="card-row">
         <div>
-          <p class="sub-label">CURRENT ADDRESS</p>
-          <p>London</p>
+          <p style="font-size: 12px; color: #aaa;">Current Address</p>
+          <p style="margin: 0;">London</p>
         </div>
-        <button class="change-btn">CHANGE</button>
+        <button class="btn" style="width: auto; padding: 5px 10px;">Change</button>
       </div>
     </div>
-  
-    <!-- Offer Section -->
-    <div class="card offer-card">
-      <div class="card-row">
-       <!-- <img src="https://cdn-icons-png.flaticon.com/512/633/633611.png" width="25" height="25" alt="offer icon" />-->
-        <div style="flex: 1; margin-left: 10px;">
-          <p style="margin: 0; font-weight: bold;">Select offer / Apply coupon</p>
-          <p style="margin: 0; font-size: 12px; color: gray;">Get discount with your order</p>
-        </div>
-        <span style="font-size: 20px; color: gray;">›</span>
-      </div>
-    </div>
-  
-    <!-- Price Details -->
+
     <div class="card">
-      <div class="price-row"><span>Sub Total</span><span id="subTotal">£0</span></div>
+      <p class="label">Select offer / Apply coupon</p>
+      <p style="font-size: 12px; color: #aaa;">Get discount with your order</p>
+    </div>
+
+    <div class="card">
+      <div class="price-row"><span>Sub Total</span><span id="subTotal">£0.00</span></div>
       <div class="price-row"><span>Discount</span><span>-</span></div>
       <div class="price-row"><span>Taxes and Charges</span><span>£1.50</span></div>
-      <div class="price-row total"><strong>Grand Total</strong><strong id="grandTotal">£0</strong></div>
+      <div class="price-row total"><span>Grand Total</span><span id="grandTotal">£0.00</span></div>
       <button class="place-order-btn">PLACE ORDER</button>
     </div>
   </div>
-
+</div>
 
 <script>
-  // Get cart items from localStorage
   let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  
+
   function renderCart() {
     const cartDiv = document.getElementById("cart");
-    const itemCountElement = document.getElementById("itemCount");
-    
-    cartDiv.innerHTML = '';
-    
+    const itemCount = document.getElementById("itemCount");
+    cartDiv.innerHTML = "";
+
     if (cartItems.length === 0) {
-      cartDiv.innerHTML = '<p>Your cart is empty</p>';
-      itemCountElement.textContent = 'Your cart is empty';
+      itemCount.textContent = "Your cart is empty";
+      cartDiv.innerHTML = "<p>No items in your cart.</p>";
+      document.getElementById("subTotal").textContent = "£0.00";
+      document.getElementById("grandTotal").textContent = "£1.50";
       return;
     }
-    
-    itemCountElement.textContent = `${cartItems.length} ${cartItems.length === 1 ? 'Item' : 'Items'} you have selected`;
-    
+
+    itemCount.textContent = `${cartItems.length} item(s) you have selected`;
+
     cartItems.forEach((item, index) => {
-      const itemHTML = `
-        <div class="item">
-          <img src="${item.image}" alt="${item.name}" />
-          <div class="item-info">
-            <h4>${item.name}</h4>
-            <p>${item.calories || ''}</p>
+      const itemElement = document.createElement("div");
+      itemElement.classList.add("item");
+      itemElement.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <div class="item-info">
+          <h4>${item.name}</h4>
+          <p>${item.calories || ''}</p>
+        </div>
+        <div>
+          £${(item.price * item.quantity).toFixed(2)}
+          <div class="qty-controls">
+            <button onclick="updateQty(${index}, -1)">-</button>
+            <span>${item.quantity}</span>
+            <button onclick="updateQty(${index}, 1)">+</button>
           </div>
-          <div>
-            £${item.price.toFixed(2)}
-            <div class="qty-controls">
-              <button onclick="updateQty(${index}, -1)">-</button>
-              <span>${item.quantity || 1}</span>
-              <button onclick="updateQty(${index}, 1)">+</button>
-            </div>
-          </div>
-        </div>`;
-      cartDiv.innerHTML += itemHTML;
+        </div>
+      `;
+      cartDiv.appendChild(itemElement);
     });
-    
+
     updateTotals();
   }
 
   function updateQty(index, change) {
     cartItems[index].quantity += change;
-    
-    // Remove item if quantity reaches 0
     if (cartItems[index].quantity <= 0) {
       cartItems.splice(index, 1);
     }
-    
-    // Save to localStorage
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    
-    // Update cart count in navbar (if exists)
-    const cartCountElement = document.getElementById('cartCount');
-    if (cartCountElement) {
-      const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
-      cartCountElement.textContent = totalItems;
-    }
-    
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
     renderCart();
   }
 
   function updateTotals() {
-    const subTotal = cartItems.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
-    document.getElementById("subTotal").textContent = `£${subTotal.toFixed(2)}`;
-    document.getElementById("grandTotal").textContent = `£${(subTotal + 1.50).toFixed(2)}`;
+    let subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    document.getElementById("subTotal").textContent = `£${subtotal.toFixed(2)}`;
+    document.getElementById("grandTotal").textContent = `£${(subtotal + 1.50).toFixed(2)}`;
   }
 
-  // Initialize the cart when page loads
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener("DOMContentLoaded", () => {
     renderCart();
-    
-    // Add event listeners for "Add" buttons in add-ons
-    document.querySelectorAll('.addon-card .btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        const card = this.closest('.addon-card');
-        const name = card.querySelector('p').textContent.split('£')[0].trim();
-        const price = parseFloat(card.querySelector('p').textContent.match(/£(\d+\.\d{2})/)[1]);
-        
-        // Check if item already exists in cart
-        const existingItem = cartItems.find(item => item.name === name);
-        if (existingItem) {
-          existingItem.quantity += 1;
+
+    document.querySelectorAll(".addon-card .btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const card = btn.closest(".addon-card");
+        const name = card.querySelector(".addon-name").textContent;
+        const price = parseFloat(card.querySelector(".addon-price").textContent.slice(1));
+        const img = card.querySelector("img").src;
+
+        const existing = cartItems.find((item) => item.name === name);
+        if (existing) {
+          existing.quantity += 1;
         } else {
-          cartItems.push({
-            name: name,
-            price: price,
-            image: card.querySelector('img').src,
-            quantity: 1
-          });
+          cartItems.push({ name, price, image: img, quantity: 1 });
         }
-        
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
         renderCart();
       });
     });
