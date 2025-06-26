@@ -1,446 +1,540 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Bhookie</title>
-  <link rel="stylesheet" href="menu.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bhookie</title>
+    <link rel="stylesheet" href="menu.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
 
-  <style>
-    .dropdown-menu {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 30px;
-  background-color: #000;
-  border: 2px solid #ff6600;
-  border-radius: 6px;
-  min-width: 140px; /* Reduced width */
-  z-index: 999;
-  list-style: none;
-  padding: 4px 0;
-  margin: 0;
-  box-shadow: 0 4px 10px rgba(255, 102, 0, 0.25);
-}
+    <style>
+      .dropdown-menu {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 30px;
+        background-color: #000;
+        border: 2px solid #ff6600;
+        border-radius: 6px;
+        min-width: 140px; /* Reduced width */
+        z-index: 999;
+        list-style: none;
+        padding: 4px 0;
+        margin: 0;
+        box-shadow: 0 4px 10px rgba(255, 102, 0, 0.25);
+      }
 
-.dropdown-menu li a {
-  display: block;
-  padding: 8px 12px; /* Smaller padding */
-  color: #fff;
-  font-size: 14px;   /* Smaller font */
-  text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.3s, color 0.3s;
-}
+      .dropdown-menu li a {
+        display: block;
+        padding: 8px 12px; /* Smaller padding */
+        color: #fff;
+        font-size: 14px; /* Smaller font */
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.3s, color 0.3s;
+      }
 
-.dropdown-menu li a:hover {
-  background-color: #ff6600;
-  color: #000;
-}
+      .dropdown-menu li a:hover {
+        background-color: #ff6600;
+        color: #000;
+      }
 
-.profile-container {
-  position: relative;
-}
+      .profile-container {
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background with Navbar on top -->
+    <div class="hero-section">
+      <nav class="navbar">
+        <div class="nav-logo">
+          <a href="index.html">
+            <img id="navLogo" src="images/logo.png" alt="Bhookie Logo" />
+          </a>
+        </div>
 
+        <!-- Hamburger button for mobile view -->
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
 
-  </style>
-</head>
-<body>
-  
-  <!-- Background with Navbar on top -->
-<div class="hero-section">
-  <nav class="navbar">
-    <div class="nav-logo">
-      <a href="index.html">
-        <img id="navLogo" src="images/logo.png" alt="Bhookie Logo" />
-      </a>
+        <!-- Navigation Links -->
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html" class="active">Menu</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="contact_us.html">Contact</a></li>
+        </ul>
+
+        <!-- Profile Icon & Dropdown -->
+        <div class="profile-container">
+          <div class="nav-buttons">
+            <a class="profile-icon">
+              <img
+                src="images/user.png"
+                alt="User Icon"
+                style="height: 20px; width: 20px"
+              />
+            </a>
+            <span
+              id="welcomeUser"
+              style="
+                margin-left: 10px;
+                color: rgb(11, 11, 11);
+                font-weight: bold;
+              "
+            ></span>
+
+            <ul
+              class="dropdown-menu"
+              id="profileDropdown"
+              style="display: none"
+            ></ul>
+          </div>
+        </div>
+      </nav>
     </div>
+    <a href="cart.html" class="cart-button">
+      View Cart <i class="fas fa-shopping-cart"></i>
+      <span id="cartCount">0</span>
+    </a>
 
-    <!-- Hamburger button for mobile view -->
-    <div class="hamburger" id="hamburger">
-      <span></span>
-      <span></span>
-      <span></span>
+    <br /><br />
+    <div class="category-menu">
+      <a href="#">Bombay Street Chaska</a>
+      <a href="#">Wraps</a>
+      <a href="#">Bites</a>
+      <a href="#" class="active">Burgers</a>
+      <a href="#">Drinks</a>
+      <a href="#">Sides and Fries</a>
+      <a href="#">Sauces(Dips)</a>
     </div>
+    <!-- Modal -->
+    <div class="modal-overlay" id="productModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 id="modalTitle">Veggie Burger</h3>
+          <button class="close-btn" onclick="closeModal()">&times;</button>
+        </div>
 
-    <!-- Navigation Links -->
-    <ul class="nav-links" id="navLinks">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="menu.html" class="active">Menu</a></li>
-      <li><a href="aboutus.html">About Us</a></li>
-      <li><a href="contact_us.html">Contact</a></li>
-    </ul>
+        <div class="modal-body">
+          <div class="product-image">
+            <img id="modalImage" src="images/burger.jpg" alt="Veggie Burger" />
+          </div>
 
-    <!-- Profile Icon & Dropdown -->
-    <div class="profile-container">
-      <div class="nav-buttons">
-        <a class="profile-icon">
-          <img src="images/user.png" alt="User Icon" style="height: 20px; width: 20px;">
-        </a>
-        <span id="welcomeUser" style="margin-left: 10px; color: rgb(11, 11, 11); font-weight: bold;"></span>
+          <div class="product-details">
+            <div class="product-stats">
+              <div>
+                <span>Calories:</span> <span id="modalCalories">360 kcal</span>
+              </div>
+              <div><span>Fats:</span> <span id="modalFats">15g</span></div>
+              <div>
+                <span>Proteins:</span> <span id="modalProteins">18g</span>
+              </div>
+              <div>
+                <span>Energy:</span>
+                <span id="modalEnergy">649 kcal / 2715 kJ</span>
+              </div>
+            </div>
 
-        <ul class="dropdown-menu" id="profileDropdown" style="display: none;"></ul>
+            <div class="allergens">
+              <div class="allergen-icon">G</div>
+              <div class="allergen-icon">M</div>
+              <div class="allergen-icon">E</div>
+              <div class="allergen-icon">S</div>
+              <div class="allergen-icon">Se</div>
+            </div>
+
+            <div class="sauces-section">
+              <div class="sauces-title">Choose your sauce:</div>
+              <div class="sauces-grid">
+                <div class="sauce-item" onclick="selectSauce(this)">
+                  <img src="images/mayo.png" alt="Ranch" />
+                  <div class="sauce-name">Ranch</div>
+                </div>
+                <div class="sauce-item" onclick="selectSauce(this)">
+                  <img src="images/mayo.png" alt="Blue Cheese" />
+                  <div class="sauce-name">Blue Cheese</div>
+                </div>
+                <div class="sauce-item" onclick="selectSauce(this)">
+                  <img src="images/mayo.png" alt="Honey Mustard" />
+                  <div class="sauce-name">Honey Mustard</div>
+                </div>
+                <div class="sauce-item" onclick="selectSauce(this)">
+                  <img src="images/mayo.png" alt="Honey Mustard" />
+                  <div class="sauce-name">Honey Mustard</div>
+                </div>
+                <div class="sauce-item" onclick="selectSauce(this)">
+                  <img src="images/mayo.png" alt="Regular Ranch" />
+                  <div class="sauce-name">Regular Ranch</div>
+                </div>
+                <div class="sauce-item" onclick="selectSauce(this)">
+                  <img src="images/mayo.png" alt="Ketchup Sachets" />
+                  <div class="sauce-name">Ketchup Sachets</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <div class="quantity-controls">
+            <button class="quantity-btn" onclick="changeQuantity(-1)">-</button>
+            <span class="quantity-display" id="quantity">1</span>
+            <button class="quantity-btn" onclick="changeQuantity(1)">+</button>
+          </div>
+
+          <button class="add-to-order-btn" onclick="addToOrder()">
+            ADD TO ORDER <span class="total-price" id="totalPrice">£4.50</span>
+          </button>
+        </div>
       </div>
     </div>
-  </nav>
-</div>
-<a href="cart.html" class="cart-button">
- View Cart <i class="fas fa-shopping-cart"></i>
-  <span id="cartCount">0</span>
-</a>
 
+    <div class="container"></div>
 
-<br><br>
- <div class="category-menu">
-    <a href="#">Bombay Street Chaska</a>
-    <a href="#">Wraps</a>
-    <a href="#">Bites</a>
-    <a href="#" class="active">Burgers</a>
-    <a href="#">Drinks</a>
-    <a href="#">Sides and Fries</a>
-    <a href="#">Sauces(Dips)</a>
+    <br /><br /><br />
+    <footer class="footer" id="contact">
+      <div class="footer-container">
+        <!-- Menu Items -->
+        <div class="footer-menu">
+          <a href="menu.html#street">Street Bites</a>
+          <a href="menu.html#fries">FRIES</a>
+          <a href="menu.html#bites">BITES</a>
+          <a href="menu.html#wraps">WRAPS</a>
+          <a href="menu.html#burgers">BURGERS</a>
+          <a href="menu.html#drinks">DRINKS</a>
+          <a href="menu.html#drinks">Dips</a>
+        </div>
 
-  </div>
+        <!-- Social Icons -->
+        <div class="footer-socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
 
-<div class="content-area">
-  <div class="container"></div>
-  <br><br><br>
- <footer class="footer" id="contact">
-  <div class="footer-container">
-    <!-- Menu Items -->
-    <div class="footer-menu">
-      <a href="menu.html#street">Street Bites</a>
-      <a href="menu.html#fries">FRIES</a>
-      <a href="menu.html#bites">BITES</a>
-      <a href="menu.html#wraps">WRAPS</a>
-      <a href="menu.html#burgers">BURGERS</a>
-      <a href="menu.html#drinks">DRINKS</a>
-      <a href="menu.html#drinks">Dips</a>
+      <!-- Bottom Footer -->
+      <div class="footer-bottom">
+        <h3>&copy; BHOOKIE<sup>®</sup>. All Rights Reserved.</h3>
+      </div>
+    </footer>
 
-    </div>
+    <script>
+      const menuData = {
+        Bites: [
+          {
+            name: "Chicken Bites",
+            calories: "400 kcal",
+            protein: "20g",
+            price: 3.99,
+            image: "images/bites.png",
+          },
+          {
+            name: "Manchurian Bites",
+            calories: "450 kcal",
+            protein: "22g",
+            price: 3.99,
+            image: "images/manchurian.png",
+          },
+          {
+            name: "Chicken Drumsticks",
+            calories: "450 kcal",
+            protein: "22g",
+            price: 3.99,
+            image: "images/chickenDrumsticks-model.png",
+          },
+        ],
+        "Bombay Street Chaska": [
+          {
+            name: "Vada Pav",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 5.49,
+            image: "images/vadapavHistory.png",
+          },
+          {
+            name: "Potato Bhajji Pav",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 5.49,
+            image: "images/pbja.png",
+          },
+          {
+            name: "Onion Bhajji Pav",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 5.49,
+            image: "images/onionbhajipav.png",
+          },
+        ],
+        "Sides and Fries": [
+          {
+            name: "Classic Fries (R)",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 1.99,
+            image: "images/fries-image-model.png",
+          },
+          {
+            name: "Classic Fries (L)",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 2.99,
+            image: "images/fries-image-model.png",
+          },
+          {
+            name: "Cheesy Fries (R)",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 2.99,
+            image: "images/fries-image-model.png",
+          },
+          {
+            name: "Cheesy Fries (L)",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 3.99,
+            image: "images/fries-image-model.png",
+          },
+          {
+            name: "Noodle Bhel (R)",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 3.99,
+            image: "images/noodle-bhel-model.png",
+          },
+          {
+            name: "Noodle Bhel (L)",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 4.99,
+            image: "images/noodle-bhel-model.png",
+          },
+          {
+            name: "Spiral Potato",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 3.99,
+            image: "images/spiral-potato-model.png",
+          },
+          {
+            name: "Gravy Pot",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 1.99,
+            image: "images/noodle-bhel-model.png",
+          },
+        ],
+        Wraps: [
+          {
+            name: "Chicken Wrap",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 5.49,
+            image: "images/chickenwrap.png",
+          },
+          {
+            name: "Manchurian Wrap",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 5.49,
+            image: "images/manchurianwrap.png",
+          },
+        ],
+        Burgers: [
+          {
+            name: "VeggieAloo Tikki Burger",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 5.49,
+            image: "images/burger-image.png",
+          },
+          {
+            name: "Chicken Burger",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 5.49,
+            image: "images/burger-image.png",
+          },
+          {
+            name: "Spicy Chicken Burger",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 5.49,
+            image: "images/burger-image.png",
+          },
+        ],
+        Drinks: [
+          {
+            name: "Chai",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 1.99,
+            image: "images/chai.png",
+          },
+          {
+            name: "Coffee",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 1.99,
+            image: "images/coffee-image-model.png",
+          },
+          {
+            name: "Soda Cans",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 1.49,
+            image: "images/sodacans-model.png",
+          },
+        ],
+        "Sauces(Dips)": [
+          {
+            name: "Mayo",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 0.5,
+            image: "images/mayo.png",
+          },
+          {
+            name: "Garlic Mayo",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 0.5,
+            image: "images/mayo.png",
+          },
+          {
+            name: "Special Mayo",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 0.5,
+            image: "images/mayo.png",
+          },
+          {
+            name: "BBQ Sauce",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 0.5,
+            image: "images/mayo.png",
+          },
+          {
+            name: "Schezwan(Spicy)",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 0.5,
+            image: "images/mayo.png",
+          },
+          {
+            name: "Honey and Chilly Sauce",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 0.6,
+            image: "images/mayo.png",
+          },
+        ],
+      };
 
-    <!-- Social Icons -->
-    <div class="footer-socials">
-      <a href="#"><i class="fab fa-facebook-f"></i></a>
-      <a href="#"><i class="fab fa-twitter"></i></a>
-      <a href="#"><i class="fab fa-instagram"></i></a>
-    </div>
-  </div>
+      const container = document.querySelector(".container");
 
-  <!-- Bottom Footer -->
-  <div class="footer-bottom">
-    <h3>&copy; BHOOKIE<sup>®</sup>. All Rights Reserved.</h3>
-  </div>
-</footer>
-</div>
+      function generateCards(category) {
+        container.innerHTML = ""; // clear previous cards
+        const items = menuData[category];
+        if (items) {
+          items.forEach((item) => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <h3>${item.name}</h3>
+        <p>Calories: ${item.calories}</p>
+        <p>Protein: ${item.protein}</p>
+        <div class="price-add">
+          <span class="price">£ ${item.price}</span>
+           <button class="add-btn" onclick="openModal('${
+             item.id || item.name
+           }', '${item.price}', '${item.name}', '${item.image}', '${
+              item.calories
+            }', '${item.fats || "15g"}', '${item.protein}')">+</button>
+        </div>
+      `;
+            container.appendChild(card);
+          });
+        }
+      }
 
-
-  <script>
-const menuData = {
-  "Bites": [
-    {
-      name: "Chicken Bites",
-      calories: "400 kcal",
-      protein: "20g",
-      price: 3.99,
-      image: "images/3.png"
-    },
-    {
-      name: "Manchurian Bites",
-      calories: "450 kcal",
-      protein: "22g",
-      price: 3.99,
-      image: "images/manchurian.png"
-    },
-    {
-      name: "Chicken Drumsticks",
-      calories: "450 kcal",
-      protein: "22g",
-      price: 3.99,
-      image: "images/5.png"
-    }
-  ],
-  "Bombay Street Chaska": [
-    {
-      name: "Vada Pav",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 5.49,
-      image: "images/vadapavHistory.png"
-    },
-     {
-      name: "Potato Bhajji Pav",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 5.49,
-      image: "images/pbja.png"
-    },
-     {
-      name: "Onion Bhajji Pav",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 5.49,
-      image: "images/onionbhajipav.png"
-    }
-  ],
-    "Sides and Fries": [
-    {
-      name: "Classic Fries (R)",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 1.99,
-      image: "images/cheesy fries.png"
-    },
-     {
-      name: "Classic Fries (L)",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 2.99,
-      image:"images/cheesy fries.png"
-    },
-    {
-      name: "Cheesy Fries (R)",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 2.99,
-      image: "images/cheesy fries.png"
-    },
-    {
-      name: "Cheesy Fries (L)",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 3.99,
-      image: "images/cheesy fries.png"
-    },
-    {
-      name: "Noodle Bhel (R)",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 3.99,
-      image: "images/chinese bhel.png"
-    },
-    {
-      name: "Noodle Bhel (L)",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 4.99,
-      image: "images/chinese bhel.png"
-    },
-    {
-      name: "Spiral Potato",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 3.99,
-      image: "images/spiralpotato.png"
-    },
-    {
-      name: "Gravy Pot",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 1.99,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
-    },
-  ],
-    "Wraps": [
-    {
-      name: "Chicken Wrap",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 5.49,
-      image: "images/chickenwrap.png"
-    },
-    {
-      name: "Manchurian Wrap",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 5.49,
-      image: "images/manchurianwrap.png"
-    }
-  ],
-    "Burgers": [
-    {
-      name: "VeggieAloo Tikki Burger",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 5.49,
-      image: "images/veggiealootikkiburger.png"
-    },
-    {
-      name: "Chicken Burger",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 5.49,
-      image: "images/burger.png"
-    },
-    {
-      name: "Spicy Chicken Burger",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 5.49,
-      image: "images/burger.png"
-    },
-  ],
-     "Drinks": [
-    {
-      name: "Chai",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 1.99,
-      image: "images/chai.png"
-    },
-    {
-      name: "Coffee",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 1.99,
-      image: "images/coffee.png"
-    },
-    {
-      name: "Soda Cans",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 1.49,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
-    },
-  ],
-     "Sauces(Dips)": [
-    {
-      name: "Mayo",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 0.50,
-      image: "images/mayo.png"
-    },
-    {
-      name: "Garlic Mayo",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 0.50,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
-    },
-    {
-      name: "Special Mayo",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 0.50,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
-    },
-    {
-      name: "BBQ Sauce",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 0.50,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
-    },
-    {
-      name: "Schezwan(Spicy)",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 0.50,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
-    },
-    {
-      name: "Honey and Chilly Sauce",
-      calories: "300 kcal",
-      protein: "18g",
-      price: 0.60,
-      image: "https://i.ibb.co/9Vd6cgG/burger.png"
-    },
-  ]
-  
-};
-
-
-const container = document.querySelector('.container');
-
-function generateCards(category) {
-  container.innerHTML = ''; // clear previous cards
-  const items = menuData[category];
-  if (items) {
-    items.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'card';
-    card.innerHTML = `
-  <img src="${item.image}" alt="${item.name}">
-  <h3>${item.name}</h3>
-  <p>Calories: ${item.calories}</p>
-  <p>Protein: ${item.protein}</p>
-  <div class="price-add">
-    <span class="price">£ ${item.price}</span>
-    <div class="price-add-buttons">
-      <button class="sub-btn" style="display: none;">-</button>
-      <button class="add-btn">+</button>
-    </div>
-  </div>
-`;
-
-      container.appendChild(card);
-
-      const addBtn = card.querySelector('.add-btn');
-      const subBtn = card.querySelector('.sub-btn');
-
-      let quantity = 0;
-
-      addBtn.addEventListener('click', () => {
-        quantity++;
-        subBtn.style.display = 'inline-block';
+      // Handle category clicks
+      document.querySelectorAll(".category-menu a").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          document
+            .querySelectorAll(".category-menu a")
+            .forEach((l) => l.classList.remove("active"));
+          link.classList.add("active");
+          const category = link.textContent.trim();
+          generateCards(category);
+        });
       });
 
-      subBtn.addEventListener('click', () => {
-        quantity--;
-        if (quantity <= 0) {
-          subBtn.style.display = 'none';
+      // Load default category on page load
+      const defaultCategory = document
+        .querySelector(".category-menu a.active")
+        .textContent.trim();
+      generateCards(defaultCategory);
+
+      let cartCount = 0;
+
+      document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("add-btn")) {
+          cartCount++;
+          document.getElementById("cartCount").textContent = cartCount;
         }
       });
-    });
-  }
-}
 
+      // Initialize with active category
+      updateMenuCards(
+        document.querySelector(".menu-categories span.active").textContent
+      );
 
-  // Handle category clicks
-  document.querySelectorAll('.category-menu a').forEach(link => {
-    link.addEventListener('click', e => {
-      e.preventDefault();
-      document.querySelectorAll('.category-menu a').forEach(l => l.classList.remove('active'));
-      link.classList.add('active');
-      const category = link.textContent.trim();
-      generateCards(category);
-    });
-  });
-
-  // Load default category on page load
-  const defaultCategory = document.querySelector('.category-menu a.active').textContent.trim();
-  generateCards(defaultCategory);
-
-
-
-    // Initialize with active category
-    updateMenuCards(document.querySelector('.menu-categories span.active').textContent);
-
-    // Profile icon dropdown logic
-    const icon = document.querySelector(".profile-icon");
+      // Profile icon dropdown logic
+      const icon = document.querySelector(".profile-icon");
       const dropdown = document.getElementById("profileDropdown");
-  
+
       icon.addEventListener("click", function (e) {
         e.stopPropagation();
         const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-  
+
         if (!isLoggedIn) {
           window.location.href = "login.html";
           return;
         }
-  
-        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
       });
-  
+
       window.addEventListener("click", function () {
         dropdown.style.display = "none";
       });
-  
+
       // Populate dropdown if logged in
       const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
       if (isLoggedIn) {
@@ -457,75 +551,191 @@ function generateCards(category) {
           }
         });
       }
-  </script>
-<script>
-  const hamburger = document.getElementById('hamburger');
-  const navLinks = document.getElementById('navLinks');
+    </script>
+    <script>
+      const hamburger = document.getElementById("hamburger");
+      const navLinks = document.getElementById("navLinks");
 
-  hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('active');
-  });
-
-window.addEventListener('DOMContentLoaded', () => {
-  const welcomeUser = document.getElementById("welcomeUser");
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-  const userName = localStorage.getItem("userName");
-  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
-  document.getElementById('cartCount').textContent = totalItems > 0 ? totalItems : '';
-  if (isLoggedIn === "true" && userName) {
-    welcomeUser.textContent = `Hi ${userName}!`;
-  }
-  const hash = window.location.hash.replace('#', '').toUpperCase();
-  if (hash && menuData[hash]) {
-    updateMenuCards(hash);
-
-    document.querySelectorAll('.menu-categories span').forEach(span => {
-      span.classList.remove('active');
-      if (span.textContent.trim().toUpperCase() === hash) {
-        span.classList.add('active');
-        span.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  }
-
-  document.addEventListener('click', function(e) {
-  if (e.target.classList.contains('add-btn')) {
-    const card = e.target.closest('.card');
-    const itemName = card.querySelector('h3').textContent;
-    const itemPrice = parseFloat(card.querySelector('.price').textContent.replace('£', ''));
-    const itemImage = card.querySelector('img').src;
-    const itemCalories = card.querySelectorAll('p')[0].textContent.replace('Calories: ', '');
-    
-    // Get existing cart items or initialize empty array
-    let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    
-    // Check if item already exists in cart
-    const existingItem = cartItems.find(item => item.name === itemName);
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      cartItems.push({
-        name: itemName,
-        price: itemPrice,
-        image: itemImage,
-        calories: itemCalories,
-        quantity: 1
+      hamburger.addEventListener("click", () => {
+        navLinks.classList.toggle("active");
       });
-    }
-    
-    // Save to localStorage
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    
-    // Update cart count
-    const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
-    document.getElementById('cartCount').textContent = totalItems;
-  }
-  });
-});
 
+      // Scroll to section if URL contains a hash (e.g. #wraps)
+      window.addEventListener("DOMContentLoaded", () => {
+        const welcomeUser = document.getElementById("welcomeUser");
+        const isLoggedIn = localStorage.getItem("isLoggedIn");
+        const userName = localStorage.getItem("userName");
+        const cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+        const totalItems = cartItems.reduce(
+          (total, item) => total + item.quantity,
+          0
+        );
+        document.getElementById("cartCount").textContent =
+          totalItems > 0 ? totalItems : "";
+        if (isLoggedIn === "true" && userName) {
+          welcomeUser.textContent = `Hi ${userName}!`;
+        }
+        const hash = window.location.hash.replace("#", "").toUpperCase();
+        if (hash && menuData[hash]) {
+          updateMenuCards(hash);
 
-</script>
+          document.querySelectorAll(".menu-categories span").forEach((span) => {
+            span.classList.remove("active");
+            if (span.textContent.trim().toUpperCase() === hash) {
+              span.classList.add("active");
+              span.scrollIntoView({ behavior: "smooth" });
+            }
+          });
+        }
+        document.addEventListener("click", function (e) {
+          if (e.target.classList.contains("add-btn")) {
+            const card = e.target.closest(".card");
+            const itemName = card.querySelector("h3").textContent;
+            const itemPrice = parseFloat(
+              card.querySelector(".price").textContent.replace("£", "")
+            );
+            const itemImage = card.querySelector("img").src;
+            const itemCalories = card
+              .querySelectorAll("p")[0]
+              .textContent.replace("Calories: ", "");
 
-</body>
+            // Get existing cart items or initialize empty array
+            let cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+            // Check if item already exists in cart
+            const existingItem = cartItems.find(
+              (item) => item.name === itemName
+            );
+            if (existingItem) {
+              existingItem.quantity += 1;
+            } else {
+              cartItems.push({
+                name: itemName,
+                price: itemPrice,
+                image: itemImage,
+                calories: itemCalories,
+                quantity: 1,
+              });
+            }
+
+            // Save to localStorage
+            localStorage.setItem("cartItems", JSON.stringify(cartItems));
+
+            // Update cart count
+            const totalItems = cartItems.reduce(
+              (total, item) => total + item.quantity,
+              0
+            );
+            document.getElementById("cartCount").textContent = totalItems;
+          }
+        });
+      });
+      //model click add popup on card
+      let currentQuantity = 1;
+      let basePrice = 0;
+      let selectedSauce = null;
+
+      function openModal(
+        productId,
+        price,
+        name,
+        image,
+        calories,
+        fats,
+        proteins
+      ) {
+        // Set product data
+        basePrice = parseFloat(price);
+        currentQuantity = 1;
+
+        // Update modal content
+        document.getElementById("modalTitle").textContent = name;
+        document.getElementById("modalImage").src = image;
+        document.getElementById("modalCalories").textContent =
+          calories + " kcal";
+        document.getElementById("modalFats").textContent = fats;
+        document.getElementById("modalProteins").textContent = proteins;
+        document.getElementById("quantity").textContent = currentQuantity;
+
+        // Show modal
+        document.getElementById("productModal").style.display = "block";
+        document.body.style.overflow = "hidden";
+        updateTotalPrice();
+      }
+
+      function closeModal() {
+        document.getElementById("productModal").style.display = "none";
+        document.body.style.overflow = "auto";
+
+        // Reset values
+        currentQuantity = 1;
+        document.getElementById("quantity").textContent = currentQuantity;
+
+        // Deselect all sauces
+        const sauces = document.querySelectorAll(".sauce-item");
+        sauces.forEach((sauce) => sauce.classList.remove("selected"));
+        selectedSauce = null;
+      }
+
+      function selectSauce(sauceElement) {
+        // Remove selection from all sauces
+        const sauces = document.querySelectorAll(".sauce-item");
+        sauces.forEach((sauce) => sauce.classList.remove("selected"));
+
+        // Add selection to clicked sauce
+        sauceElement.classList.add("selected");
+        selectedSauce = sauceElement.querySelector(".sauce-name").textContent;
+      }
+
+      function changeQuantity(change) {
+        currentQuantity += change;
+        if (currentQuantity < 1) currentQuantity = 1;
+
+        document.getElementById("quantity").textContent = currentQuantity;
+        updateTotalPrice();
+      }
+
+      function updateTotalPrice() {
+        const total = (basePrice * currentQuantity).toFixed(2);
+        document.getElementById("totalPrice").textContent = `£${total}`;
+      }
+
+      function addToOrder() {
+        const productName = document.getElementById("modalTitle").textContent;
+        const sauce = selectedSauce || "No sauce selected";
+        const total = (basePrice * currentQuantity).toFixed(2);
+
+        // Add your cart logic here
+        console.log("Added to order:", {
+          product: productName,
+          quantity: currentQuantity,
+          sauce: sauce,
+          total: total,
+        });
+
+        alert(
+          `Added to order:\n${currentQuantity}x ${productName}\nSauce: ${sauce}\nTotal: £${total}`
+        );
+        closeModal();
+      }
+
+      // Close modal when clicking outside
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("productModal")
+          .addEventListener("click", function (e) {
+            if (e.target === this) {
+              closeModal();
+            }
+          });
+      });
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+          closeModal();
+        }
+      });
+    </script>
+  </body>
 </html>
