@@ -84,6 +84,11 @@ body {
   padding: 15px;
   text-align: center;
   transition: 0.3s;
+   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 300px;
+
 }
 
 .card:hover {
@@ -101,9 +106,15 @@ body {
 .card h3 {
   font-size: 18px;
   margin: 12px 0;
-  height: 50px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
+  text-overflow: ellipsis;
+  height: auto; /* allow it to expand up to 2 lines */
 }
+
 
 .card p {
   font-size: 14px;

@@ -126,6 +126,8 @@
       <a href="#">Drinks</a>
       <a href="#">Sides and Fries</a>
       <a href="#">Sauces(Dips)</a>
+      <a href="#">Meals</a>
+
     </div>
     <!-- Modal -->
     <div class="modal-overlay" id="productModal">
@@ -294,7 +296,7 @@
             calories: "300 kcal",
             protein: "18g",
             price: 1.99,
-            image: "images/fries-image-model.png",
+            image: "images/classicfries(R).png",
           },
           {
             name: "Classic Fries (L)",
@@ -336,7 +338,7 @@
             calories: "300 kcal",
             protein: "18g",
             price: 3.99,
-            image: "images/spiral-potato-model.png",
+            image: "images/spiralpotato.png",
           },
           {
             name: "Gravy Pot",
@@ -391,7 +393,7 @@
             calories: "300 kcal",
             protein: "18g",
             price: 1.99,
-            image: "images/chai.png",
+            image: "images/teaCHAI.png",
           },
           {
             name: "Coffee",
@@ -442,7 +444,7 @@
             calories: "300 kcal",
             protein: "18g",
             price: 0.5,
-            image: "images/mayo.png",
+            image: "images/schezwan.png",
           },
           {
             name: "Honey and Chilly Sauce",
@@ -452,6 +454,36 @@
             image: "images/mayo.png",
           },
         ],
+        Meals: [
+          {
+            name: "Burger + Classic Fries + Soda Cans",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 7.49,
+            image: "images/secondslide.png",
+          },
+          {
+            name: "Spicy Burger + Classic Fries + Soda Cans",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 1.99,
+            image: "images/secondslide.png",
+          },
+          {
+            name: "Burger + Classic Fries + Soda Cans + Any Bites + Gravy ",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 9.99,
+            image: "images/mealbox.png",
+          },
+          {
+            name: "Spicy Burger + Classic Fries + Soda Cans + Any Bites + Gravy ",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 10.49,
+            image: "images/mealbox.png",
+          },
+        ]
       };
 
       const container = document.querySelector(".container");
@@ -593,7 +625,7 @@
             const card = e.target.closest(".card");
             const itemName = card.querySelector("h3").textContent;
             const itemPrice = parseFloat(
-              card.querySelector(".price").textContent.replace("£", "")
+              card.querySelector(".price").textContent.replace("£ ", "")
             );
             const itemImage = card.querySelector("img").src;
             const itemCalories = card
