@@ -20,180 +20,180 @@
       overflow-x: hidden;
     }
 
- /* Navbar */
+    /* Navbar */
+    .navbar {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      background-color: rgba(19, 18, 18, 0.8);
+      left: 0;
+      padding: 5px 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+
+    .navbar.transparent {
+      background-color: transparent;
+    }
+
+    .navbar.scrolled {
+      background-color: rgba(19, 19, 18, 0.7)!important;
+    }
+
+    /* Logo */
+    .nav-logo img {
+      height: 70px;
+    }
+
+    /* Navigation Links */
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      font-size: 18px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      left: 0;
+      bottom: -5px;
+      background-color: #ff5e18;
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .nav-links a:hover {
+      color: #ffffff;
+    }
+
+    /* Right Side Button */
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+    }
+
+    .profile-container {
+      background-color: white;
+      padding: 6px 12px;
+      border-radius: 999px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Hamburger icon */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+      z-index: 1100;
+    }
+
+    .hamburger span {
+      height: 3px;
+      width: 25px;
+      background-color: white;
+      border-radius: 2px;
+    }
+
+    /* Show hamburger and hide nav-links on mobile */
+    /* Mobile layout arrangement */
+    @media (max-width: 768px) {
       .navbar {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  background-color: rgba(19, 18, 18, 0.8); /* 0.8 = 80% opaque */
-  left: 0;
-  padding: 5px 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 1000;
-  transition: background-color 0.3s ease;
-}
-
-      .navbar.transparent {
-        background-color: transparent;
-      }
-
-      .navbar.scrolled {
-        background-color: rgba(19, 19, 18, 0.7)!important;
-      }
-
-      /* Logo */
-      .nav-logo img {
-        height: 70px;
-      }
-
-      /* Navigation Links */
-      .nav-links {
         display: flex;
-        list-style: none;
-        gap: 40px;
-      }
-
-      .nav-links a {
-        text-decoration: none;
-        color: white;
-        font-weight: 500;
-        font-size: 18px;
-        position: relative;
-        transition: color 0.3s ease;
-      }
-
-      .nav-links a::after {
-        content: "";
-        position: absolute;
-        width: 0%;
-        height: 2px;
-        left: 0;
-        bottom: -5px;
-        background-color: #ff5e18;
-        transition: width 0.3s ease;
-      }
-
-      .nav-links a:hover::after {
-        width: 100%;
-      }
-
-      .nav-links a.active::after {
-        width: 100%;
-      }
-
-      .nav-links a:hover {
-        color: #ffffff;
-      }
-
-      /* Right Side Button */
-      .nav-buttons {
-        display: flex;
+        justify-content: space-between;
         align-items: center;
+        padding: 15px 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        z-index: 1000;
+      }
+
+      .nav-logo {
+        order: 2;
+        flex: 1;
+        display: flex;
+        justify-content: center;
       }
 
       .profile-container {
-        background-color: white;
-        padding: 6px 12px;
-        border-radius: 999px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        order: 1;
       }
 
-      /* Hamburger icon */
       .hamburger {
+        order: 3;
+        display: flex;
+        margin-left: 15px;
+      }
+
+      .nav-links {
         display: none;
         flex-direction: column;
-        cursor: pointer;
-        gap: 5px;
-        z-index: 1100;
-      }
-
-      .hamburger span {
-        height: 3px;
-        width: 25px;
-        background-color: white;
-        border-radius: 2px;
-      }
-
-      /* Show hamburger and hide nav-links on mobile */
-      /* Mobile layout arrangement */
-      @media (max-width: 768px) {
-        .navbar {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 15px 20px;
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100vw;
-          z-index: 1000;
-        }
-
-        .nav-logo {
-          order: 2;
-          flex: 1;
-          display: flex;
-          justify-content: center;
-        }
-
-        .profile-container {
-          order: 1;
-        }
-
-        .hamburger {
-          order: 3;
-          display: flex;
-          margin-left: 15px;
-        }
-
-        .nav-links {
-          display: none;
-          flex-direction: column;
-          background-color: rgba(19, 19, 18, 0.9);
-          width: 100%;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
-          padding: 20px;
-          align-items: center;
-          text-align: center;
-          gap: 20px;
-          z-index: 999;
-        }
-        .nav-links a {
-          color: white;
-          font-size: 18px;
-        }
-        .nav-links.active {
-          display: flex;
-        }
-      }
-
-      .mobile-welcome {
-        display: none;
-        padding: 12px;
+        background-color: rgba(19, 19, 18, 0.9);
+        width: 100%;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        align-items: center;
         text-align: center;
+        gap: 20px;
+        z-index: 999;
+      }
+      .nav-links a {
+        color: white;
         font-size: 18px;
-        color: rgb(244, 239, 239);
-        font-weight: bold;
+      }
+      .nav-links.active {
+        display: flex;
+      }
+    }
+
+    .mobile-welcome {
+      display: none;
+      padding: 12px;
+      text-align: center;
+      font-size: 18px;
+      color: rgb(244, 239, 239);
+      font-weight: bold;
+    }
+
+    /* Show on mobile screens */
+    @media screen and (max-width: 768px) {
+      .mobile-welcome {
+        display: block;
       }
 
-      /* Show on mobile screens */
-      @media screen and (max-width: 768px) {
-        .mobile-welcome {
-          display: block;
-        }
-
-        /* Optionally hide the nav bar welcome text on mobile */
-        #welcomeUser {
-          display: none;
-        }
+      /* Optionally hide the nav bar welcome text on mobile */
+      #welcomeUser {
+        display: none;
       }
+    }
     /* Main Section */
     .history-section {
       padding: 80px 30px;
@@ -224,7 +224,7 @@
     .food-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 150px;
+      gap: 30px;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -235,11 +235,17 @@
       border-radius: 20px;
       transition: transform 0.3s ease;
       cursor: pointer;
+      width: 100%;
+      padding-top: 100%;
+      box-sizing: border-box;
     }
 
     .food-card img {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: 300px;
+      height: 100%;
       object-fit: cover;
       border-radius: 20px;
       transition: transform 0.4s ease;
@@ -401,66 +407,63 @@
       .history-section h2 {
         font-size: 32px;
       }
-      
+
       .modal-content {
         width: 95%;
       }
-      
+
       .modal-body {
         padding: 20px;
+      }
+
+      .food-grid {
+        gap: 20px;
+      }
+
+      .food-card {
+        padding-top: 75%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .food-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
       }
     }
   </style>
 </head>
 <body>
 
-   <!-- Background with Navbar on top -->
-    <div class="hero-section">
-      <nav class="navbar">
-        <div class="nav-logo">
-          <a href="index.html"
-            ><img id="navLogo" src="images/logo.png" alt="Bhookie Logo"
-          /></a>
+  <!-- Background with Navbar on top -->
+  <div class="hero-section">
+    <nav class="navbar">
+      <div class="nav-logo">
+        <a href="index.html"><img id="navLogo" src="images/logo.png" alt="Bhookie Logo"/></a>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="menu.html">Menu</a></li>
+        <li><a href="aboutus.html">About Us</a></li>
+        <li><a href="contact_us.html">Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="profile-container">
+        <div class="nav-buttons">
+          <a class="profile-icon"><img src="images/user.png" alt="User Icon" style="height: 25px; width: 25px"/></a>
+          <span id="welcomeUser" style="margin-left: 10px; color: rgb(11, 11, 11); font-weight: bold;"></span>
+          <ul class="dropdown-menu" id="profileDropdown" style="display: none"></ul>
         </div>
-        <ul class="nav-links" id="navLinks">
-          <li><a href="index.html" class="active">Home</a></li>
-          <li><a href="menu.html">Menu</a></li>
-          <li><a href="aboutus.html">About Us</a></li>
-          <li><a href="contact_us.html">Contact</a></li>
-        </ul>
-        <div class="hamburger" id="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div class="profile-container">
-          <div class="nav-buttons">
-            <a class="profile-icon"
-              ><img
-                src="images/user.png"
-                alt="User Icon"
-                style="height: 25px; width: 25px"
-            /></a>
-            <span
-              id="welcomeUser"
-              style="
-                margin-left: 10px;
-                color: rgb(11, 11, 11);
-                font-weight: bold;
-              "
-            ></span>
-            <ul
-              class="dropdown-menu"
-              id="profileDropdown"
-              style="display: none"
-            ></ul>
-          </div>
-        </div>
-      </nav>
-      <div id="mobileWelcome" class="mobile-welcome"></div>
-    </div>
+      </div>
+    </nav>
+    <div id="mobileWelcome" class="mobile-welcome"></div>
+  </div>
 
-<br><br>
+  <br><br>
   <section class="history-section">
     <div class="spice spice1"></div>
     <div class="spice spice2"></div>
@@ -484,7 +487,6 @@
         </div>
       </div>
 
-      
       <div class="food-card" data-food="onion-bhaji">
         <img src="images/onionbhajipav.png" alt="Onion Bhaji Pav">
         <div class="info-box">
@@ -494,16 +496,14 @@
         </div>
       </div>
 
-
       <div class="food-card" data-food="chai">
-        <img src="images/chaichai.png" alt="Chai">
+        <img src="images/choic.png" alt="Chai" style="padding: 10px;">
         <div class="info-box">
           <h3>CHAI</h3>
           <p>From Ayurvedic roots to railway stalls, chai became the soul of India in the early 1900s.</p>
           <a class="read-more">Read More →</a>
         </div>
       </div>
-
 
       <div class="food-card" data-food="potato-bhaji">
         <img src="images/bpg12.png" alt="Potato Bhaji Pav">
@@ -513,7 +513,7 @@
           <a class="read-more">Read More →</a>
         </div>
       </div>
-      
+
       <div class="food-card" data-food="noodle-bhel">
         <img src="images/chinese bhel.png" alt="Chinese Bhel">
         <div class="info-box">
@@ -596,30 +596,30 @@
     const modalTitle = document.getElementById('modalTitle');
     const modalBody = document.getElementById('modalBody');
     const closeModal = document.querySelector('.close-modal');
- const welcomeUser = document.getElementById("welcomeUser");
-        const isLoggedIn = localStorage.getItem("isLoggedIn");
-        const userName = localStorage.getItem("userName");
+    const welcomeUser = document.getElementById("welcomeUser");
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const userName = localStorage.getItem("userName");
 
-        if (isLoggedIn === "true" && userName) {
-          if (welcomeUser) {
-            welcomeUser.textContent = `Hi ${userName}!`;
-          }
-          const mobileWelcome = document.getElementById("mobileWelcome");
-          if (mobileWelcome) {
-            mobileWelcome.innerHTML = ` Hi ${userName}!<br>  What's on your mind today?`;
-          }
-        }
+    if (isLoggedIn === "true" && userName) {
+      if (welcomeUser) {
+        welcomeUser.textContent = `Hi ${userName}!`;
+      }
+      const mobileWelcome = document.getElementById("mobileWelcome");
+      if (mobileWelcome) {
+        mobileWelcome.innerHTML = ` Hi ${userName}!<br>  What's on your mind today?`;
+      }
+    }
     // Add click event to all read more links
     document.querySelectorAll('.read-more').forEach(link => {
       link.addEventListener('click', function(e) {
         e.stopPropagation();
         const foodCard = this.closest('.food-card');
         const foodId = foodCard.getAttribute('data-food');
-        
+
         // Set modal content
         modalTitle.textContent = foodHistory[foodId].title;
         modalBody.innerHTML = foodHistory[foodId].content;
-        
+
         // Show modal
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
@@ -652,11 +652,11 @@
     document.querySelectorAll('.food-card').forEach(card => {
       card.addEventListener('click', function() {
         const foodId = this.getAttribute('data-food');
-        
+
         // Set modal content
         modalTitle.textContent = foodHistory[foodId].title;
         modalBody.innerHTML = foodHistory[foodId].content;
-        
+
         // Show modal
         modal.style.display = 'flex';
         document.body.style.overflow = 'hidden';
