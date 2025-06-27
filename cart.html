@@ -63,6 +63,23 @@
       border-radius: 8px;
     }
 
+   .order-type-group {
+  display: flex;
+  gap: 10px;
+}
+
+.order-type-btn {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+
+
     h2, h3 {
       margin-top: 0;
     }
@@ -192,18 +209,37 @@
     }
 
     #customizeModal {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: #1e1e1e;
-      padding: 20px;
-      border: 2px solid #ff6600;
-      border-radius: 10px;
-      z-index: 2000;
-      width: 300px;
-    }
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #121212;
+  padding: 20px 20px 30px;
+  border: 2px solid #ff6600;
+  border-radius: 12px;
+  z-index: 3000;
+  width: 90%;
+  max-width: 600px;
+  color: #fff;
+  position: fixed;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: transparent;
+  color: #ff6600;
+  font-size: 27px;
+  border: none;
+  cursor: pointer;
+  line-height: 1;
+}
+.close-btn:hover {
+  color: #fff;
+}
+
 
     @media screen and (max-width: 768px) {
       .container {
@@ -215,7 +251,9 @@
 <body>
 
 <header>
-  <img src="images/logo.png" alt="Bhookie Logo" height="50">
+  <a href="index.html">
+    <img id="navLogo" src="images/logo.png" alt="Bhookie Logo" height="60" />
+  </a>
   <a class="back-to-menu" href="menu.html">Back to Menu</a>
 </header>
 
@@ -227,13 +265,13 @@
     <h3>Complete your meal</h3>
     <div class="addons">
       <div class="addon-card">
-        <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="Garlic Bread">
+        <img src="images/garlicbread.png" alt="Garlic Bread">
         <p class="addon-name">Garlic Bread</p>
         <p class="addon-price">£1.99</p>
         <button class="btn">ADD</button>
       </div>
       <div class="addon-card">
-        <img src="https://i.ibb.co/9Vd6cgG/burger.png" alt="Pepsi">
+        <img src="images/pepsi.png" alt="Pepsi">
         <p class="addon-name">Pepsi</p>
         <p class="addon-price">£1.49</p>
         <button class="btn">ADD</button>
@@ -241,17 +279,86 @@
     </div>
   </div>
 
-  <div class="sidebar">
-    <div class="card">
-      <p class="label">Delivery Address</p>
-      <div class="card-row">
-        <div>
-          <p style="font-size: 12px; color: #aaa;">Current Address</p>
-          <p style="margin: 0;">London</p>
-        </div>
-        <button class="btn" style="width: auto; padding: 5px 10px;">Change</button>
+  <!-- Customize Modal -->
+<div id="customizeModal">
+  <button class="close-btn" onclick="closeModal()">×</button>
+  <h3 style="color: #ff6600;">Customise your Item</h3>
+
+  <h4>Sauces</h4>
+  <div class="addons">
+    <div class="addon-card">
+      <img src="images/mayo.png" alt="Mayo">
+      <p class="addon-name">Mayo</p>
+      <p class="addon-price">£2</p>
+      <div class="qty-controls">
+        <button onclick="adjustCustomizationQty('mayo', -1)">-</button>
+        <span id="qty-mayo">01</span>
+        <button onclick="adjustCustomizationQty('mayo', 1)">+</button>
       </div>
     </div>
+
+    <div class="addon-card">
+      <img src="images/mayo.png" alt="Green Chilli">
+      <p class="addon-name">Green chilli sauce</p>
+      <p class="addon-price">£2</p>
+      <div class="qty-controls">
+        <button onclick="adjustCustomizationQty('green', -1)">-</button>
+        <span id="qty-green">01</span>
+        <button onclick="adjustCustomizationQty('green', 1)">+</button>
+      </div>
+    </div>
+
+    <div class="addon-card">
+      <img src="images/mayo.png" alt="BBQ">
+      <p class="addon-name">BBQ sauce</p>
+      <p class="addon-price">£2</p>
+      <div class="qty-controls">
+        <button onclick="adjustCustomizationQty('bbq', -1)">-</button>
+        <span id="qty-bbq">01</span>
+        <button onclick="adjustCustomizationQty('bbq', 1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <h4 style="margin-top: 20px;">Add ons</h4>
+  <div class="addons">
+    <div class="addon-card">
+      <img src="images/cheese.png" alt="Cheese">
+      <p class="addon-name">Cheese</p>
+      <p class="addon-price">£2</p>
+      <div class="qty-controls">
+        <button onclick="adjustCustomizationQty('cheese', -1)">-</button>
+        <span id="qty-cheese">01</span>
+        <button onclick="adjustCustomizationQty('cheese', 1)">+</button>
+      </div>
+    </div>
+
+    <div class="addon-card">
+      <img src="images/lettuce.png" alt="lettuce">
+      <p class="addon-name">Lettuce</p>
+      <p class="addon-price">£2</p>
+      <div class="qty-controls">
+        <button onclick="adjustCustomizationQty('lettuce', -1)">-</button>
+        <span id="qty-lettuce">01</span>
+        <button onclick="adjustCustomizationQty('lettuce', 1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <button class="btn" onclick="closeModal()">Save & Close</button>
+</div>
+
+
+  <div class="sidebar">
+  <div class="card">
+    <p class="label">Select Order Type</p>
+    <div class="card-row order-type-group">
+  <button class="btn order-type-btn" data-type="dinein">Dine In</button>
+  <button class="btn order-type-btn" data-type="takeaway">Takeaway</button>
+    </div>
+    <p id="orderTypeStatus" style="font-size: 12px; color: #aaa; margin-top: 10px;"></p>
+  </div>
 
     <div class="card">
       <p class="label">Select offer / Apply coupon</p>
@@ -270,8 +377,105 @@
 
 
 <script>
+  // Order Type Logic
+function updateOrderTypeUI() {
+  const selected = localStorage.getItem('orderType');
+  const status = document.getElementById("orderTypeStatus");
+
+  document.querySelectorAll(".order-type-btn").forEach(btn => {
+    if (btn.dataset.type === selected) {
+      btn.style.backgroundColor = "#fff";
+      btn.style.color = "#121212";
+    } else {
+      btn.style.backgroundColor = "#ff6600";
+      btn.style.color = "#fff";
+    }
+  });
+
+  if (selected) {
+    status.textContent = `You selected: ${selected === "dinein" ? "Dine In" : "Takeaway"}`;
+  } else {
+    status.textContent = `No option selected yet.`;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Existing renderCart() and addon logic already here
+  updateOrderTypeUI();
+
+  document.querySelectorAll(".order-type-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const type = btn.dataset.type;
+      localStorage.setItem("orderType", type);
+      updateOrderTypeUI();
+    });
+  });
+});
+
+  const quantities = {
+    mayo: 0,
+    green: 0,
+    bbq: 0,
+    cheese: 0,
+    lettuce: 0,
+  };
+
   let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
   let customizingIndex = null;
+
+  function customizeItem(index) {
+    customizingIndex = index;
+
+    // Reset customization quantities or load existing
+    const existingCustoms = cartItems[index].customizations || {};
+    for (let key in quantities) {
+      quantities[key] = existingCustoms[key] || 0;
+      document.getElementById(`qty-${key}`).textContent = quantities[key].toString().padStart(2, '0');
+    }
+
+    document.getElementById("customizeModal").style.display = "block";
+  }
+
+  function closeModal() {
+    if (customizingIndex !== null) {
+      const customizationPrices = {
+        mayo: 2,
+        green: 2,
+        bbq: 2,
+        cheese: 2,
+        lettuce: 2
+      };
+
+      const selectedAddOns = {};
+      let customTotal = 0;
+
+      for (let key in quantities) {
+        const qty = quantities[key];
+        if (qty > 0) {
+          selectedAddOns[key] = qty;
+          customTotal += qty * customizationPrices[key];
+        }
+      }
+
+      // Store selected customization with the item
+      cartItems[customizingIndex].customizations = selectedAddOns;
+      cartItems[customizingIndex].customPrice = customTotal;
+
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      renderCart();
+    }
+
+    document.getElementById("customizeModal").style.display = "none";
+  }
+
+  function adjustCustomizationQty(item, change) {
+    if (!(item in quantities)) return;
+
+    quantities[item] += change;
+    if (quantities[item] < 0) quantities[item] = 0;
+
+    document.getElementById(`qty-${item}`).textContent = quantities[item].toString().padStart(2, '0');
+  }
 
   function renderCart() {
     const cartDiv = document.getElementById("cart");
@@ -291,16 +495,28 @@
     cartItems.forEach((item, index) => {
       const itemElement = document.createElement("div");
       itemElement.classList.add("item");
+
+      // Customization display string
+      let customDisplay = '';
+      if (item.customizations) {
+        const names = Object.keys(item.customizations).map(
+          k => `${k} x${item.customizations[k]}`
+        ).join(", ");
+        customDisplay = `<p style="font-size: 12px; color: #aaa;">+ Add-ons: ${names}</p>`;
+      }
+
+      const totalPrice = (item.price * item.quantity) + (item.customPrice || 0);
+
       itemElement.innerHTML = `
         <img src="${item.image}" alt="${item.name}">
         <div class="item-info">
           <h4>${item.name}</h4>
           <p>${item.calories || ''}</p>
-         
+          ${customDisplay}
           <button class="btn" style="width:auto; padding:4px 10px;" onclick="customizeItem(${index})">Customize</button>
         </div>
         <div>
-          £${(item.price * item.quantity).toFixed(2)}
+          £${totalPrice.toFixed(2)}
           <div class="qty-controls">
             <button onclick="updateQty(${index}, -1)">-</button>
             <span>${item.quantity}</span>
@@ -324,7 +540,11 @@
   }
 
   function updateTotals() {
-    let subtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    let subtotal = cartItems.reduce((sum, item) => {
+      const base = item.price * item.quantity;
+      const custom = item.customPrice || 0;
+      return sum + base + custom;
+    }, 0);
     document.getElementById("subTotal").textContent = `£${subtotal.toFixed(2)}`;
     document.getElementById("grandTotal").textContent = `£${(subtotal + 1.50).toFixed(2)}`;
   }
@@ -351,6 +571,5 @@
     });
   });
 </script>
-
 </body>
 </html>
