@@ -23,11 +23,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-       position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
     }
 
     .back-to-menu {
@@ -45,8 +45,7 @@
       flex-wrap: wrap;
       gap: 20px;
       padding: 20px;
-        margin-top: 100px; /* Adjust this value to match your header height */
-
+      margin-top: 100px;
     }
 
     .main {
@@ -192,6 +191,20 @@
       cursor: pointer;
     }
 
+    #customizeModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #1e1e1e;
+      padding: 20px;
+      border: 2px solid #ff6600;
+      border-radius: 10px;
+      z-index: 2000;
+      width: 300px;
+    }
+
     @media screen and (max-width: 768px) {
       .container {
         flex-direction: column;
@@ -207,12 +220,10 @@
 </header>
 
 <div class="container">
-  <!-- Left -->
   <div class="main">
     <h2 id="itemCount">Items selected</h2>
     <div id="cart"></div>
-    <br>
-    <br>
+    <br><br>
     <h3>Complete your meal</h3>
     <div class="addons">
       <div class="addon-card">
@@ -230,7 +241,6 @@
     </div>
   </div>
 
-  <!-- Right -->
   <div class="sidebar">
     <div class="card">
       <p class="label">Delivery Address</p>
@@ -258,8 +268,10 @@
   </div>
 </div>
 
+
 <script>
   let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  let customizingIndex = null;
 
   function renderCart() {
     const cartDiv = document.getElementById("cart");
@@ -284,6 +296,8 @@
         <div class="item-info">
           <h4>${item.name}</h4>
           <p>${item.calories || ''}</p>
+         
+          <button class="btn" style="width:auto; padding:4px 10px;" onclick="customizeItem(${index})">Customize</button>
         </div>
         <div>
           £${(item.price * item.quantity).toFixed(2)}
