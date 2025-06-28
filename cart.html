@@ -254,7 +254,7 @@
   <a href="index.html">
     <img id="navLogo" src="images/logo.png" alt="Bhookie Logo" height="60" />
   </a>
-  <a class="back-to-menu" href="menu.html">Back to Menu</a>
+  <a class="back-to-menu" href="menu.html" onclick="localStorage.removeItem('orderLocation'); localStorage.removeItem('orderType');">Back to Menu</a>
 </header>
 
 <div class="container">
@@ -351,14 +351,24 @@
 
 
   <div class="sidebar">
-  <div class="card">
-    <p class="label">Select Order Type</p>
-    <div class="card-row order-type-group">
-  <button class="btn order-type-btn" data-type="dinein">Dine In</button>
-  <button class="btn order-type-btn" data-type="takeaway">Takeaway</button>
-    </div>
-    <p id="orderTypeStatus" style="font-size: 12px; color: #aaa; margin-top: 10px;"></p>
+ <div class="card">
+  <p class="label">Select Location</p>
+  <div class="card-row order-type-group">
+    <button class="btn order-type-btn" id="location-restaurant">Restaurant</button>
+    <button class="btn order-type-btn" id="location-cart">Cart</button>
   </div>
+
+  <div id="restaurantOptions" style="margin-top: 10px; display: none;">
+    <p style="font-size: 13px; margin-bottom: 5px;">Select Order Type:</p>
+    <div class="card-row order-type-group">
+      <button class="btn order-type-btn" id="dinein-btn">Dine In</button>
+      <button class="btn order-type-btn" id="takeaway-btn">Takeaway</button>
+    </div>
+  </div>
+
+  <p id="orderTypeStatus" style="font-size: 12px; color: #aaa; margin-top: 10px;"></p>
+</div>
+
 
     <div class="card">
       <p class="label">Select offer / Apply coupon</p>
@@ -377,13 +387,17 @@
 
 
 <script>
-  // Order Type Logic
-function updateOrderTypeUI() {
-  const selected = localStorage.getItem('orderType');
+function updateLocationSelection() {
+  const selectedLocation = localStorage.getItem('orderLocation');
+  const orderType = localStorage.getItem('orderType');
   const status = document.getElementById("orderTypeStatus");
+  const restaurantOptions = document.getElementById("restaurantOptions");
 
-  document.querySelectorAll(".order-type-btn").forEach(btn => {
-    if (btn.dataset.type === selected) {
+  restaurantOptions.style.display = "none";
+  status.textContent = "";
+
+  document.querySelectorAll("#location-restaurant, #location-cart").forEach(btn => {
+    if (btn.id === "location-" + selectedLocation) {
       btn.style.backgroundColor = "#fff";
       btn.style.color = "#121212";
     } else {
@@ -392,184 +406,210 @@ function updateOrderTypeUI() {
     }
   });
 
-  if (selected) {
-    status.textContent = `You selected: ${selected === "dinein" ? "Dine In" : "Takeaway"}`;
-  } else {
-    status.textContent = `No option selected yet.`;
+  if (selectedLocation === "cart") {
+    localStorage.setItem('orderType', 'takeaway');
+    restaurantOptions.style.display = "none";
+    status.textContent = "You selected: Cart (Takeaway)";
+  } else if (selectedLocation === "restaurant") {
+    if (orderType === "dinein" || orderType === "takeaway") {
+      restaurantOptions.style.display = "block";
+      status.textContent = `You selected: Restaurant (${orderType === "dinein" ? "Dine In" : "Takeaway"})`;
+    } else {
+      restaurantOptions.style.display = "block"; // show it so user can choose
+      status.textContent = "You selected: Restaurant (Please choose Dine In or Takeaway)";
+    }
+  }
+
+  if (restaurantOptions.style.display === "block") {
+    document.querySelectorAll("#restaurantOptions .order-type-btn").forEach(btn => {
+      if (btn.id === orderType + "-btn") {
+        btn.style.backgroundColor = "#fff";
+        btn.style.color = "#121212";
+      } else {
+        btn.style.backgroundColor = "#ff6600";
+        btn.style.color = "#fff";
+      }
+    });
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Existing renderCart() and addon logic already here
-  updateOrderTypeUI();
+  updateLocationSelection();
 
-  document.querySelectorAll(".order-type-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const type = btn.dataset.type;
-      localStorage.setItem("orderType", type);
-      updateOrderTypeUI();
-    });
+  document.getElementById("location-restaurant").addEventListener("click", () => {
+    localStorage.setItem("orderLocation", "restaurant");
+    localStorage.removeItem("orderType"); // Reset orderType so user can choose fresh
+    updateLocationSelection();
+  });
+
+  document.getElementById("location-cart").addEventListener("click", () => {
+    localStorage.setItem("orderLocation", "cart");
+    localStorage.setItem("orderType", "takeaway");
+    updateLocationSelection();
+  });
+
+  document.getElementById("dinein-btn").addEventListener("click", () => {
+    localStorage.setItem("orderType", "dinein");
+    updateLocationSelection();
+  });
+
+  document.getElementById("takeaway-btn").addEventListener("click", () => {
+    localStorage.setItem("orderType", "takeaway");
+    updateLocationSelection();
   });
 });
 
-  const quantities = {
-    mayo: 0,
-    green: 0,
-    bbq: 0,
-    cheese: 0,
-    lettuce: 0,
-  };
+// Addon logic & customization
+const quantities = {
+  mayo: 0,
+  green: 0,
+  bbq: 0,
+  cheese: 0,
+  lettuce: 0,
+};
 
-  let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  let customizingIndex = null;
+let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+let customizingIndex = null;
 
-  function customizeItem(index) {
-    customizingIndex = index;
+function customizeItem(index) {
+  customizingIndex = index;
+  const existingCustoms = cartItems[index].customizations || {};
+  for (let key in quantities) {
+    quantities[key] = existingCustoms[key] || 0;
+    document.getElementById(`qty-${key}`).textContent = quantities[key].toString().padStart(2, '0');
+  }
+  document.getElementById("customizeModal").style.display = "block";
+}
 
-    // Reset customization quantities or load existing
-    const existingCustoms = cartItems[index].customizations || {};
+function closeModal() {
+  if (customizingIndex !== null) {
+    const customizationPrices = {
+      mayo: 2,
+      green: 2,
+      bbq: 2,
+      cheese: 2,
+      lettuce: 2
+    };
+
+    const selectedAddOns = {};
+    let customTotal = 0;
+
     for (let key in quantities) {
-      quantities[key] = existingCustoms[key] || 0;
-      document.getElementById(`qty-${key}`).textContent = quantities[key].toString().padStart(2, '0');
-    }
-
-    document.getElementById("customizeModal").style.display = "block";
-  }
-
-  function closeModal() {
-    if (customizingIndex !== null) {
-      const customizationPrices = {
-        mayo: 2,
-        green: 2,
-        bbq: 2,
-        cheese: 2,
-        lettuce: 2
-      };
-
-      const selectedAddOns = {};
-      let customTotal = 0;
-
-      for (let key in quantities) {
-        const qty = quantities[key];
-        if (qty > 0) {
-          selectedAddOns[key] = qty;
-          customTotal += qty * customizationPrices[key];
-        }
+      const qty = quantities[key];
+      if (qty > 0) {
+        selectedAddOns[key] = qty;
+        customTotal += qty * customizationPrices[key];
       }
-
-      // Store selected customization with the item
-      cartItems[customizingIndex].customizations = selectedAddOns;
-      cartItems[customizingIndex].customPrice = customTotal;
-
-      localStorage.setItem("cartItems", JSON.stringify(cartItems));
-      renderCart();
     }
 
-    document.getElementById("customizeModal").style.display = "none";
-  }
-
-  function adjustCustomizationQty(item, change) {
-    if (!(item in quantities)) return;
-
-    quantities[item] += change;
-    if (quantities[item] < 0) quantities[item] = 0;
-
-    document.getElementById(`qty-${item}`).textContent = quantities[item].toString().padStart(2, '0');
-  }
-
-  function renderCart() {
-    const cartDiv = document.getElementById("cart");
-    const itemCount = document.getElementById("itemCount");
-    cartDiv.innerHTML = "";
-
-    if (cartItems.length === 0) {
-      itemCount.textContent = "Your cart is empty";
-      cartDiv.innerHTML = "<p>No items in your cart.</p>";
-      document.getElementById("subTotal").textContent = "£0.00";
-      document.getElementById("grandTotal").textContent = "£1.50";
-      return;
-    }
-
-    itemCount.textContent = `${cartItems.length} item(s) you have selected`;
-
-    cartItems.forEach((item, index) => {
-      const itemElement = document.createElement("div");
-      itemElement.classList.add("item");
-
-      // Customization display string
-      let customDisplay = '';
-      if (item.customizations) {
-        const names = Object.keys(item.customizations).map(
-          k => `${k} x${item.customizations[k]}`
-        ).join(", ");
-        customDisplay = `<p style="font-size: 12px; color: #aaa;">+ Add-ons: ${names}</p>`;
-      }
-
-      const totalPrice = (item.price * item.quantity) + (item.customPrice || 0);
-
-      itemElement.innerHTML = `
-        <img src="${item.image}" alt="${item.name}">
-        <div class="item-info">
-          <h4>${item.name}</h4>
-          <p>${item.calories || ''}</p>
-          ${customDisplay}
-          <button class="btn" style="width:auto; padding:4px 10px;" onclick="customizeItem(${index})">Customize</button>
-        </div>
-        <div>
-          £${totalPrice.toFixed(2)}
-          <div class="qty-controls">
-            <button onclick="updateQty(${index}, -1)">-</button>
-            <span>${item.quantity}</span>
-            <button onclick="updateQty(${index}, 1)">+</button>
-          </div>
-        </div>
-      `;
-      cartDiv.appendChild(itemElement);
-    });
-
-    updateTotals();
-  }
-
-  function updateQty(index, change) {
-    cartItems[index].quantity += change;
-    if (cartItems[index].quantity <= 0) {
-      cartItems.splice(index, 1);
-    }
+    cartItems[customizingIndex].customizations = selectedAddOns;
+    cartItems[customizingIndex].customPrice = customTotal;
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
     renderCart();
   }
 
-  function updateTotals() {
-    let subtotal = cartItems.reduce((sum, item) => {
-      const base = item.price * item.quantity;
-      const custom = item.customPrice || 0;
-      return sum + base + custom;
-    }, 0);
-    document.getElementById("subTotal").textContent = `£${subtotal.toFixed(2)}`;
-    document.getElementById("grandTotal").textContent = `£${(subtotal + 1.50).toFixed(2)}`;
+  document.getElementById("customizeModal").style.display = "none";
+}
+
+function adjustCustomizationQty(item, change) {
+  if (!(item in quantities)) return;
+  quantities[item] += change;
+  if (quantities[item] < 0) quantities[item] = 0;
+  document.getElementById(`qty-${item}`).textContent = quantities[item].toString().padStart(2, '0');
+}
+
+function renderCart() {
+  const cartDiv = document.getElementById("cart");
+  const itemCount = document.getElementById("itemCount");
+  cartDiv.innerHTML = "";
+
+  if (cartItems.length === 0) {
+    itemCount.textContent = "Your cart is empty";
+    cartDiv.innerHTML = "<p>No items in your cart.</p>";
+    document.getElementById("subTotal").textContent = "£0.00";
+    document.getElementById("grandTotal").textContent = "£1.50";
+    return;
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    renderCart();
+  itemCount.textContent = `${cartItems.length} item(s) you have selected`;
 
-    document.querySelectorAll(".addon-card .btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const card = btn.closest(".addon-card");
-        const name = card.querySelector(".addon-name").textContent;
-        const price = parseFloat(card.querySelector(".addon-price").textContent.slice(1));
-        const img = card.querySelector("img").src;
+  cartItems.forEach((item, index) => {
+    const itemElement = document.createElement("div");
+    itemElement.classList.add("item");
 
-        const existing = cartItems.find((item) => item.name === name);
-        if (existing) {
-          existing.quantity += 1;
-        } else {
-          cartItems.push({ name, price, image: img, quantity: 1 });
-        }
-        localStorage.setItem("cartItems", JSON.stringify(cartItems));
-        renderCart();
-      });
+    let customDisplay = '';
+    if (item.customizations) {
+      const names = Object.keys(item.customizations).map(
+        k => `${k} x${item.customizations[k]}`
+      ).join(", ");
+      customDisplay = `<p style="font-size: 12px; color: #aaa;">+ Add-ons: ${names}</p>`;
+    }
+
+    const totalPrice = (item.price * item.quantity) + (item.customPrice || 0);
+
+    itemElement.innerHTML = `
+      <img src="${item.image}" alt="${item.name}">
+      <div class="item-info">
+        <h4>${item.name}</h4>
+        <p>${item.calories || ''}</p>
+        ${customDisplay}
+        <button class="btn" style="width:auto; padding:4px 10px;" onclick="customizeItem(${index})">Customize</button>
+      </div>
+      <div>
+        £${totalPrice.toFixed(2)}
+        <div class="qty-controls">
+          <button onclick="updateQty(${index}, -1)">-</button>
+          <span>${item.quantity}</span>
+          <button onclick="updateQty(${index}, 1)">+</button>
+        </div>
+      </div>
+    `;
+    cartDiv.appendChild(itemElement);
+  });
+
+  updateTotals();
+}
+
+function updateQty(index, change) {
+  cartItems[index].quantity += change;
+  if (cartItems[index].quantity <= 0) {
+    cartItems.splice(index, 1);
+  }
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  renderCart();
+}
+
+function updateTotals() {
+  let subtotal = cartItems.reduce((sum, item) => {
+    const base = item.price * item.quantity;
+    const custom = item.customPrice || 0;
+    return sum + base + custom;
+  }, 0);
+  document.getElementById("subTotal").textContent = `£${subtotal.toFixed(2)}`;
+  document.getElementById("grandTotal").textContent = `£${(subtotal + 1.50).toFixed(2)}`;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderCart();
+
+  document.querySelectorAll(".addon-card .btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const card = btn.closest(".addon-card");
+      const name = card.querySelector(".addon-name").textContent;
+      const price = parseFloat(card.querySelector(".addon-price").textContent.slice(1));
+      const img = card.querySelector("img").src;
+
+      const existing = cartItems.find((item) => item.name === name);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cartItems.push({ name, price, image: img, quantity: 1 });
+      }
+      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      renderCart();
     });
   });
+});
 </script>
 </body>
 </html>
