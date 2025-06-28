@@ -557,25 +557,32 @@ function generateCards(category) {
     const subBtn = card.querySelector('.sub-btn');
     const quantityDisplay = card.querySelector('.quantity-display');
 
-    // Initialize quantity from cart if item exists
     const cartItem = cartItems.find(cartItem => cartItem.name === item.name);
-    let quantity = cartItem ? cartItem.quantity : 0;
-    
-    // Update UI based on initial quantity
-    if (quantity > 0) {
-      subBtn.style.display = 'inline-block';
-      quantityDisplay.style.display = 'inline-block';
-      quantityDisplay.textContent = quantity;
-    }
+let quantity = cartItem ? cartItem.quantity : 0;
 
-    // Add button click handler
-    const handleAdd = () => {
-      quantity++;
-      subBtn.style.display = 'inline-block';
-      quantityDisplay.style.display = 'inline-block';
-      quantityDisplay.textContent = quantity;
-      updateCartItem(item.name, item.price, item.image, item.calories, 1);
-    };
+// Update UI based on initial quantity
+if (quantity > 0) {
+  subBtn.style.display = 'inline-block';
+  quantityDisplay.style.display = 'inline-block';
+  quantityDisplay.textContent = quantity;
+}
+
+// Add button click handler
+const handleAdd = () => {
+  // Add temporary scale effect
+  card.style.transform = "scale(0.95)";
+  card.style.transition = "transform 0.2s ease";
+  
+  setTimeout(() => {
+    card.style.transform = "scale(1)";
+  }, 200);
+
+  quantity++;
+  subBtn.style.display = 'inline-block';
+  quantityDisplay.style.display = 'inline-block';
+  quantityDisplay.textContent = quantity;
+  updateCartItem(item.name, item.price, item.image, item.calories, 1);
+};
 
     // Subtract button click handler
     const handleSubtract = () => {
@@ -621,7 +628,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
-
+function updateCartCount() {
+  const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+  const cartIcon = document.getElementById("cartCount");
+  
+  cartIcon.textContent = totalItems;
+  
+  // Add bounce effect
+  cartIcon.parentElement.classList.add('bounce');
+  setTimeout(() => {
+    cartIcon.parentElement.classList.remove('bounce');
+  }, 300);
+}
 
       // Profile icon dropdown logic
       const icon = document.querySelector(".profile-icon");
