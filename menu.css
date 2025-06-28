@@ -149,13 +149,34 @@ body {
   background-color: #ff6f00;
   color: #fff;
 }
-
-.note {
-  color: #aaa;
-  font-size: 12px;
-  margin-top: 20px;
-  text-align: left;
+.price-add-buttons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
+
+.sub-btn {
+  background-color: transparent;
+  border: 1px solid #ff6f00;
+  color: #ff6f00;
+  font-size: 18px;
+  padding: 2px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.sub-btn:hover {
+  background-color: #ff6f00;
+  color: #fff;
+}
+.quantity-display {
+  font-size: 16px;
+  color: #fff;
+  min-width: 20px;
+  text-align: center;
+}
+
 /* Modal Styles */
 .modal-overlay {
   display: none;
