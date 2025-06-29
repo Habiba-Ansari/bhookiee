@@ -826,33 +826,33 @@
         document.getElementById("modalFats").textContent = fats;
         document.getElementById("modalProteins").textContent = proteins;
         document.getElementById("quantity").textContent = currentQuantity;
+
         const saucesSection = document.querySelector(".sauces-section");
-        //for sauces
-        if (
-          category === "Drinks" ||
-          category === "Sauces(Dips)" ||
-          category === "Bombay Street Chaska"
-        ) {
-          saucesSection.style.display = "none";
-        } else {
-          saucesSection.style.display = "block";
-        }
-        // Populate sauces dynamically
         const saucesGrid = document.querySelector(".sauces-grid");
-        saucesGrid.innerHTML = ""; // Clear existing
-        const itemSauces = sauces.split(",").map((s) => s.trim());
-        if (category !== "Drinks" && itemSauces && itemSauces.length > 0) {
-          itemSauces.forEach((sauce) => {
-            const sauceDiv = document.createElement("div");
-            sauceDiv.classList.add("sauce-item");
-            sauceDiv.setAttribute("onclick", "selectSauce(this)");
-            sauceDiv.innerHTML = `
-      <img src="images/mayo.png" alt="${sauce}" />
-      <div class="sauce-name">${sauce}</div>
-    `;
-            saucesGrid.appendChild(sauceDiv);
-          });
+        saucesGrid.innerHTML = ""; // Clear previous sauces
+
+        // Show sauces only if provided and valid
+        if (sauces && typeof sauces === "string" && sauces.trim() !== "") {
+          const itemSauces = sauces.split(",").map((s) => s.trim());
+          if (itemSauces.length > 0) {
+            saucesSection.style.display = "block";
+            itemSauces.forEach((sauce) => {
+              const sauceDiv = document.createElement("div");
+              sauceDiv.classList.add("sauce-item");
+              sauceDiv.setAttribute("onclick", "selectSauce(this)");
+              sauceDiv.innerHTML = `
+                <img src="images/mayo.png" alt="${sauce}" />
+                <div class="sauce-name">${sauce}</div>
+              `;
+              saucesGrid.appendChild(sauceDiv);
+            });
+          } else {
+            saucesSection.style.display = "none";
+          }
+        } else {
+          saucesSection.style.display = "none";
         }
+
         // Show modal
         document.getElementById("productModal").style.display = "block";
         document.body.style.overflow = "hidden";
