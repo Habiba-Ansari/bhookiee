@@ -517,6 +517,30 @@ function adjustCustomizationQty(item, change) {
   if (quantities[item] < 0) quantities[item] = 0;
   document.getElementById(`qty-${item}`).textContent = quantities[item].toString().padStart(2, '0');
 }
+function isNonCustomizable(item) {
+  // List of drink identifiers
+  const drinkKeywords = [
+    'pepsi', 'cola', 'soda', 'drink', 'water', 'juice', 
+    'coffee', 'chai', 'tea', 'beverage', 'coke', 'fanta',
+    'sprite', 'lemonade', 'milkshake', 'smoothie'
+  ];
+  
+  // List of sauce/dip identifiers
+  const sauceKeywords = [
+    'sauce', 'dip', 'mayo', 'ketchup', 'mustard', 'bbq',
+    'ranch', 'garlic', 'schewan', 'piri piri', 'honey',
+    'chilli', 'dressing'
+  ];
+  
+  // Convert item name to lowercase for case-insensitive comparison
+  const itemName = item.name.toLowerCase();
+  
+  // Check if item is a drink or sauce/dip
+  return drinkKeywords.some(keyword => itemName.includes(keyword)) ||
+         sauceKeywords.some(keyword => itemName.includes(keyword)) ||
+         (item.category && item.category.toLowerCase().includes('sauce')) ||
+         (item.category && item.category.toLowerCase().includes('dip'));
+}
 
 function renderCart() {
   const cartDiv = document.getElementById("cart");
@@ -546,14 +570,17 @@ function renderCart() {
     }
 
     const totalPrice = (item.price * item.quantity) + (item.customPrice || 0);
-
+    
+    // Only show customize button if it's customizable (not drink or sauce)
+    const showCustomizeButton = !isNonCustomizable(item);
+    
     itemElement.innerHTML = `
       <img src="${item.image}" alt="${item.name}">
       <div class="item-info">
         <h4>${item.name}</h4>
         <p>${item.calories || ''}</p>
         ${customDisplay}
-        <button class="btn" style="width:auto; padding:4px 10px;" onclick="customizeItem(${index})">Customize</button>
+        ${showCustomizeButton ? `<button class="btn" style="width:auto; padding:4px 10px;" onclick="customizeItem(${index})">Customize</button>` : ''}
       </div>
       <div>
         £${totalPrice.toFixed(2)}
@@ -568,6 +595,7 @@ function renderCart() {
   });
 
   updateTotals();
+
 }
 
 function updateQty(index, change) {
