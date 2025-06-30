@@ -210,6 +210,15 @@
         </div>
       </div>
     </div>
+<div class="modal-overlay" id="loginModal">
+  <div class="loginmodal">
+    <span class="close-btn" onclick="closeLoginModal()">&times;</span>
+    <h2>Hey!</h2>
+    <h4>Kindly Log in to place order.</h4>
+    <button onclick="redirectToLogin()">Log In</button>
+  </div>
+</div>
+
 
     <div class="content-area">
       <div class="container"></div>
@@ -577,19 +586,25 @@
         localStorage.setItem("cartItems", JSON.stringify(cartItems));
         updateCartCount();
       }
+function checkLoginBeforeAction() {
+  if (!isLoggedIn) {
+    document.getElementById("loginModal").style.display = "flex";
+    return false;
+  }
+  return true;
+}
 
-      // Function to generate menu cards
       function generateCards(category) {
-        if (!container) return;
-        container.innerHTML = ""; // Clear previous cards
+  if (!container) return;
+  container.innerHTML = ""; // Clear previous cards
 
-        const items = menuData[category];
-        if (!items) return;
+  const items = menuData[category];
+  if (!items) return;
 
-        items.forEach((item) => {
-          const card = document.createElement("div");
-          card.className = "card";
-          card.innerHTML = `
+  items.forEach((item) => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
       <img src="${item.image}" alt="${item.name}">
       <h3>${item.name}</h3>
       <p>Calories: ${item.calories}</p>
@@ -604,84 +619,95 @@
       </div>
     `;
 
-          container.appendChild(card);
+    container.appendChild(card);
 
-          const addBtn = card.querySelector(".add-btn");
-          const subBtn = card.querySelector(".sub-btn");
-          const quantityDisplay = card.querySelector(".quantity-display");
+    const addBtn = card.querySelector(".add-btn");
+    const subBtn = card.querySelector(".sub-btn");
+    const quantityDisplay = card.querySelector(".quantity-display");
 
-          const cartItem = cartItems.find(
-            (cartItem) => cartItem.name === item.name
-          );
-          let quantity = cartItem ? cartItem.quantity : 0;
+    const cartItem = cartItems.find(
+      (cartItem) => cartItem.name === item.name
+    );
+    let quantity = cartItem ? cartItem.quantity : 0;
 
-          // Make card clickable to show modal
-          card.addEventListener("click", () => {
-            openModal(
-              item.name.replace(/\s+/g, "-").toLowerCase(),
-              item.price,
-              item.name,
-              item.image,
-              item.calories,
-              "15g", // Fats (default or update if dynamic)
-              item.protein,
-              item.category,
-              item.sauces || []
-            );
-          });
+    // Make card clickable to show modal
+    card.addEventListener("click", () => {
+      openModal(
+        item.name.replace(/\s+/g, "-").toLowerCase(),
+        item.price,
+        item.name,
+        item.image,
+        item.calories,
+        "15g",
+        item.protein,
+        item.category,
+        item.sauces || []
+      );
+    });
 
-          // Update UI based on initial quantity
-          if (quantity > 0) {
-            subBtn.style.display = "inline-block";
-            quantityDisplay.style.display = "inline-block";
-            quantityDisplay.textContent = quantity;
-          }
+    // Update UI based on initial quantity
+    if (quantity > 0) {
+      subBtn.style.display = "inline-block";
+      quantityDisplay.style.display = "inline-block";
+      quantityDisplay.textContent = quantity;
+    }
 
-          // Add button click handler
-          const handleAdd = () => {
-            // Add temporary scale effect
-            card.style.transform = "scale(0.95)";
-            card.style.transition = "transform 0.2s ease";
+    // Add button click handler
+    const handleAdd = (e) => {
+      e.stopPropagation(); // prevent card click event
 
-            setTimeout(() => {
-              card.style.transform = "scale(1)";
-            }, 200);
-
-            quantity++;
-            subBtn.style.display = "inline-block";
-            quantityDisplay.style.display = "inline-block";
-            quantityDisplay.textContent = quantity;
-            updateCartItem(item.name, item.price, item.image, item.calories, 1);
-          };
-
-          // Subtract button click handler
-          const handleSubtract = () => {
-            if (quantity <= 0) return;
-            quantity--;
-            quantityDisplay.textContent = quantity;
-            updateCartItem(
-              item.name,
-              item.price,
-              item.image,
-              item.calories,
-              -1
-            );
-
-            if (quantity <= 0) {
-              subBtn.style.display = "none";
-              quantityDisplay.style.display = "none";
-            }
-          };
-
-          // Remove any existing listeners to prevent duplicates
-          addBtn.removeEventListener("click", handleAdd);
-          subBtn.removeEventListener("click", handleSubtract);
-
-          // Add fresh event listeners
-          addBtn.addEventListener("click", handleAdd);
-          subBtn.addEventListener("click", handleSubtract);
-        });
+      // Check login before proceeding
+      if (!checkLoginBeforeAction()) {
+        return;
       }
+
+      // Add temporary scale effect
+      card.style.transform = "scale(0.95)";
+      card.style.transition = "transform 0.2s ease";
+
+      setTimeout(() => {
+        card.style.transform = "scale(1)";
+      }, 200);
+
+      quantity++;
+      subBtn.style.display = "inline-block";
+      quantityDisplay.style.display = "inline-block";
+      quantityDisplay.textContent = quantity;
+      updateCartItem(item.name, item.price, item.image, item.calories, 1);
+    };
+
+    // Subtract button click handler
+    const handleSubtract = (e) => {
+      e.stopPropagation(); // prevent card click event
+      if (quantity <= 0) return;
+      quantity--;
+      quantityDisplay.textContent = quantity;
+      updateCartItem(item.name, item.price, item.image, item.calories, -1);
+
+      if (quantity <= 0) {
+        subBtn.style.display = "none";
+        quantityDisplay.style.display = "none";
+      }
+    };
+
+    // Remove any existing listeners to prevent duplicates
+    addBtn.removeEventListener("click", handleAdd);
+    subBtn.removeEventListener("click", handleSubtract);
+
+    // Add fresh event listeners
+    addBtn.addEventListener("click", handleAdd);
+    subBtn.addEventListener("click", handleSubtract);
+  });
+}
+function redirectToLogin() {
+  document.getElementById("loginModal").style.display = "none";
+  window.location.href = "login.html";
+}
+function closeLoginModal() {
+  document.getElementById("loginModal").style.display = "none";
+}
+
+
 
       // Initialize cart and UI
       document.addEventListener("DOMContentLoaded", () => {
