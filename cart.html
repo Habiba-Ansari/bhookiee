@@ -265,15 +265,33 @@
     <h3>Complete your meal</h3>
     <div class="addons">
       <div class="addon-card">
-        <img src="images/garlicbread.png" alt="Garlic Bread">
-        <p class="addon-name">Garlic Bread</p>
+        <img src="images/classicfries(R).png" alt="Classic Fries">
+        <p class="addon-name">Classic Fries</p>
         <p class="addon-price">£1.99</p>
         <button class="btn">ADD</button>
       </div>
       <div class="addon-card">
-        <img src="images/pepsi.png" alt="Pepsi">
-        <p class="addon-name">Pepsi</p>
+        <img src="images/sodacans-model.png" alt="Drinks">
+        <p class="addon-name">Soda Cans</p>
         <p class="addon-price">£1.49</p>
+        <button class="btn">ADD</button>
+      </div>
+       <div class="addon-card">
+        <img src="images/mayo.png" alt="Mayo">
+        <p class="addon-name">Mayo</p>
+        <p class="addon-price">£0.50</p>
+        <button class="btn">ADD</button>
+      </div>
+      <div class="addon-card">
+        <img src="images/bites.png" alt="Chicken bites">
+        <p class="addon-name">Chicken Bites</p>
+        <p class="addon-price">£3.99</p>
+        <button class="btn">ADD</button>
+      </div>
+      <div class="addon-card">
+        <img src="images/chaichai.png" alt="Chai">
+        <p class="addon-name">Chai</p>
+        <p class="addon-price">£1.99</p>
         <button class="btn">ADD</button>
       </div>
     </div>
@@ -354,8 +372,8 @@
  <div class="card">
   <p class="label">Select Location</p>
   <div class="card-row order-type-group">
-    <button class="btn order-type-btn" id="location-restaurant">Restaurant</button>
-    <button class="btn order-type-btn" id="location-cart">Cart</button>
+    <button class="btn order-type-btn" id="location-restaurant">Restaurant - Bold Street</button>
+    <button class="btn order-type-btn" id="location-cart">Cart - Liverpool One</button>
   </div>
 
   <div id="restaurantOptions" style="margin-top: 10px; display: none;">
@@ -375,13 +393,14 @@
       <p style="font-size: 12px; color: #aaa;">Get discount with your order</p>
     </div>
 
-    <div class="card">
-      <div class="price-row"><span>Sub Total</span><span id="subTotal">£0.00</span></div>
-      <div class="price-row"><span>Discount</span><span>-</span></div>
-      <div class="price-row"><span>Taxes and Charges</span><span>£1.50</span></div>
-      <div class="price-row total"><span>Grand Total</span><span id="grandTotal">£0.00</span></div>
-      <button class="place-order-btn">PLACE ORDER</button>
-    </div>
+   <div class="card">
+  <div class="price-row"><span>Discount</span><span id="discount">-£0.00</span></div>
+  <div class="price-row"><span>Sub Total</span><span id="subTotal">£0.00</span></div>
+  <div class="price-row"><span>Taxes and Charges</span><span id="taxes">£0.00</span></div>
+  <div class="price-row total"><span>Grand Total</span><span id="grandTotal">£0.00</span></div>
+  <button class="place-order-btn">PLACE ORDER</button>
+</div>
+
   </div>
 </div>
 
@@ -608,14 +627,32 @@ function updateQty(index, change) {
 }
 
 function updateTotals() {
+  // Calculate subtotal
   let subtotal = cartItems.reduce((sum, item) => {
     const base = item.price * item.quantity;
     const custom = item.customPrice || 0;
     return sum + base + custom;
   }, 0);
-  document.getElementById("subTotal").textContent = `£${subtotal.toFixed(2)}`;
-  document.getElementById("grandTotal").textContent = `£${(subtotal + 1.50).toFixed(2)}`;
+
+  // Calculate discount (example: flat £1.50 or you can compute a % discount if you like)
+  let discount = 0;
+
+  // Subtotal after discount
+  let discountedSubtotal = Math.max(subtotal - discount, 0);
+
+  // Calculate taxes (20% on discounted subtotal)
+  let taxes = discountedSubtotal * 0.20;
+
+  // Grand Total = discounted subtotal + taxes
+  let grandTotal = discountedSubtotal + taxes;
+
+  // Update UI
+  document.getElementById("discount").textContent = `-£${discount.toFixed(2)}`;
+  document.getElementById("subTotal").textContent = `£${discountedSubtotal.toFixed(2)}`;
+  document.getElementById("taxes").textContent = `£${taxes.toFixed(2)}`;
+  document.getElementById("grandTotal").textContent = `£${grandTotal.toFixed(2)}`;
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
   renderCart();
