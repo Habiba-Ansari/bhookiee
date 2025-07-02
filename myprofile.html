@@ -72,20 +72,77 @@
             padding-bottom: 0;
         }
 
-        .footer {
-            margin-top: 0;
-            padding-top: 200px;
-        }
+.footer {
+  background: linear-gradient(to top, #ff6b00, #ff6a0072, #191917);
+  color: white;
+  padding: 60px 40px 20px;
+  margin-top: 0px;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+}
 
-        .footer-container {
-            margin-top: 0;
-            padding-top: 0;
-        }
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: center;
+}
 
-        .footer-bottom {
-            margin-top: 0;
-            padding-top: 0;
-        }
+.footer-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.footer-menu a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.footer-menu a:hover {
+  color: #0a0a0a;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-socials a {
+  color: #fff;
+  font-size: 20px;
+  transition: color 0.3s ease;
+}
+
+.footer-socials a:hover {
+  color: #0a0909;
+}
+
+.footer-bottom h3 {
+  font-size: 14px;
+  margin-top: 0px;
+  margin-left: 480px;
+}
+@media (max-width: 600px) {
+  .footer-menu {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .footer-menu a {
+    font-size: 16px;
+  }
+
+  .footer-socials {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+}
 
         .profile-container {
             background: rgba(255, 255, 255, 0.2);
@@ -203,51 +260,32 @@
 
     </div>
     </div>
-    <footer class="footer" id="contact">
-        <div class="footer-container">
-            <!-- About -->
-            <div class="footer-column about">
-                <h3>About</h3>
-                <p>Bhookie is a bold and fresh quick-bite fusion food startup bringing the taste of India to the streets
-                    of Liverpool, UK. With a unique focus on iconic items like Vada Pav and Chicken Fries, we’re
-                    redefining street food culture abroad. Bhookie blends tradition and creativity — delivering
-                    memorable bites packed with flavor and personality.</p>
-            </div>
-
-            <!-- Menu (Renamed as Account Links or Preferences) -->
-            <div class="footer-column menu">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li>My Orders</li>
-                    <li>Offers</li>
-                    <li>Settings</li>
-                    <li>Manage Payments</li>
-                    <li>Address Book</li>
-                    <li>Store Locator</li>
-                    <li>Download Nutrition Info</li>
-                </ul>
-            </div>
+      <footer class="footer" id="contact">
+      <div class="footer-container">
+        <!-- Menu Items -->
+      <div class="footer-menu">
+  <a href="menu.html#Bombay%20Street%20Chaska">STREET BITES</a>
+  <a href="menu.html#Sides%20and%20Fries">FRIES</a>
+  <a href="menu.html#Bites">BITES</a>
+  <a href="menu.html#Wraps">WRAPS</a>
+  <a href="menu.html#Burgers">BURGERS</a>
+  <a href="menu.html#Drinks">DRINKS</a>
+</div>
 
 
-
-            <!-- Contact -->
-            <div class="footer-column contact">
-                <h3>Contact</h3>
-                <p>123 Street, City<br>info@example.com<br>+44 7867233721</p>
-            </div>
+        <!-- Social Icons -->
+        <div class="footer-socials">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
         </div>
+      </div>
 
-        <!-- Bottom Footer -->
-        <div class="footer-bottom">
-            <p>&copy; BHOOKIE. All Rights Reserved.</p>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-            </div>
-        </div>
+      <!-- Bottom Footer -->
+      <div class="footer-bottom">
+        <h3>&copy; BHOOKIE<sup>®</sup>. All Rights Reserved.</h3>
+      </div>
     </footer>
-
     <!-- Modal Structure -->
     <div id="menuModal" class="modal">
         <div class="modal-content">
