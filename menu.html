@@ -210,15 +210,14 @@
         </div>
       </div>
     </div>
-<div class="modal-overlay" id="loginModal">
-  <div class="loginmodal">
-    <span class="close-btn" onclick="closeLoginModal()">&times;</span>
-    <h2>Hey!</h2>
-    <h4>Kindly Log in to place order.</h4>
-    <button onclick="redirectToLogin()">Log In</button>
-  </div>
-</div>
-
+    <div class="modal-overlay" id="loginModal">
+      <div class="loginmodal">
+        <span class="close-btn" onclick="closeLoginModal()">&times;</span>
+        <h2>Hey!</h2>
+        <h4>Kindly Log in to place order.</h4>
+        <button onclick="redirectToLogin()">Log In</button>
+      </div>
+    </div>
 
     <div class="content-area">
       <div class="container"></div>
@@ -226,14 +225,14 @@
       <footer class="footer" id="contact">
         <div class="footer-container">
           <!-- Menu Items -->
-           <div class="footer-menu">
-  <a href="menu.html#Bombay%20Street%20Chaska">STREET BITES</a>
-  <a href="menu.html#Sides%20and%20Fries">FRIES</a>
-  <a href="menu.html#Bites">BITES</a>
-  <a href="menu.html#Wraps">WRAPS</a>
-  <a href="menu.html#Burgers">BURGERS</a>
-  <a href="menu.html#Drinks">DRINKS</a>
-</div>
+          <div class="footer-menu">
+            <a href="menu.html#Bombay%20Street%20Chaska">STREET BITES</a>
+            <a href="menu.html#Sides%20and%20Fries">FRIES</a>
+            <a href="menu.html#Bites">BITES</a>
+            <a href="menu.html#Wraps">WRAPS</a>
+            <a href="menu.html#Burgers">BURGERS</a>
+            <a href="menu.html#Drinks">DRINKS</a>
+          </div>
 
           <!-- Social Icons -->
           <div class="footer-socials">
@@ -551,33 +550,42 @@
       }
 
       // Function to update cart items in storage
+      // Update the cart item structure to include sauce information
       function updateCartItem(
         itemName,
         itemPrice,
         itemImage,
         itemCalories,
-        change
+        change,
+        sauce = null
       ) {
         // Get fresh cart items from storage to avoid stale data
         cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
-        const existingItem = cartItems.find((item) => item.name === itemName);
+        // Create unique identifier that includes sauce for items with sauces
+        const itemId = sauce ? `${itemName}_${sauce}` : itemName;
+        const displayName = sauce ? `${itemName} (${sauce})` : itemName;
+
+        const existingItem = cartItems.find((item) => item.id === itemId);
 
         if (existingItem) {
           existingItem.quantity += change;
           if (existingItem.quantity <= 0) {
             // Remove item if quantity drops to 0 or below
-            const index = cartItems.findIndex((item) => item.name === itemName);
+            const index = cartItems.findIndex((item) => item.id === itemId);
             cartItems.splice(index, 1);
           }
         } else if (change > 0) {
           // Add new item only if increasing quantity
           cartItems.push({
-            name: itemName,
+            id: itemId,
+            name: displayName,
+            originalName: itemName,
             price: itemPrice,
             image: itemImage,
             calories: itemCalories,
-            quantity: 1,
+            quantity: change,
+            sauce: sauce,
           });
         }
 
@@ -585,139 +593,148 @@
         localStorage.setItem("cartItems", JSON.stringify(cartItems));
         updateCartCount();
       }
-function checkLoginBeforeAction() {
-  if (!isLoggedIn) {
-    document.getElementById("loginModal").style.display = "flex";
-    return false;
-  }
-  return true;
-}
 
-  function generateCards(category) {
-  if (!container) return;
-  container.innerHTML = ""; // Clear previous cards
-
-  const items = menuData[category];
-  if (!items) return;
-
-  items.forEach((item) => {
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <img src="${item.image}" alt="${item.name}">
-      <h3>${item.name}</h3>
-      <p>Calories: ${item.calories}</p>
-      <p>Protein: ${item.protein}</p>
-      <div class="price-add">
-        <span class="price">£ ${item.price}</span>
-        <div class="price-add-buttons">
-          <button class="sub-btn" style="display: none;">-</button>
-          <span class="quantity-display" style="display: none;">0</span>
-          <button class="add-btn">+</button>
-        </div>
-      </div>
-    `;
-
-    container.appendChild(card);
-
-    const addBtn = card.querySelector(".add-btn");
-    const subBtn = card.querySelector(".sub-btn");
-    const quantityDisplay = card.querySelector(".quantity-display");
-
-    const cartItem = cartItems.find(
-      (cartItem) => cartItem.name === item.name
-    );
-    let quantity = cartItem ? cartItem.quantity : 0;
-
-    // Make card clickable to show modal
-    card.addEventListener("click", () => {
-      openModal(
-        item.name.replace(/\s+/g, "-").toLowerCase(),
-        item.price,
-        item.name,
-        item.image,
-        item.calories,
-        "15g",
-        item.protein,
-        item.category,
-        item.sauces || []
-      );
-    });
-
-    // Update UI based on initial quantity
-    if (quantity > 0) {
-      subBtn.style.display = "inline-block";
-      quantityDisplay.style.display = "inline-block";
-      quantityDisplay.textContent = quantity;
-    }
-
-    // Add button click handler
-    const handleAdd = (e) => {
-      e.stopPropagation(); // prevent card click event
-
-      // Check login before proceeding
-      if (!checkLoginBeforeAction()) {
-        return;
+      function checkLoginBeforeAction() {
+        if (!isLoggedIn) {
+          document.getElementById("loginModal").style.display = "flex";
+          return false;
+        }
+        return true;
       }
 
-      // Add temporary scale effect
-      card.style.transform = "scale(0.95)";
-      card.style.transition = "transform 0.2s ease";
+      function generateCards(category) {
+        if (!container) return;
+        container.innerHTML = ""; // Clear previous cards
 
-      setTimeout(() => {
-        card.style.transform = "scale(1)";
-      }, 200);
+        const items = menuData[category];
+        if (!items) return;
 
-      quantity++;
-      subBtn.style.display = "inline-block";
-      quantityDisplay.style.display = "inline-block";
-      quantityDisplay.textContent = quantity;
-      updateCartItem(item.name, item.price, item.image, item.calories, 1);
-    };
+        items.forEach((item) => {
+          const card = document.createElement("div");
+          card.className = "card";
+          card.innerHTML = `
+            <img src="${item.image}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p>Calories: ${item.calories}</p>
+            <p>Protein: ${item.protein}</p>
+            <div class="price-add">
+              <span class="price">£ ${item.price}</span>
+              <div class="price-add-buttons">
+                <button class="sub-btn" style="display: none;">-</button>
+                <span class="quantity-display" style="display: none;">0</span>
+                <button class="add-btn">+</button>
+              </div>
+            </div>
+          `;
 
-    // Subtract button click handler
-    const handleSubtract = (e) => {
-      e.stopPropagation(); // prevent card click event
-      if (quantity <= 0) return;
-      quantity--;
-      quantityDisplay.textContent = quantity;
-      updateCartItem(item.name, item.price, item.image, item.calories, -1);
+          container.appendChild(card);
 
-      if (quantity <= 0) {
-        subBtn.style.display = "none";
-        quantityDisplay.style.display = "none";
+          const addBtn = card.querySelector(".add-btn");
+          const subBtn = card.querySelector(".sub-btn");
+          const quantityDisplay = card.querySelector(".quantity-display");
+
+          const cartItem = cartItems.find(
+            (cartItem) => cartItem.name === item.name
+          );
+          let quantity = cartItem ? cartItem.quantity : 0;
+
+          // Make card clickable to show modal
+          card.addEventListener("click", () => {
+            openModal(
+              item.name.replace(/\s+/g, "-").toLowerCase(),
+              item.price,
+              item.name,
+              item.image,
+              item.calories,
+              "15g",
+              item.protein,
+              item.category,
+              item.sauces || []
+            );
+          });
+
+          // Update UI based on initial quantity
+          if (quantity > 0) {
+            subBtn.style.display = "inline-block";
+            quantityDisplay.style.display = "inline-block";
+            quantityDisplay.textContent = quantity;
+          }
+
+          // Add button click handler
+          const handleAdd = (e) => {
+            e.stopPropagation(); // prevent card click event
+
+            // Check login before proceeding
+            if (!checkLoginBeforeAction()) {
+              return;
+            }
+
+            // Add temporary scale effect
+            card.style.transform = "scale(0.95)";
+            card.style.transition = "transform 0.2s ease";
+
+            setTimeout(() => {
+              card.style.transform = "scale(1)";
+            }, 200);
+
+            quantity++;
+            subBtn.style.display = "inline-block";
+            quantityDisplay.style.display = "inline-block";
+            quantityDisplay.textContent = quantity;
+            updateCartItem(item.name, item.price, item.image, item.calories, 1);
+          };
+
+          // Subtract button click handler
+          const handleSubtract = (e) => {
+            e.stopPropagation(); // prevent card click event
+            if (quantity <= 0) return;
+            quantity--;
+            quantityDisplay.textContent = quantity;
+            updateCartItem(
+              item.name,
+              item.price,
+              item.image,
+              item.calories,
+              -1
+            );
+
+            if (quantity <= 0) {
+              subBtn.style.display = "none";
+              quantityDisplay.style.display = "none";
+            }
+          };
+          // Remove any existing listeners to prevent duplicates
+          addBtn.removeEventListener("click", handleAdd);
+          subBtn.removeEventListener("click", handleSubtract);
+
+          // Add fresh event listeners
+          addBtn.addEventListener("click", handleAdd);
+          subBtn.addEventListener("click", handleSubtract);
+        });
       }
-    };
-    // Remove any existing listeners to prevent duplicates
-    addBtn.removeEventListener("click", handleAdd);
-    subBtn.removeEventListener("click", handleSubtract);
-
-    // Add fresh event listeners
-    addBtn.addEventListener("click", handleAdd);
-    subBtn.addEventListener("click", handleSubtract);
-  });
-}
-function redirectToLogin() {
-  document.getElementById("loginModal").style.display = "none";
-  window.location.href = "login.html";
-}
-function closeLoginModal() {
-  document.getElementById("loginModal").style.display = "none";
-}
-window.addEventListener("load", () => {
-  const categoryFromHash = decodeURIComponent(window.location.hash.substring(1));
-  if (categoryFromHash) {
-    generateCards(categoryFromHash);
- // Also optionally highlight active category link
-    document.querySelectorAll(".category-menu a").forEach(link => {
-      if (link.getAttribute("data-category") === categoryFromHash) {
-        link.classList.add("active");
-      } else {
-        link.classList.remove("active");
+      function redirectToLogin() {
+        document.getElementById("loginModal").style.display = "none";
+        window.location.href = "login.html";
       }
-    });
-  }
-});
+      function closeLoginModal() {
+        document.getElementById("loginModal").style.display = "none";
+      }
+      window.addEventListener("load", () => {
+        const categoryFromHash = decodeURIComponent(
+          window.location.hash.substring(1)
+        );
+        if (categoryFromHash) {
+          generateCards(categoryFromHash);
+          // Also optionally highlight active category link
+          document.querySelectorAll(".category-menu a").forEach((link) => {
+            if (link.getAttribute("data-category") === categoryFromHash) {
+              link.classList.add("active");
+            } else {
+              link.classList.remove("active");
+            }
+          });
+        }
+      });
 
       // Initialize cart and UI
       document.addEventListener("DOMContentLoaded", () => {
@@ -785,10 +802,10 @@ window.addEventListener("load", () => {
       const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
       if (isLoggedIn) {
         dropdown.innerHTML = `
-          <li><a href="myprofile.html">My Profile</a></li>
-          <li><a href="#">My Orders</a></li>
-          <li><a href="#" id="logoutLink">Logout</a></li>
-        `;
+                <li><a href="myprofile.html">My Profile</a></li>
+                <li><a href="#">My Orders</a></li>
+                <li><a href="#" id="logoutLink">Logout</a></li>
+              `;
         document.body.addEventListener("click", (e) => {
           if (e.target.id === "logoutLink") {
             localStorage.removeItem("isLoggedIn");
@@ -839,6 +856,8 @@ window.addEventListener("load", () => {
       let basePrice = 0;
       let selectedSauce = null;
 
+      let currentItem = {};
+
       function openModal(
         productId,
         price,
@@ -850,9 +869,20 @@ window.addEventListener("load", () => {
         category,
         sauces
       ) {
+        // Store current item data
+        currentItem = {
+          id: productId,
+          name: name,
+          image: image,
+          calories: calories,
+          price: price,
+          category: category,
+        };
+
         // Set product data
         basePrice = parseFloat(price);
         currentQuantity = 1;
+        selectedSauce = null;
 
         // Update modal content
         document.getElementById("modalTitle").textContent = name;
@@ -877,9 +907,9 @@ window.addEventListener("load", () => {
               sauceDiv.classList.add("sauce-item");
               sauceDiv.setAttribute("onclick", "selectSauce(this)");
               sauceDiv.innerHTML = `
-                <img src="images/mayo.png" alt="${sauce}" />
-                <div class="sauce-name">${sauce}</div>
-              `;
+          <img src="images/mayo.png" alt="${sauce}" />
+          <div class="sauce-name">${sauce}</div>
+        `;
               saucesGrid.appendChild(sauceDiv);
             });
           } else {
@@ -933,21 +963,33 @@ window.addEventListener("load", () => {
       }
 
       function addToOrder() {
+        // Check login before proceeding
+        if (!checkLoginBeforeAction()) {
+          return;
+        }
+
         const productName = document.getElementById("modalTitle").textContent;
-        const sauce = selectedSauce || "No sauce selected";
+        const productImage = document.getElementById("modalImage").src;
+        const productCalories =
+          document.getElementById("modalCalories").textContent;
+        const sauce = selectedSauce || null;
         const total = (basePrice * currentQuantity).toFixed(2);
 
-        // Add your cart logic here
-        console.log("Added to order:", {
-          product: productName,
-          quantity: currentQuantity,
-          sauce: sauce,
-          total: total,
-        });
-
-        alert(
-          `Added to order:\n${currentQuantity}x ${productName}\nSauce: ${sauce}\nTotal: £${total}`
+        // Use the existing updateCartItem function to add to cart
+        updateCartItem(
+          productName,
+          basePrice,
+          productImage,
+          productCalories,
+          currentQuantity,
+          sauce
         );
+
+        const sauceText = sauce ? ` with ${sauce}` : "";
+        alert(
+          `Added to cart:\n${currentQuantity}x ${productName}${sauceText}\nTotal: £${total}`
+        );
+
         closeModal();
       }
 
