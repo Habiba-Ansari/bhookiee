@@ -380,8 +380,8 @@
  <div class="card">
   <p class="label">Select Location</p>
   <div class="card-row order-type-group">
-    <button class="btn order-type-btn" id="location-restaurant">Restaurant - Bold Street</button>
-    <button class="btn order-type-btn" id="location-cart">Cart - Liverpool One</button>
+    <button class="btn order-type-btn" id="location-restaurant">Bold Street</button>
+    <button class="btn order-type-btn" id="location-cart">Liverpool One</button>
   </div>
 
   <div id="restaurantOptions" style="margin-top: 10px; display: none;">
@@ -635,30 +635,28 @@ function updateQty(index, change) {
 }
 
 function updateTotals() {
-  // Calculate subtotal
-  let subtotal = cartItems.reduce((sum, item) => {
+  // Calculate grand total (items total with customizations)
+  let grandTotal = cartItems.reduce((sum, item) => {
     const base = item.price * item.quantity;
     const custom = item.customPrice || 0;
     return sum + base + custom;
   }, 0);
 
-  // Calculate discount (example: flat £1.50 or you can compute a % discount if you like)
+  // Calculate discount (if any — here, none)
   let discount = 0;
+  let discountedGrandTotal = Math.max(grandTotal - discount, 0);
 
-  // Subtotal after discount
-  let discountedSubtotal = Math.max(subtotal - discount, 0);
+  // Back-calculate subtotal (excluding 20% tax)
+  let subtotal = discountedGrandTotal / 1.20;
 
-  // Calculate taxes (20% on discounted subtotal)
-  let taxes = discountedSubtotal * 0.20;
-
-  // Grand Total = discounted subtotal + taxes
-  let grandTotal = discountedSubtotal + taxes;
+  // Calculate taxes as difference
+  let taxes = discountedGrandTotal - subtotal;
 
   // Update UI
   document.getElementById("discount").textContent = `-£${discount.toFixed(2)}`;
-  document.getElementById("subTotal").textContent = `£${discountedSubtotal.toFixed(2)}`;
+  document.getElementById("subTotal").textContent = `£${subtotal.toFixed(2)}`;
   document.getElementById("taxes").textContent = `£${taxes.toFixed(2)}`;
-  document.getElementById("grandTotal").textContent = `£${grandTotal.toFixed(2)}`;
+  document.getElementById("grandTotal").textContent = `£${discountedGrandTotal.toFixed(2)}`;
 }
 
 

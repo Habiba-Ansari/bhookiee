@@ -337,6 +337,21 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+.upgrades-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.upgrade-item {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.upgrade-item.selected {
+  border-color: #333;
+  background-color: #f57914;
+}
 
 .quantity-controls {
   display: flex;

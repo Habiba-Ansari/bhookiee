@@ -164,7 +164,11 @@
               <div class="allergen-icon">S</div>
               <div class="allergen-icon">Se</div>
             </div>
-
+<!-- New Upgrades Section -->
+<div class="upgrades-section" style="display:none">
+  <h4>Upgrade Your Meal</h4><br>
+  <div class="upgrades-grid"></div>
+</div>
             <div class="sauces-section">
               <div class="sauces-title">Choose your sauce:</div>
               <div class="sauces-grid">
@@ -507,9 +511,10 @@
             calories: "300 kcal",
             protein: "18g",
             price: 7.49,
-            sauces: "Mayo, Garlic Mayo, Piri Piri, BBQ, Schezwan",
             image: "images/secondslide.png",
             category: "Meals",
+            upgrades: "Large:0.69, Cheesy Fries:0.69, Noodle Bhel:1.49"
+
           },
           {
             name: "Spicy Burger + Classic Fries + Soda Cans",
@@ -518,6 +523,8 @@
             price: 1.99,
             image: "images/secondslide.png",
             category: "Meals",
+            upgrades: "Large:0.69, Cheesy Fries:0.69, Noodle Bhel:1.49"
+
           },
           {
             name: "Burger + Classic Fries + Soda Cans + Any Bites + Gravy ",
@@ -526,6 +533,8 @@
             price: 9.99,
             image: "images/mealbox.png",
             category: "Meals",
+            upgrades: "Large:0.69, Cheesy Fries:0.69, Noodle Bhel:1.49"
+
           },
           {
             name: "Spicy Burger + Classic Fries + Soda Cans + Any Bites + Gravy ",
@@ -534,14 +543,18 @@
             price: 10.49,
             image: "images/mealbox.png",
             category: "Meals",
+            upgrades: "Large:0.69, Cheesy Fries:0.69, Noodle Bhel:1.49"
+
           },
           {
             name: "Bombay Street Chaska (any) + Chai ",
             calories: "300 kcal",
             protein: "18g",
             price: 6.49,
-            image: "images/mealbox.png",
+            image: "images/VadapavAndTea.png",
             category: "Meals",
+            upgrades: "Large:0.69, Cheesy Fries:0.69, Noodle Bhel:1.49"
+
           },
           {
             name: "Fries + Gravy",
@@ -550,6 +563,8 @@
             price: 3.19,
             image: "images/friesandgravy.png",
             category: "Meals",
+            upgrades: "Large:0.69, Cheesy Fries:0.69, Noodle Bhel:1.49"
+
           },
         ],
       };
@@ -568,48 +583,63 @@
 
       // Function to update cart items in storage
       // Update the cart item structure to include sauce information
-      function updateCartItem(
-        itemName,
-        itemPrice,
-        itemImage,
-        itemCalories,
-        change,
-        sauce = null
-      ) {
-        // Get fresh cart items from storage to avoid stale data
-        cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
+ function updateCartItem(
+  itemName,
+  itemPrice,
+  itemImage,
+  itemCalories,
+  change,
+  sauce = null,
+  upgrade = null,
+  upgradePrice = 0
+) {
+  // Get fresh cart items from storage
+  cartItems = JSON.parse(localStorage.getItem("cartItems")) || [];
 
-        // Create unique identifier that includes sauce for items with sauces
-        const itemId = sauce ? `${itemName}_${sauce}` : itemName;
-        const displayName = sauce ? `${itemName} (${sauce})` : itemName;
+  // Build display name with sauce and upgrade (in brackets)
+  let details = [];
+  if (sauce) details.push(sauce);
+  if (upgrade) details.push(upgrade);
 
-        const existingItem = cartItems.find((item) => item.id === itemId);
+  const displayName = details.length > 0
+    ? `${itemName} (Upgraded to ${details.join(", ")})`
+    : itemName;
 
-        if (existingItem) {
-          existingItem.quantity += change;
-          if (existingItem.quantity <= 0) {
-            // Remove item if quantity drops to 0 or below
-            const index = cartItems.findIndex((item) => item.id === itemId);
-            cartItems.splice(index, 1);
-          }
-        } else if (change > 0) {
-          // Add new item only if increasing quantity
-          cartItems.push({
-            id: itemId,
-            name: displayName,
-            originalName: itemName,
-            price: itemPrice,
-            image: itemImage,
-            calories: itemCalories,
-            quantity: change,
-            sauce: sauce,
-          });
-        }
+  // Create unique itemId including sauce and upgrade
+  const itemId = [itemName, sauce, upgrade].filter(Boolean).join("_");
 
-        // Save to localStorage and update UI
-        localStorage.setItem("cartItems", JSON.stringify(cartItems));
-        updateCartCount();
-      }
+  // Check if item already exists in cart
+  const existingItem = cartItems.find((item) => item.id === itemId);
+
+  // Calculate final price per item (base price + upgrade price)
+  const finalPrice = parseFloat(itemPrice) + parseFloat(upgradePrice || 0);
+
+  if (existingItem) {
+    existingItem.quantity += change;
+    if (existingItem.quantity <= 0) {
+      const index = cartItems.findIndex((item) => item.id === itemId);
+      cartItems.splice(index, 1);
+    }
+  } else if (change > 0) {
+    // Add new item if increasing quantity
+    cartItems.push({
+      id: itemId,
+      name: displayName,
+      originalName: itemName,
+      price: finalPrice,
+      image: itemImage,
+      calories: itemCalories,
+      quantity: change,
+      sauce: sauce,
+      upgrade: upgrade,
+    });
+  }
+
+  // Save to localStorage and update UI
+  localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  updateCartCount();
+}
+
 
       function checkLoginBeforeAction() {
         if (!isLoggedIn) {
@@ -666,7 +696,8 @@
               "15g",
               item.protein,
               item.category,
-              item.sauces || []
+              item.sauces || "",
+              item.upgrades || ""
             );
           });
 
@@ -868,164 +899,208 @@
         }
       });
       //model click add popup on card
-      let currentQuantity = 1;
-      let basePrice = 0;
-      let selectedSauce = null;
+     let currentQuantity = 1;
+let basePrice = 0;
+let selectedSauce = null;
+let selectedUpgrade = null;
+let upgradePrice = 0;
 
-      let currentItem = {};
+let currentItem = {};
+console.log("Upgrades received: ", upgrades);
 
-      function openModal(
-        productId,
-        price,
-        name,
-        image,
-        calories,
-        fats,
-        proteins,
-        category,
-        sauces
-      ) {
-        // Store current item data
-        currentItem = {
-          id: productId,
-          name: name,
-          image: image,
-          calories: calories,
-          price: price,
-          category: category,
-        };
+function openModal(
+  productId,
+  price,
+  name,
+  image,
+  calories,
+  fats,
+  proteins,
+  category,
+  sauces,
+  upgrades
+) {
+  // Store current item data
+  currentItem = {
+    id: productId,
+    name: name,
+    image: image,
+    calories: calories,
+    price: price,
+    category: category,
+  };
 
-        // Set product data
-        basePrice = parseFloat(price);
-        currentQuantity = 1;
-        selectedSauce = null;
+  // Set product data
+  basePrice = parseFloat(price);
+  currentQuantity = 1;
+  selectedSauce = null;
+  selectedUpgrade = null;
+  upgradePrice = 0;
 
-        // Update modal content
-        document.getElementById("modalTitle").textContent = name;
-        document.getElementById("modalImage").src = image;
-        document.getElementById("modalCalories").textContent =
-          calories + " kcal";
-        document.getElementById("modalFats").textContent = fats;
-        document.getElementById("modalProteins").textContent = proteins;
-        document.getElementById("quantity").textContent = currentQuantity;
+  // Update modal content
+  document.getElementById("modalTitle").textContent = name;
+  document.getElementById("modalImage").src = image;
+  document.getElementById("modalCalories").textContent = calories + " kcal";
+  document.getElementById("modalFats").textContent = fats;
+  document.getElementById("modalProteins").textContent = proteins;
+  document.getElementById("quantity").textContent = currentQuantity;
 
-        const saucesSection = document.querySelector(".sauces-section");
-        const saucesGrid = document.querySelector(".sauces-grid");
-        saucesGrid.innerHTML = ""; // Clear previous sauces
+  // Handle sauces
+  const saucesSection = document.querySelector(".sauces-section");
+  const saucesGrid = document.querySelector(".sauces-grid");
+  saucesGrid.innerHTML = "";
 
-        // Show sauces only if provided and valid
-        if (sauces && typeof sauces === "string" && sauces.trim() !== "") {
-          const itemSauces = sauces.split(",").map((s) => s.trim());
-          if (itemSauces.length > 0) {
-            saucesSection.style.display = "block";
-            itemSauces.forEach((sauce) => {
-              const sauceDiv = document.createElement("div");
-              sauceDiv.classList.add("sauce-item");
-              sauceDiv.setAttribute("onclick", "selectSauce(this)");
-              sauceDiv.innerHTML = `
+  if (sauces && typeof sauces === "string" && sauces.trim() !== "") {
+    const itemSauces = sauces.split(",").map((s) => s.trim());
+    if (itemSauces.length > 0) {
+      saucesSection.style.display = "block";
+      itemSauces.forEach((sauce) => {
+        const sauceDiv = document.createElement("div");
+        sauceDiv.classList.add("sauce-item");
+        sauceDiv.setAttribute("onclick", "selectSauce(this)");
+        sauceDiv.innerHTML = `
           <img src="images/mayo.png" alt="${sauce}" />
           <div class="sauce-name">${sauce}</div>
         `;
-              saucesGrid.appendChild(sauceDiv);
-            });
-          } else {
-            saucesSection.style.display = "none";
-          }
-        } else {
-          saucesSection.style.display = "none";
-        }
+        saucesGrid.appendChild(sauceDiv);
+      });
+    } else {
+      saucesSection.style.display = "none";
+    }
+  } else {
+    saucesSection.style.display = "none";
+  }
 
-        // Show modal
-        document.getElementById("productModal").style.display = "block";
-        document.body.style.overflow = "hidden";
-        updateTotalPrice();
-      }
+  // Handle upgrades
+  const upgradesSection = document.querySelector(".upgrades-section");
+  const upgradesGrid = document.querySelector(".upgrades-grid");
+  upgradesGrid.innerHTML = "";
 
-      function closeModal() {
-        document.getElementById("productModal").style.display = "none";
-        document.body.style.overflow = "auto";
+  if (upgrades && typeof upgrades === "string" && upgrades.trim() !== "") {
+    const itemUpgrades = upgrades.split(",").map((u) => u.trim());
+    if (itemUpgrades.length > 0) {
+      upgradesSection.style.display = "block";
+      itemUpgrades.forEach((upgrade) => {
+        const [upgradeName, upgradePriceValue] = upgrade.split(":");
+        const upgradeDiv = document.createElement("div");
+        upgradeDiv.classList.add("upgrade-item");
+        upgradeDiv.setAttribute("onclick", "selectUpgrade(this)");
+        upgradeDiv.innerHTML = `
+          <div class="upgrade-name">${upgradeName}</div>
+          <div class="upgrade-price">£${parseFloat(upgradePriceValue).toFixed(2)}</div>
+        `;
+        upgradesGrid.appendChild(upgradeDiv);
+      });
+    } else {
+      upgradesSection.style.display = "none";
+    }
+  } else {
+    upgradesSection.style.display = "none";
+  }
 
-        // Reset values
-        currentQuantity = 1;
-        document.getElementById("quantity").textContent = currentQuantity;
+  // Show modal
+  document.getElementById("productModal").style.display = "block";
+  document.body.style.overflow = "hidden";
+  updateTotalPrice();
+}
 
-        // Deselect all sauces
-        const sauces = document.querySelectorAll(".sauce-item");
-        sauces.forEach((sauce) => sauce.classList.remove("selected"));
-        selectedSauce = null;
-      }
+function closeModal() {
+  document.getElementById("productModal").style.display = "none";
+  document.body.style.overflow = "auto";
 
-      function selectSauce(sauceElement) {
-        // Remove selection from all sauces
-        const sauces = document.querySelectorAll(".sauce-item");
-        sauces.forEach((sauce) => sauce.classList.remove("selected"));
+  currentQuantity = 1;
+  document.getElementById("quantity").textContent = currentQuantity;
 
-        // Add selection to clicked sauce
-        sauceElement.classList.add("selected");
-        selectedSauce = sauceElement.querySelector(".sauce-name").textContent;
-      }
+  const sauces = document.querySelectorAll(".sauce-item");
+  sauces.forEach((sauce) => sauce.classList.remove("selected"));
+  selectedSauce = null;
 
-      function changeQuantity(change) {
-        currentQuantity += change;
-        if (currentQuantity < 1) currentQuantity = 1;
+  const upgrades = document.querySelectorAll(".upgrade-item");
+  upgrades.forEach((upg) => upg.classList.remove("selected"));
+  selectedUpgrade = null;
+  upgradePrice = 0;
+}
 
-        document.getElementById("quantity").textContent = currentQuantity;
-        updateTotalPrice();
-      }
+function selectSauce(sauceElement) {
+  const sauces = document.querySelectorAll(".sauce-item");
+  sauces.forEach((sauce) => sauce.classList.remove("selected"));
+  sauceElement.classList.add("selected");
+  selectedSauce = sauceElement.querySelector(".sauce-name").textContent;
+}
 
-      function updateTotalPrice() {
-        const total = (basePrice * currentQuantity).toFixed(2);
-        document.getElementById("totalPrice").textContent = `£${total}`;
-      }
+function selectUpgrade(upgradeElement) {
+  const upgrades = document.querySelectorAll(".upgrade-item");
+  upgrades.forEach((upg) => upg.classList.remove("selected"));
+  upgradeElement.classList.add("selected");
+  selectedUpgrade = upgradeElement.querySelector(".upgrade-name").textContent;
+  upgradePrice = parseFloat(
+    upgradeElement.querySelector(".upgrade-price").textContent.replace("£", "")
+  );
+  updateTotalPrice();
+}
 
-      function addToOrder() {
-        // Check login before proceeding
-        if (!checkLoginBeforeAction()) {
-          return;
-        }
+function changeQuantity(change) {
+  currentQuantity += change;
+  if (currentQuantity < 1) currentQuantity = 1;
+  document.getElementById("quantity").textContent = currentQuantity;
+  updateTotalPrice();
+}
 
-        const productName = document.getElementById("modalTitle").textContent;
-        const productImage = document.getElementById("modalImage").src;
-        const productCalories =
-          document.getElementById("modalCalories").textContent;
-        const sauce = selectedSauce || null;
-        const total = (basePrice * currentQuantity).toFixed(2);
+function updateTotalPrice() {
+  const total = ((basePrice + (upgradePrice || 0)) * currentQuantity).toFixed(2);
+  document.getElementById("totalPrice").textContent = `£${total}`;
+}
 
-        // Use the existing updateCartItem function to add to cart
-        updateCartItem(
-          productName,
-          basePrice,
-          productImage,
-          productCalories,
-          currentQuantity,
-          sauce
-        );
+function addToOrder() {
+  if (!checkLoginBeforeAction()) {
+    return;
+  }
 
-        const sauceText = sauce ? ` with ${sauce}` : "";
-        alert(
-          `Added to cart:\n${currentQuantity}x ${productName}${sauceText}\nTotal: £${total}`
-        );
+  const productName = document.getElementById("modalTitle").textContent;
+  const productImage = document.getElementById("modalImage").src;
+  const productCalories = document.getElementById("modalCalories").textContent;
+  const sauce = selectedSauce || null;
+  const total = ((basePrice + (upgradePrice || 0)) * currentQuantity).toFixed(2);
+  const upgradeText = selectedUpgrade ? ` with ${selectedUpgrade}` : "";
+  const sauceText = sauce ? ` with ${sauce}` : "";
 
+  updateCartItem(
+  productName,
+  basePrice,
+  productImage,
+  productCalories,
+  currentQuantity,
+  sauce,
+  selectedUpgrade,
+  upgradePrice
+);
+
+
+  alert(
+    `Added to cart:\n${currentQuantity}x ${productName}${sauceText}${upgradeText}\nTotal: £${total}`
+  );
+
+  closeModal();
+}
+
+// Close modal on outside click
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("productModal")
+    .addEventListener("click", function (e) {
+      if (e.target === this) {
         closeModal();
       }
+    });
+});
 
-      // Close modal when clicking outside
-      document.addEventListener("DOMContentLoaded", function () {
-        document
-          .getElementById("productModal")
-          .addEventListener("click", function (e) {
-            if (e.target === this) {
-              closeModal();
-            }
-          });
-      });
+// Close modal on Escape key
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    closeModal();
+  }
+});
 
-      // Close modal with Escape key
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape") {
-          closeModal();
-        }
-      });
     </script>
   </body>
 </html>
