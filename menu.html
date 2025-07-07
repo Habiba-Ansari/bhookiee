@@ -602,7 +602,7 @@
   if (upgrade) details.push(upgrade);
 
   const displayName = details.length > 0
-    ? `${itemName} (Upgraded to ${details.join(", ")})`
+    ? `${itemName} (${details.join(", ")})`
     : itemName;
 
   // Create unique itemId including sauce and upgrade
