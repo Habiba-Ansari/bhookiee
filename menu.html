@@ -507,6 +507,7 @@
             calories: "300 kcal",
             protein: "18g",
             price: 7.49,
+            sauces: "Mayo, Garlic Mayo, Piri Piri, BBQ, Schezwan",
             image: "images/secondslide.png",
             category: "Meals",
           },
@@ -532,6 +533,22 @@
             protein: "18g",
             price: 10.49,
             image: "images/mealbox.png",
+            category: "Meals",
+          },
+          {
+            name: "Bombay Street Chaska (any) + Chai ",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 6.49,
+            image: "images/mealbox.png",
+            category: "Meals",
+          },
+          {
+            name: "Fries + Gravy",
+            calories: "300 kcal",
+            protein: "18g",
+            price: 3.19,
+            image: "images/friesandgravy.png",
             category: "Meals",
           },
         ],
@@ -823,7 +840,6 @@
         navLinks.classList.toggle("active");
       });
 
-      // Scroll to section if URL contains a hash (e.g. #wraps)
       window.addEventListener("DOMContentLoaded", () => {
         const welcomeUser = document.getElementById("welcomeUser");
         const isLoggedIn = localStorage.getItem("isLoggedIn");
