@@ -48,7 +48,9 @@ body {
   border-top: 2px solid #ff6f00;
   border-bottom: 2px solid #ff6f00;
   padding: 12px 0;
-  gap: 70px;
+  flex-wrap: wrap;            /* <-- optional */
+  row-gap: 8px;               /* <-- optional */
+  gap: 50px; 
   background-color: #121212; /* or your page bg color */
 }
 
